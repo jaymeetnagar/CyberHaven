@@ -50,7 +50,7 @@ app.get('/create-admin', async (req, res) => {
 
 // Get All Customers
 app.get('/all-customer', async (req, res) => {
- 
+
   const data = await Customer.find().exec();
 
   res.send({ data: data });
