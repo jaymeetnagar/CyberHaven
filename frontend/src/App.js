@@ -1,24 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import NavbarComponent from './Components/NavbarComponent';
+import FooterComponent from './Components/FooterComponent';
+import LoginPage from './Pages/login&registration/LoginPage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        
-        <p>CyberHaven</p>
-        
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Explore Products
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <NavbarComponent />
+      <Routes>
+        <Route path='/' exact Component={LoginPage}></Route>
+        <Route path='/login' Component={LoginPage}></Route>
+      </Routes>
+      <FooterComponent />
+    </BrowserRouter>
+
   );
 }
 
