@@ -1,13 +1,23 @@
+import logo from './logo.svg';
 import './App.css';
-import AdminLogin from './components/AdminLogin';
+
 function App() {
   return (
-    <div >
-      
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
         
-  
-        <AdminLogin />
-      
+        <p>CyberHaven</p>
+        
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Explore Products
+        </a>
+      </header>
     </div>
   );
 }
