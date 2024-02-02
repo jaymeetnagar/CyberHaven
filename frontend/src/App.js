@@ -1,8 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import NavbarComponent from './Components/NavbarComponent';
 import FooterComponent from './Components/FooterComponent';
-import LoginPage from './Pages/LoginPage';
+import LoginPage from './Pages/login&registration/LoginPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 
