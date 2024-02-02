@@ -8,23 +8,18 @@ const port = 8000
 // Database Connection URL
 const dbUrl = 'MONGODB_URL'
 
-mongoose.connect(dbUrl)
+mongoose.connect(dbUrl);
 
 
 app.get('/', (req, res) => {
-
-  res.send({ message : 'CyberHaven Backend is Working'})
-
+  res.send({ message: 'CyberHaven Backend is Working' })
 })
 
 
 // Get All Admin
 app.get('/all-admin', async (req, res) => {
-
   const data = await Admin.find().exec();
-
   res.send({ data: data });
-
 });
 
 
@@ -46,7 +41,7 @@ app.get('/create-admin', async (req, res) => {
 
 // Get All Customers
 app.get('/all-customer', async (req, res) => {
- 
+
   const data = await Customer.find().exec();
 
   res.send({ data: data });
