@@ -11,6 +11,15 @@ const AdminLogin = () => {
 
   const handleLogin = () => {
     // You can implement your authentication logic here
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    })
+      .then((res) => res.json())
+      .then(data => console.log(data));
     if (username === 'admin' && password === 'admin123') {
       setIsLoggedIn(true);
       console.log('Login successful');
