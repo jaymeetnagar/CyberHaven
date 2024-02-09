@@ -20,14 +20,19 @@ mongoose.connect(dbUrl).then(
 
 
 app.get('/', (req, res) => {
+
   res.send({ message: 'CyberHaven Backend is Working' })
+
 })
 
 
 // Get All Admin
 app.get('/all-admin', async (req, res) => {
+
   const data = await Admin.find().exec();
+
   res.send({ data: data });
+
 });
 
 
@@ -64,58 +69,53 @@ app.post('/create-customer', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const existingUser = await Customer.findOne({ email });
-    if (existingUser) {
-      return res.send({ message: 'Email already in use.' });
-    }
-    else {
-      await Customer.create({
-        name,
-        email,
-        password: hashedPassword,
-        phoneNumber,
-        address,
-      });
+  await Customer.create({
+    name: 'customer1',
+    password: 'customer123',
+    email: 'customer@example.com',
+    phoneNumber: '1234567890',
+    address: 'Lorem Ipsum has been the industrys standard dummy text ever since'
+  });
 
-      res.send({ message: 'Signup successful' });
-    }
+  res.send({ 'message': 'Customer Created.' });
 
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: 'Error creating customer.' });
-  }
-});
-
-
-// Login route
-app.post('/login', async (req, res) => {
-  try {
-    const { email, password } = req.body.data;
-
-    // Find the user by email
-    const user = await Customer.findOne({ email });
-
-
-    // Check if user exists
-    if (!user) {
-      return res.send({ message: 'Invalid email or password.' });
-    }
-
-    // Compare the provided password with the hashed password
-    const passwordMatch = await bcrypt.compare(password, user.password);
-    console.log(passwordMatch, "passworddddd")
-    if (passwordMatch) {
-      res.send({ message: `Login successful. Welcome, ${user.name}!` });
-    } else {
-      res.send({ message: 'Invalid email or password.' });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: 'Error during login.' });
-  }
 });
 
 
 app.listen(port, () => {
   console.log(`backend app listening on port ${port}`)
 })
+
+
+const jwt = require('jsonwebtoken');
+const secretKey = 'cyberHavenSecretKey';
+
+// Generate JWT token upon user login
+app.post('/login', (req, res) => {
+  // Assuming user authentication succeeds
+  const user = { username: req.username, password: req.password };
+  const token = jwt.sign({ user }, secretKey, { expiresIn: '8h' });
+  res.json({ token });
+});
+
+// Middleware to verify JWT token
+function verifyToken(req, res, next) {
+  const token = req.headers['authorization'];
+  if (!token) return res.status(401).send('Unauthorized');
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) return res.status(401).send('Invalid token');
+    req.user = decoded.user;
+    next();
+  });
+}
+
+// Protected route
+app.get('/protected', verifyToken, (req, res) => {
+  res.send('Protected route accessed');
+});
+
+// Start the server
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
