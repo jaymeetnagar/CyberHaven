@@ -101,6 +101,17 @@ app.post('/admin-login', async (req, res) => {
   res.json({ token });
 });
 
+app.post('/customer-login', async (req, res) => {
+  // Assuming user authentication succeeds
+  const user = { email: req.body.email, password: req.body.password };
+  const admin = await Customer.findOne({ email: user.email, password: user.password});
+  if (!admin) {
+    return res.send({message:'Invalid credentials'});
+  }
+  const token = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' });
+  res.json({ token });
+});
+
 // Middleware to verify JWT token
 function verifyToken(req, res, next) {
   const authHeader = req.headers['authorization']
