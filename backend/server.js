@@ -6,7 +6,6 @@ const Customer = require('./models/Customer')
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 
-const port = 8000
 
 // Database Connection URL
 const dbUrl = 'mongodb+srv://zeelghandi:Gandhi123@cluster0.wzoutru.mongodb.net/'
@@ -17,13 +16,6 @@ app.use(express.json());
 mongoose.connect(dbUrl).then(
   console.log("Databse connection successful")
 )
-
-
-app.get('/', (req, res) => {
-
-  res.send({ message: 'CyberHaven Backend is Working' })
-
-})
 
 
 // Get All Admin
@@ -91,58 +83,32 @@ app.post('/create-customer', async (req, res) => {
   }
 });
 
-
-// Login route
-// app.post('/login', async (req, res) => {
-//   try {
-//     const { email, password } = req.body.data;
-
-//     // Find the user by email
-//     const user = await Customer.findOne({ email });
-
-
-//     // Check if user exists
-//     if (!user) {
-//       return res.send({ message: 'Invalid email or password.' });
-//     }
-
-//     // Compare the provided password with the hashed password
-//     const passwordMatch = await bcrypt.compare(password, user.password);
-//     console.log(passwordMatch, "passworddddd")
-//     if (passwordMatch) {
-//       res.send({ message: `Login successful. Welcome, ${user.name}!` });
-//     } else {
-//       res.send({ message: 'Invalid email or password.' });
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send({ message: 'Error during login.' });
-//   }
-// });
-
-app.listen(port, () => {
-  console.log(`backend app listening on port ${port}`)
-})
-
-
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const secretKey = 'cyberHavenSecretKey';
+
+
+
 
 // Generate JWT token upon user login
-app.post('/login', (req, res) => {
+app.post('/admin-login', async (req, res) => {
   // Assuming user authentication succeeds
-  const user = { username: req.username, password: req.password };
-  const token = jwt.sign({ user }, secretKey, { expiresIn: '8h' });
+  const user = { email: req.body.email, password: req.body.password };
+  const admin = await Admin.findOne({ email: user.email, password: user.password});
+  if (!admin) {
+    return res.send({message:'Invalid credentials'});
+  }
+  const token = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' });
   res.json({ token });
 });
 
 // Middleware to verify JWT token
 function verifyToken(req, res, next) {
-  const token = req.headers['authorization'];
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1];
   if (!token) return res.status(401).send('Unauthorized');
 
-  jwt.verify(token, secretKey, (err, decoded) => {
-    if (err) return res.status(401).send('Invalid token');
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if (err) return res.status(403).send('Invalid token');
     req.user = decoded.user;
     next();
   });

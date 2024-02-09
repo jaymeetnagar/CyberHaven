@@ -11,7 +11,7 @@ const AdminLogin = () => {
 
   const handleLogin = () => {
     // You can implement your authentication logic here
-    fetch('/login', {
+    fetch('/admin-login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -19,13 +19,16 @@ const AdminLogin = () => {
       body: JSON.stringify({ username, password }),
     })
       .then((res) => res.json())
-      .then(data => console.log(data));
-    if (username === 'admin' && password === 'admin123') {
-      setIsLoggedIn(true);
-      console.log('Login successful');
-    } else {
-      setErrorMessage('Invalid username or password');
-    }
+      .then(data => {
+        console.log(data);
+        if (data && data.token) {
+          localStorage.setItem('token', data.token);
+          setIsLoggedIn(true);
+          console.log('Login successful');
+        } else {
+          setErrorMessage('Invalid username or password');
+        }
+      });
   };
 
   return (
@@ -53,7 +56,7 @@ const AdminLogin = () => {
               />
             </div>
             <button type="button" onClick={handleLogin} className="btn btn-primary">
-              <Link to="/admin" className="login-link">Login</Link>
+              Login
             </button>
           </form>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
