@@ -1,0 +1,21 @@
+.Navbar nav {
+    display: flex;
+    gap: 24px;
+}
+.Navbar nav div {
+    cursor: pointer;
+}
+.Navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 18px 36px;
+}
+.Navbar h1 {
+    margin: 0;
+    font-size: 32px;
+}
+.Navbar .icons {
+    display: flex;
+    gap: 24px;
+}

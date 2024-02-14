@@ -1,49 +1,47 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import AdminPage from './AdminPage';
+import { useNavigate } from 'react-router-dom';
 import './AdminLogin.css'; // Create AdminLogin.css file for custom styling
 
 const AdminLogin = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     // You can implement your authentication logic here
-    fetch('/admin-login', {
+    fetch('http://localhost:3001/admin-login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
     })
       .then((res) => res.json())
       .then(data => {
-        console.log(data);
         if (data && data.token) {
           localStorage.setItem('token', data.token);
-          setIsLoggedIn(true);
+          navigate('/admin');
           console.log('Login successful');
         } else {
-          setErrorMessage('Invalid username or password');
+          setErrorMessage('Invalid Email or Password');
         }
       });
   };
 
   return (
     <div>
-      {!isLoggedIn && <div className="admin-login-container">
+      <div className="admin-login-container">
         <div className="admin-login-box">
           <h2 className="mb-4">Admin Login</h2>
           <form>
             <div className="form-group">
-              <label>Username:</label>
+              <label>Email:</label>
               <input
                 type="text"
                 className="form-control"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="form-group">
@@ -61,8 +59,7 @@ const AdminLogin = () => {
           </form>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
-      </div>}
-      {isLoggedIn && <AdminPage />}
+      </div>
     </div>
   );
 };
