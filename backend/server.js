@@ -92,23 +92,21 @@ const jwt = require('jsonwebtoken');
 // Generate JWT token upon user login
 app.post('/admin-login', async (req, res) => {
   // Assuming user authentication succeeds
-  const user = { email: req.body.email, password: req.body.password };
-  const admin = await Admin.findOne({ email: user.email, password: user.password});
+  const admin = await Admin.findOne({ email: req.body.email, password: req.body.password});
   if (!admin) {
     return res.send({message:'Invalid credentials'});
   }
-  const token = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' });
+  const token = jwt.sign({ id:admin._id, email:admin.email, password:admin.password, isAdmin: true }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3h' });
   res.json({ token });
 });
 
 app.post('/customer-login', async (req, res) => {
   // Assuming user authentication succeeds
-  const user = { email: req.body.email, password: req.body.password };
-  const admin = await Customer.findOne({ email: user.email, password: user.password});
-  if (!admin) {
+  const customer = await Customer.findOne({ email: req.body.email, password: req.body.password});
+  if (!customer) {
     return res.send({message:'Invalid credentials'});
   }
-  const token = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' });
+  const token = jwt.sign({ id:customer._id, email:customer.email, password:customer.password, isAdmin: false }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' });
   res.json({ token });
 });
 
@@ -120,14 +118,14 @@ function verifyToken(req, res, next) {
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
     if (err) return res.status(403).send('Invalid token');
-    req.user = decoded.user;
+    req.user = decoded;
     next();
   });
 }
 
 // Protected route
 app.get('/protected', verifyToken, (req, res) => {
-  res.send('Protected route accessed');
+  res.send(req.user);
 });
 
 // Start the server
