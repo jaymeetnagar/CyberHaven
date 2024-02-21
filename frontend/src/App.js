@@ -4,19 +4,26 @@ import FooterComponent from './Components/FooterComponent';
 import LoginPage from './Pages/login&registration/LoginPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AdminLogin from './Components/AdminLogin';
+import ProductPage from './Components/ProductPage';
+import ProductCard from './Components/ProductCard';
 
 
 function App() {
   return (
-    <BrowserRouter>
+    {/* <BrowserRouter>
+
       <NavbarComponent />
+     
       <Routes>
-        <Route path='/' exact Component={HomePage}></Route>
-        <Route path='/login' Component={LoginPage}></Route>
-        <Route path='/admin-login' Component={AdminLogin}></Route>
+        <Route path='/' exact component={HomePage} />
+        <Route path='/login' component={LoginPage} />
+        <Route path='/admin-login' component={AdminLogin} />
+
       </Routes>
+
       <FooterComponent />
-    </BrowserRouter>
+
+    </BrowserRouter> */}
   );
 }
 

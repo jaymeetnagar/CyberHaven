@@ -10,6 +10,7 @@ import AdminPage from './Components/AdminPage';
 import AdminLogin from './Components/AdminLogin';
 import HomePage from './Pages/HomePage';
 import { Navigate, Outlet } from 'react-router-dom';
+import ProductPage from './Components/ProductPage';
 
 const ProtectedRoute = ({ children }) => {
   
@@ -27,9 +28,15 @@ root.render(
     <BrowserRouter>
       <NavbarComponent />
       <Routes>
+        
         <Route path='/' exact element={<HomePage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/admin-login' element={<AdminLogin />} />
+
+        {/* product routes*/}
+
+        <Route path='/products/:category' element={<ProductPage />} />
+
         <Route path="/admin" element={
             <ProtectedRoute>
               <AdminPage />
