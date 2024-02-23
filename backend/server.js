@@ -189,6 +189,16 @@ app.put('/cart', verifyToken, async (req, res) => {
   }
 })
 
+app.get('/product/all', async (req, res) => {
+  try {
+    const data = await Product.find().exec();
+    res.send({ data: data });
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error fetching Products.' });
+  }
+});
 
 app.get('/product/:id', async (req, res) => {
   const productId = req.params.id;
@@ -199,17 +209,6 @@ app.get('/product/:id', async (req, res) => {
   catch (error) {
     console.error(error);
     res.status(500).send({ message: 'Error fetching Product' });
-  }
-});
-
-app.get('/product/all', async (req, res) => {
-  try {
-    const data = await Product.find().exec();
-    res.send({ data: data });
-  }
-  catch (error) {
-    console.error(error);
-    res.status(500).send({ message: 'Error fetching Products.' });
   }
 });
 

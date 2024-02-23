@@ -141,6 +141,61 @@ https://www.figma.com/file/zJF6mBnLckuvN0m0Ni5JY9/Untitled?type=design&node-id=0
 
 ---
 
+### Get Product by ID
+- **URL:** `/product/:id`
+- **Method:** `GET`
+- **Description:** Retrieves a product record from the database by its ID.
+- **Parameters:**
+  - `id` (URL parameter): The unique identifier of the product.
+- **Headers:** `Authorization` (JWT Token)
+- **Response:**
+  - `200 OK`: Returns the product data.
+  - `404 Not Found`: Indicates that the product with the specified ID was not found.
+  - `500 Internal Server Error`: Indicates an error while fetching the product from the database.
+
+---
+
+### Update Product
+- **URL:** `/product/:id`
+- **Method:** `PUT`
+- **Description:** Updates a product record in the database.
+- **Parameters:**
+  - `id` (URL parameter): The unique identifier of the product to be updated.
+- **Headers:** `Authorization` (JWT Token)
+- **Request Body:** JSON object containing the fields to be updated.
+- **Response:**
+  - `200 OK`: Returns the updated product data.
+  - `401 Unauthorized`: Indicates unauthorized access.
+  - `500 Internal Server Error`: Indicates an error while updating the product.
+
+---
+
+### Add New Product
+- **URL:** `/product`
+- **Method:** `POST`
+- **Description:** Adds a new product record to the database.
+- **Headers:** `Authorization` (JWT Token)
+- **Request Body:** JSON object containing the details of the new product.
+- **Response:**
+  - `201 Created`: Returns the newly created product data.
+  - `401 Unauthorized`: Indicates unauthorized access.
+  - `500 Internal Server Error`: Indicates an error while adding the new product.
+
+---
+
+### Delete Product
+- **URL:** `/product/:id`
+- **Method:** `DELETE`
+- **Description:** Deletes a product record from the database.
+- **Parameters:**
+  - `id` (URL parameter): The unique identifier of the product to be deleted.
+- **Headers:** `Authorization` (JWT Token)
+- **Response:**
+  - `200 OK`: Returns the deleted product data.
+  - `401 Unauthorized`: Indicates unauthorized access.
+  - `500 Internal Server Error`: Indicates an error while deleting the product.
+
+
 ### Note:
 - All API endpoints require JWT token-based authentication using the `Authorization` header.
 - The server is running on port 3001.
