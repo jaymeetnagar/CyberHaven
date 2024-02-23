@@ -1,24 +1,20 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
 // Define Admin schema
 const adminSchema = new mongoose.Schema({
-    name: {
+    user_id: {
         type: String,
         required: true
     },
-    email: {
+    product_id: {
         type: String,
-        unique: true,
         required: true
     },
-    password: {
-        type: String,
-        required: true,
-        set(password) {
-            this._password = bcrypt.hashSync(password, 10);
-        },
-    },
+    quantity: {
+        default: 1,
+        type: Number,
+        required: true
+    }
 })
 
 const Admin = mongoose.model('admin', adminSchema)
