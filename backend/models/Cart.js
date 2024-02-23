@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-// Define Admin schema
-const adminSchema = new mongoose.Schema({
+// Define Cart schema
+const cartSchema = new mongoose.Schema({
     user_id: {
         type: String,
         required: true
@@ -13,12 +13,9 @@ const adminSchema = new mongoose.Schema({
     quantity: {
         default: 1,
         type: Number,
-        required: true
     }
 })
 
-const Admin = mongoose.model('admin', adminSchema)
+const Cart = mongoose.model('cart', cartSchema)
 
-module.exports = Admin
-
-
+module.exports = Cart

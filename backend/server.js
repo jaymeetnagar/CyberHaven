@@ -3,6 +3,8 @@ const app = express()
 const mongoose = require('mongoose')
 const Admin = require('./models/Admin')
 const Customer = require('./models/Customer')
+const Product = require('./models/Product')
+const Cart = require('./models/Cart')
 const cors = require('cors');
 
 
@@ -45,8 +47,10 @@ app.get('/create-admin', async (req, res) => {
 
 
 // Get All Customers
-app.get('/all-customer', async (req, res) => {
-
+app.get('/customer/all', verifyToken, async (req, res) => {
+  if (!req.user.isAdmin) {
+    return res.status(401).send({ message: 'Unauthorized' });
+  }
   const data = await Customer.find().exec();
 
   res.send({ data: data });
@@ -54,9 +58,10 @@ app.get('/all-customer', async (req, res) => {
 });
 
 
+
 app.post('/create-customer', async (req, res) => {
   try {
-    const { name, email, password, phoneNumber, address } = req.body.data;
+    const { name, email, password, phoneNumber, address } = req.body;
 
     const existingUser = await Customer.findOne({ email });
     if (existingUser) {
@@ -66,7 +71,7 @@ app.post('/create-customer', async (req, res) => {
       await Customer.create({
         name,
         email,
-        password: hashedPassword,
+        password,
         phoneNumber,
         address,
       });
@@ -89,21 +94,21 @@ const jwt = require('jsonwebtoken');
 // Generate JWT token upon user login
 app.post('/admin-login', async (req, res) => {
   // Assuming user authentication succeeds
-  const admin = await Admin.findOne({ email: req.body.email, password: req.body.password});
+  const admin = await Admin.findOne({ email: req.body.email, password: req.body.password });
   if (!admin) {
-    return res.send({message:'Invalid credentials'});
+    return res.send({ message: 'Invalid credentials' });
   }
-  const token = jwt.sign({ id:admin._id, email:admin.email, password:admin.password, isAdmin: true }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3h' });
+  const token = jwt.sign({ id: admin._id, email: admin.email, password: admin.password, isAdmin: true }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3h' });
   res.json({ token });
 });
 
 app.post('/customer-login', async (req, res) => {
   // Assuming user authentication succeeds
-  const customer = await Customer.findOne({ email: req.body.email, password: req.body.password});
+  const customer = await Customer.findOne({ email: req.body.email, password: req.body.password });
   if (!customer) {
-    return res.send({message:'Invalid credentials'});
+    return res.send({ message: 'Invalid credentials' });
   }
-  const token = jwt.sign({ id:customer._id, email:customer.email, password:customer.password, isAdmin: false }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' });
+  const token = jwt.sign({ id: customer._id, email: customer.email, password: customer.password, isAdmin: false }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' });
   res.json({ token });
 });
 
@@ -129,7 +134,7 @@ app.get('/protected', verifyToken, (req, res) => {
 // API to delete the customer which is accissible only to Admin and that user
 app.delete('/customer', verifyToken, async (req, res) => {
   try {
-    if(!req.user.isAdmin || req.user.email !== req.body.email) {
+    if (!req.user.isAdmin || req.user.email !== req.body.email) {
       return res.status(401).send({ message: 'Unauthorized' });
     }
     const { email } = req.body;
@@ -147,7 +152,7 @@ app.delete('/customer', verifyToken, async (req, res) => {
 // API to update the customer(email,address etc ) which is accissible only to Admin and that user
 app.put('/customer', verifyToken, async (req, res) => {
   try {
-    if(!req.user.isAdmin || req.user.email !== req.body.email) {
+    if (!req.user.isAdmin || req.user.email !== req.body.email) {
       return res.status(401).send({ message: 'Unauthorized' });
     }
     const { email } = req.body;
@@ -162,6 +167,27 @@ app.put('/customer', verifyToken, async (req, res) => {
   }
 });
 
+
+// API to add a product to the cart
+app.put('/cart', verifyToken, async (req, res) => {
+  try {
+    if (req.user.id != req.body.user_id) {
+      return res.status(401).send({ message: 'Unauthorized' });
+    }
+
+    const {user_id, product_id, quantity = 1} = req.body;
+    await Cart.create(
+      user_id,
+      product_id,
+      quantity
+    )
+    res.send({message: 'Product added to the Cart.'})
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error adding to cart.' });
+  }
+})
 
 // Start the server
 app.listen(3001, () => {
