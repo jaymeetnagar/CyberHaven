@@ -190,6 +190,18 @@ app.put('/cart', verifyToken, async (req, res) => {
 })
 
 
+app.get('/product/:id', async (req, res) => {
+  const productId = req.params.id;
+  try {
+    const data = await Product.findById(productId).exec();
+    res.send({ data: data });
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error fetching Product' });
+  }
+});
+
 app.get('/product/all', async (req, res) => {
   try {
     const data = await Product.find().exec();
@@ -200,6 +212,57 @@ app.get('/product/all', async (req, res) => {
     res.status(500).send({ message: 'Error fetching Products.' });
   }
 });
+
+// Update a product
+app.put('/product/:id', verifyToken, async (req, res) => {
+  if (!req.user.isAdmin) {
+    return res.status(401).send({ message: 'Unauthorized' });
+  }
+  const productId = req.params.id;
+  const updates = req.body;
+
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(productId, updates, { new: true }).exec();
+    res.send({ data: updatedProduct });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error updating product.' });
+  }
+});
+
+// Add a new product
+app.post('/product', verifyToken, async (req, res) => {
+  if (!req.user.isAdmin) {
+    return res.status(401).send({ message: 'Unauthorized' });
+  }
+  const newProductData = req.body;
+
+  try {
+    const newProduct = new Product(newProductData);
+    const savedProduct = await newProduct.save();
+    res.status(201).send({ data: savedProduct });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error adding new product.' });
+  }
+});
+
+// Delete a product
+app.delete('/product/:id', verifyToken, async (req, res) => {
+  if (!req.user.isAdmin) {
+    return res.status(401).send({ message: 'Unauthorized' });
+  }
+  const productId = req.params.id;
+
+  try {
+    const deletedProduct = await Product.findByIdAndDelete(productId).exec();
+    res.send({ data: deletedProduct });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error deleting product.' });
+  }
+});
+
 
 // Start the server
 app.listen(3001, () => {
