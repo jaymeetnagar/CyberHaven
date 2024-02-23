@@ -3,7 +3,6 @@ const app = express()
 const mongoose = require('mongoose')
 const Admin = require('./models/Admin')
 const Customer = require('./models/Customer')
-const bcrypt = require('bcrypt');
 const cors = require('cors');
 
 
@@ -58,8 +57,6 @@ app.get('/all-customer', async (req, res) => {
 app.post('/create-customer', async (req, res) => {
   try {
     const { name, email, password, phoneNumber, address } = req.body.data;
-
-    const hashedPassword = await bcrypt.hash(password, 10);
 
     const existingUser = await Customer.findOne({ email });
     if (existingUser) {
@@ -127,6 +124,44 @@ function verifyToken(req, res, next) {
 app.get('/protected', verifyToken, (req, res) => {
   res.send(req.user);
 });
+
+
+// API to delete the customer which is accissible only to Admin and that user
+app.delete('/customer', verifyToken, async (req, res) => {
+  try {
+    if(!req.user.isAdmin || req.user.email !== req.body.email) {
+      return res.status(401).send({ message: 'Unauthorized' });
+    }
+    const { email } = req.body;
+    const customer = await Customer.findOneAndDelete({ email });
+    if (!customer) {
+      return res.send({ message: 'Customer not found.' });
+    }
+    res.send({ message: 'Customer deleted.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error deleting customer.' });
+  }
+});
+
+// API to update the customer(email,address etc ) which is accissible only to Admin and that user
+app.put('/customer', verifyToken, async (req, res) => {
+  try {
+    if(!req.user.isAdmin || req.user.email !== req.body.email) {
+      return res.status(401).send({ message: 'Unauthorized' });
+    }
+    const { email } = req.body;
+    const customer = await Customer.findOneAndUpdate({ email }, req.body.newUser);
+    if (!customer) {
+      return res.send({ message: 'Customer not found.' });
+    }
+    res.send({ message: 'Customer updated.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error updating customer.' });
+  }
+});
+
 
 // Start the server
 app.listen(3001, () => {

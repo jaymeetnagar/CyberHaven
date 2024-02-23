@@ -9,7 +9,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AdminPage from './Components/AdminPage';
 import AdminLogin from './Components/AdminLogin';
 import HomePage from './Pages/HomePage';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { SimpleSlider } from './Pages/HomePage';
 
 const ProtectedRoute = ({ children }) => {
   

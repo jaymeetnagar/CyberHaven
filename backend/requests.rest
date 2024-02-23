@@ -1,4 +1,4 @@
-POST http://localhost:3000/admin-login
+POST http://localhost:3001/admin-login
 Content-Type: application/json
 
 {
@@ -8,5 +8,10 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/protected
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzZhNjRiNzk4OGQ0MzdiNTBhZjBkOCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJwYXNzd29yZCI6ImFkbWluMTIzIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzA3OTM5ODI1LCJleHAiOjE3MDc5NTA2MjV9.8b03Nfrzmrj_Ocpg507BRHrmcKnims848fbE4pySH_s
+DELETE  http://localhost:3001/customer
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzZhNjRiNzk4OGQ0MzdiNTBhZjBkOCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJwYXNzd29yZCI6ImFkbWluMTIzIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzA4NTU3NjY3LCJleHAiOjE3MDg1Njg0Njd9.1LqKIQ71MVrEG3J0jyEohliB3LKiiBIKgo3swb_rxKQ
+Content-Type: application/json
+
+{
+    "email": "skeval904@gmail.com"
+}
