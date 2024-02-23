@@ -175,19 +175,31 @@ app.put('/cart', verifyToken, async (req, res) => {
       return res.status(401).send({ message: 'Unauthorized' });
     }
 
-    const {user_id, product_id, quantity = 1} = req.body;
+    const { user_id, product_id, quantity = 1 } = req.body;
     await Cart.create(
       user_id,
       product_id,
       quantity
     )
-    res.send({message: 'Product added to the Cart.'})
+    res.send({ message: 'Product added to the Cart.' })
 
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: 'Error adding to cart.' });
   }
 })
+
+
+app.get('/product/all', async (req, res) => {
+  try {
+    const data = await Product.find().exec();
+    res.send({ data: data });
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error fetching Products.' });
+  }
+});
 
 // Start the server
 app.listen(3001, () => {
