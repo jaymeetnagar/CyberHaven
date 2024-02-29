@@ -22,13 +22,23 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
+const Wrapper = ({ children }) => {
+  
+  return <>
+  <NavbarComponent/>
+  {children}
+  <FooterComponent/>
+   </>
+};
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <NavbarComponent />
+      {/* <NavbarComponent /> */}
       <Routes>
-        <Route path='/' exact element={<HomePage />} />
+        <Route path='/' exact element={<Wrapper><HomePage /></Wrapper> } />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/admin-login' element={<AdminLogin />} />
         <Route path="/admin" element={
@@ -37,7 +47,7 @@ root.render(
             </ProtectedRoute>
           }/>
       </Routes>
-      <FooterComponent />
+      {/* <FooterComponent /> */}
     </BrowserRouter>
   </React.StrictMode>
 );
