@@ -13,12 +13,10 @@ const productSchema = new mongoose.Schema({
     },
     description: String,
     imageURL: String,
-    deal: Boolean,
-    salePrice: Number
+    deal: String,
+    dealPrice: Number
 })
 
 const Product = mongoose.model('product', productSchema)
 
 module.exports = Product
-
-

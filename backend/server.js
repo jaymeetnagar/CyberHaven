@@ -6,6 +6,7 @@ const Customer = require('./models/Customer')
 const Product = require('./models/Product')
 const Cart = require('./models/Cart')
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 
 
 // Database Connection URL
@@ -33,6 +34,12 @@ app.get('/all-admin', async (req, res) => {
 // Create Admin
 
 app.get('/create-admin', async (req, res) => {
+
+  console.log({
+    name: 'admin1',
+    password: 'admin123',
+    email: 'admin@example.com',
+  })
 
   await Admin.create({
     name: 'admin1',
@@ -94,21 +101,21 @@ const jwt = require('jsonwebtoken');
 // Generate JWT token upon user login
 app.post('/admin-login', async (req, res) => {
   // Assuming user authentication succeeds
-  const admin = await Admin.findOne({ email: req.body.email, password: req.body.password });
-  if (!admin) {
+  const admin = await Admin.findOne({ email: req.body.email});
+  if (!admin && !bcrypt.compareSync(req.body.password, admin.password)) {
     return res.send({ message: 'Invalid credentials' });
   }
-  const token = jwt.sign({ id: admin._id, email: admin.email, password: admin.password, isAdmin: true }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3h' });
+  const token = jwt.sign({ id: admin._id, email: admin.email, isAdmin: true }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3h' });
   res.json({ token });
 });
 
 app.post('/customer-login', async (req, res) => {
   // Assuming user authentication succeeds
-  const customer = await Customer.findOne({ email: req.body.email, password: req.body.password });
-  if (!customer) {
+  const customer = await Customer.findOne({ email: req.body.email });
+  if (!customer && !bcrypt.compareSync(req.body.password, customer.password)) {
     return res.send({ message: 'Invalid credentials' });
   }
-  const token = jwt.sign({ id: customer._id, email: customer.email, password: customer.password, isAdmin: false }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' });
+  const token = jwt.sign({ id: customer._id, email: customer.email, isAdmin: false }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' });
   res.json({ token });
 });
 

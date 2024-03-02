@@ -16,7 +16,7 @@ const adminSchema = new mongoose.Schema({
         type: String,
         required: true,
         set(password) {
-            this._password = bcrypt.hashSync(password, 10);
+            return bcrypt.hashSync(password, 10);
         },
     },
 })
