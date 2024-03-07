@@ -1,8 +1,8 @@
 const FooterComponent =()=>{
     return(
-        <div>
-            <h1>Footer</h1>
-        </div>
+        <footer className="text-center p-3">
+            <p className="text-muted">&copy; CyberHaven</p>
+        </footer>
     )
 }
 
