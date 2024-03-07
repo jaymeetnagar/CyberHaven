@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import ProductCard from '../Components/ProductCard';
 
-const ProductPage = () => {
+const ProductCategoryPage = () => {
 
   const gridContainerStyle = {
     display: 'grid',
@@ -31,4 +31,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default ProductCategoryPage;

@@ -11,7 +11,7 @@ import AdminLogin from './Components/AdminLogin';
 import HomePage from './Pages/HomePage';
 import { Navigate } from 'react-router-dom';
 import { SimpleSlider } from './Pages/HomePage';
-import ProductPage from './Pages/ProductPage';
+import ProductCategoryPage from './Pages/ProductCategoryPage';
 
 const ProtectedRoute = ({ children }) => {
   
@@ -46,7 +46,7 @@ root.render(
         <Route path='/admin-login' element={<AdminLogin />} />
 
         {/* products category page route */}
-        <Route path='/products/:category' element={<Wrapper><ProductPage /></Wrapper>} />
+        <Route path='/products/:category' element={<Wrapper><ProductCategoryPage /></Wrapper>} />
         
         <Route path="/admin" element={
             <ProtectedRoute>
