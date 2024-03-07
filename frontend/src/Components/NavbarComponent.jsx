@@ -11,10 +11,11 @@ const NavbarComponent = () => {
       };
 
     return (
-        <div className='Navbar'>
-            <h1>CYBERHAVEN</h1>
+        <div className="Navbar border-bottom mb-5">
+            
+            <Link to="/" className="fs-4 fw-bold text-decoration-none text-body">CYBERHAVEN</Link>
 
-
+            {/* navbar links */}
             <nav>
 
                 <Link style={linkStyle} to="/">Home</Link>
@@ -27,7 +28,7 @@ const NavbarComponent = () => {
 
             </nav>
 
-            <div className='icons'>
+            <div className="icons">
                 <FontAwesomeIcon icon={faSearch} />
                 <FontAwesomeIcon icon={faUser} />
             </div>
