@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faSearch, faCarAlt, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import './NavbarComponent.css';
 import { Link } from 'react-router-dom';
 
@@ -26,9 +26,16 @@ const NavbarComponent = () => {
 
             <div>
                 <FontAwesomeIcon icon={faSearch} className="btn" />
+                
                 <Link to="/login" className="btn">
                   <FontAwesomeIcon icon={faUser} />
                 </Link>
+
+                <Link to="/cart" className="btn">
+                  <FontAwesomeIcon icon={faCartShopping} />
+                </Link>
+                
+
             </div>
         </div>
     )

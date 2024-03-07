@@ -13,6 +13,7 @@ import { Navigate } from 'react-router-dom';
 import { SimpleSlider } from './Pages/HomePage';
 import ProductCategoryPage from './Pages/ProductCategoryPage';
 import ProductDetailPage from './Components/ProductDetailPage';
+import CartPage from './Pages/CartPage';
 
 const ProtectedRoute = ({ children }) => {
   
@@ -49,7 +50,11 @@ root.render(
         {/* products category page route */}
         <Route path='/products/:category' element={<Wrapper><ProductCategoryPage /></Wrapper>} />
 
+        {/* product detail page route */}
         <Route path='/product-details/:productId' element={<Wrapper><ProductDetailPage /></Wrapper>} />
+        
+        {/* cart page route */}
+        <Route path='/cart' element={<Wrapper><CartPage /></Wrapper>} />
         
         <Route path="/admin" element={
             <ProtectedRoute>
