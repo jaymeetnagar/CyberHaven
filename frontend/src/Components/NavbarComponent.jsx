@@ -20,7 +20,7 @@ const NavbarComponent = () => {
 
                 <Link style={linkStyle} to="/">Home</Link>
                 <Link style={linkStyle} to="/products/laptop">Laptop</Link>
-                <Link style={linkStyle} to="/products/headphone">Headphones</Link>
+                <Link style={linkStyle} to="/products/headphone">Headphone</Link>
                 <Link style={linkStyle} to="/products/mouse">Mouse</Link>
                 <Link style={linkStyle} to="/products/desk">Desk</Link>
                 <Link style={linkStyle} to="/products/keyboard">Keyboard</Link>
