@@ -4,29 +4,22 @@ import ProductCard from '../Components/ProductCard';
 
 const ProductCategoryPage = () => {
 
-  const gridContainerStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '20px',
-    padding: '20px',
-  };
-
   const { category } = useParams();
 
-  const paddingStyle = { padding: '5rem 2rem'  };
-  const headingStyle = { textAlign: 'center'  };
-
   return (
-    <div style={paddingStyle}>
-      <h2 style={ headingStyle }>Category: {category}</h2>
-
-      <div style={gridContainerStyle}>
-
+    <div className="container">
+      <div className="row justify-content-start">
+        
         {[0, 1, 2, 3, 4].map(product => (
-          <ProductCard  />
+          
+          <div className="col-md-6 col-lg-4">
+              <ProductCard  />
+          </div>
+
         ))}
 
       </div>
+
     </div>
   );
 };

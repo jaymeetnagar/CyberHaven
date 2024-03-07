@@ -5,7 +5,7 @@ import React from 'react';
 const ProductCard = ({ product }) => {
 
   return (
-    <article className="card" style={{ width: '18rem' }}>
+    <article className="card mb-4">
       <img src="https://placehold.co/600x400/png" className="card-img-top" alt="Product Name" />
       <div className="card-body text-center">
         <h5 className="card-title">Product Name</h5>
