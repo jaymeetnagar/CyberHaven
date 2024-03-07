@@ -12,6 +12,7 @@ import HomePage from './Pages/HomePage';
 import { Navigate } from 'react-router-dom';
 import { SimpleSlider } from './Pages/HomePage';
 import ProductCategoryPage from './Pages/ProductCategoryPage';
+import ProductDetailPage from './Components/ProductDetailPage';
 
 const ProtectedRoute = ({ children }) => {
   
@@ -47,6 +48,8 @@ root.render(
 
         {/* products category page route */}
         <Route path='/products/:category' element={<Wrapper><ProductCategoryPage /></Wrapper>} />
+
+        <Route path='/product-details/:productId' element={<Wrapper><ProductDetailPage /></Wrapper>} />
         
         <Route path="/admin" element={
             <ProtectedRoute>

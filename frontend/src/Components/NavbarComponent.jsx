@@ -5,10 +5,6 @@ import { Link } from 'react-router-dom';
 
 const NavbarComponent = () => {
 
-    const linkStyle = {
-        color: '#333',
-        textDecoration: 'none'
-      };
 
     return (
         <div className="Navbar border-bottom mb-5">
@@ -18,19 +14,21 @@ const NavbarComponent = () => {
             {/* navbar links */}
             <nav>
 
-                <Link style={linkStyle} to="/">Home</Link>
-                <Link style={linkStyle} to="/products/laptop">Laptop</Link>
-                <Link style={linkStyle} to="/products/headphone">Headphone</Link>
-                <Link style={linkStyle} to="/products/mouse">Mouse</Link>
-                <Link style={linkStyle} to="/products/desk">Desk</Link>
-                <Link style={linkStyle} to="/products/keyboard">Keyboard</Link>
-                <Link style={linkStyle} to="/products/monitor">Monitor</Link>
+                <Link className="text-body text-decoration-none" to="/">Home</Link>
+                <Link className="text-body text-decoration-none" to="/products/laptop">Laptop</Link>
+                <Link className="text-body text-decoration-none" to="/products/headphone">Headphone</Link>
+                <Link className="text-body text-decoration-none" to="/products/mouse">Mouse</Link>
+                <Link className="text-body text-decoration-none" to="/products/desk">Desk</Link>
+                <Link className="text-body text-decoration-none" to="/products/keyboard">Keyboard</Link>
+                <Link className="text-body text-decoration-none" to="/products/monitor">Monitor</Link>
 
             </nav>
 
-            <div className="icons">
-                <FontAwesomeIcon icon={faSearch} />
-                <FontAwesomeIcon icon={faUser} />
+            <div>
+                <FontAwesomeIcon icon={faSearch} className="btn" />
+                <Link to="/login" className="btn">
+                  <FontAwesomeIcon icon={faUser} />
+                </Link>
             </div>
         </div>
     )
