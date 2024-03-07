@@ -13,7 +13,7 @@ const ProductCard = ({ product }) => {
         
         <p className="small text-muted mb-3">{ product.category }</p>
 
-        <button className="btn btn-info rounded-pill text-uppercase" product-id={ product.id }>Add to Cart</button>
+        <button className="btn btn-info rounded-pill text-uppercase" product-id={ product._id }>Add to Cart</button>
       </div>
     </article>
 

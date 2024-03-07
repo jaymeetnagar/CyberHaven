@@ -43,7 +43,7 @@ const ProductCategoryPage = () => {
         : (productsOfSelectedCategory.map(product => (
 
             <div className="col-md-6 col-lg-4">
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product._id} product={product} />
             </div>
 
           )))
