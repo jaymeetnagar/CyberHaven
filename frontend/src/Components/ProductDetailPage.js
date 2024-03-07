@@ -40,7 +40,7 @@ const ProductDetailPage = () => {
 
                 <div className='col-md-6 mb-3 ps-md-4'>
                     <h3 className="mb-2">{product.name}</h3>
-                    <p className="lead mb-2 fw-normal">${(product.price).toFixed(2)}</p>
+                    <p className="lead mb-2 fw-normal">${(product.price)?.toFixed(2)}</p>
 
                     <p className="mb-3">Category: <span className='text-muted'>{product.category}</span></p>
 
