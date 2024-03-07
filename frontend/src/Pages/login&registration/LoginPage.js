@@ -30,7 +30,11 @@ const LoginPage = () => {
     return phoneRegex.test(phoneNumber);
   };
 
-  const handleSignUp = async () => {
+  const handleSignUp = async (e) => {
+
+    
+    e.preventDefault();
+
     if (!name || !email || !password || !phoneNumber || !address) {
       alert("All fields are required");
       return;
@@ -85,7 +89,10 @@ const LoginPage = () => {
 
   };
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (e) => {
+
+    e.preventDefault();
+
     // Basic validation
     if (!email || !password) {
       alert("Email and password are required");
@@ -129,7 +136,7 @@ const LoginPage = () => {
     <div className="outerContainer">
       <Components.Container>
         <Components.SignUpContainer signinIn={signIn}>
-          <Components.Form>
+          <Components.Form onSubmit={handleSignUp}>
             <Components.Title>Create Account</Components.Title>
             <Components.Input
               type="text"
@@ -181,12 +188,12 @@ const LoginPage = () => {
               }}
             />
             {addressError && <span className="error">{addressError}</span>}
-            <Components.Button onClick={handleSignUp}>Sign Up</Components.Button>
+            <Components.Button type="submit">Sign Up</Components.Button>
           </Components.Form>
         </Components.SignUpContainer>
 
         <Components.SignInContainer signinIn={signIn}>
-          <Components.Form>
+          <Components.Form onSubmit={handleSignIn}>
             <Components.Title>Sign in</Components.Title>
             <Components.Input
               type="email"
@@ -209,7 +216,7 @@ const LoginPage = () => {
             />
             {passwordError && <span className="error">{passwordError}</span>}
             <Components.Anchor href="#">Forgot your password?</Components.Anchor>
-            <Components.Button onClick={handleSignIn}>Log In</Components.Button>
+            <Components.Button type="submit">Log In</Components.Button>
           </Components.Form>
         </Components.SignInContainer>
 

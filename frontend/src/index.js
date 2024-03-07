@@ -11,6 +11,9 @@ import AdminLogin from './Components/AdminLogin';
 import HomePage from './Pages/HomePage';
 import { Navigate } from 'react-router-dom';
 import { SimpleSlider } from './Pages/HomePage';
+import ProductCategoryPage from './Pages/ProductCategoryPage';
+import ProductDetailPage from './Components/ProductDetailPage';
+import CartPage from './Pages/CartPage';
 
 const ProtectedRoute = ({ children }) => {
   
@@ -38,9 +41,21 @@ root.render(
     <BrowserRouter>
       {/* <NavbarComponent /> */}
       <Routes>
+
+        
         <Route path='/' exact element={<Wrapper><HomePage /></Wrapper> } />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/admin-login' element={<AdminLogin />} />
+
+        {/* products category page route */}
+        <Route path='/products/:category' element={<Wrapper><ProductCategoryPage /></Wrapper>} />
+
+        {/* product detail page route */}
+        <Route path='/product-details/:productId' element={<Wrapper><ProductDetailPage /></Wrapper>} />
+        
+        {/* cart page route */}
+        <Route path='/cart' element={<Wrapper><CartPage /></Wrapper>} />
+        
         <Route path="/admin" element={
             <ProtectedRoute>
               <AdminPage />
