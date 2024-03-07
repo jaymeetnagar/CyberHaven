@@ -1,15 +1,29 @@
-import { faCartArrowDown, faCartFlatbed, faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import "./HomePage.css";
-export default function HomePage() {
-  return (
-    <div className="HomePage">
-      <div className="main-section">
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-      </div>
-      <div className="cart-section">
-        <div className="cart-title">Cart <FontAwesomeIcon icon={faCartShopping} /></div>
-      </div>
+export default function HomePage() {
+
+  const [products, setProducts] = useState([]);
+  
+  useEffect(()=> { fetchProducts(); }, []);
+
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/product/all');
+      console.log(response.data);
+      setProducts(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+
+  return (
+
+    <div>
+       Home Page
     </div>
+
   );
 }
