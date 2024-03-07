@@ -33,7 +33,7 @@ const ProductCategoryPage = () => {
 
     <div className="container">
 
-      <h4 className="mb-4">Category: {category}</h4>
+      <h4 className="mb-4">Category: { category.charAt(0).toUpperCase() + category.slice(1) }</h4>
 
       <div className="row justify-content-start">
         {
