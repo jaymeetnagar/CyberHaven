@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 mongoose.connect(dbUrl).then(
-  console.log("Databse connection successful")
+  console.log("Database connection successful")
 )
 
 
