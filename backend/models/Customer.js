@@ -14,9 +14,9 @@ const customerSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    set(password) {
-      this._password = bcrypt.hashSync(password, 10); 
-    },
+    set: (password) => {
+      return bcrypt.hashSync(password, 10);
+    }
   },
   phoneNumber: String,
   address: String

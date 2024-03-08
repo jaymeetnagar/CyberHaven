@@ -6,7 +6,11 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    type: String,
+    type: {
+        type: String,
+        default: 'general'
+    },
+    category: String,
     price: {
         type: Number,
         required: true
@@ -14,7 +18,11 @@ const productSchema = new mongoose.Schema({
     description: String,
     imageURL: String,
     deal: String,
-    dealPrice: Number
+    dealPrice: Number,
+    created_at: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 const Product = mongoose.model('product', productSchema)

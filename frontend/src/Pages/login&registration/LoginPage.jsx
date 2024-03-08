@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import * as Components from "./Component";
 import "../../Assests/css/loginpage.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { updateUserData } from "../../store";
 
 const LoginPage = () => {
   const [signIn, toggle] = React.useState(true);
@@ -20,6 +22,8 @@ const LoginPage = () => {
   const [phoneNumberError, setPhoneNumberError] = useState("");
   const [addressError, setAddressError] = useState("");
 
+  const navigate = useNavigate();
+
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -31,8 +35,6 @@ const LoginPage = () => {
   };
 
   const handleSignUp = async (e) => {
-
-    
     e.preventDefault();
 
     if (!name || !email || !password || !phoneNumber || !address) {
@@ -69,28 +71,25 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:8000/create-customer", {
-        method: "POST",
-        data: {
+      const response = await axios.post(
+        "http://localhost:3001/create-customer",
+        {
           name,
           email,
           password,
           phoneNumber,
           address,
-        },
-      });
+        }
+      );
 
       alert(response.data.message);
-      
     } catch (error) {
       console.error(error);
-      alert(error)
+      alert(error);
     }
-
   };
 
   const handleSignIn = async (e) => {
-
     e.preventDefault();
 
     // Basic validation
@@ -116,20 +115,24 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:8000/login", {
+      const result = await fetch("http://localhost:3001/customer-login", {
         method: "POST",
-        data: {
-          email,
-          password
+        headers: {
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({email,password}),
+        credentials: "include", // Include credentials (cookies) in the request
       });
+      const response = await result.json();
+      alert(response.message);
 
-      alert(response.data.message);
-      
+      updateUserData(response.userData);
+      if (response.message === "Login successful") {
+        navigate("/");
+      }
     } catch (error) {
       console.error(error);
     }
-
   };
 
   return (
@@ -177,7 +180,9 @@ const LoginPage = () => {
                 setPhoneNumberError("");
               }}
             />
-            {phoneNumberError && <span className="error">{phoneNumberError}</span>}
+            {phoneNumberError && (
+              <span className="error">{phoneNumberError}</span>
+            )}
             <Components.Input
               type="text"
               placeholder="Address"
@@ -215,7 +220,9 @@ const LoginPage = () => {
               }}
             />
             {passwordError && <span className="error">{passwordError}</span>}
-            <Components.Anchor href="#">Forgot your password?</Components.Anchor>
+            <Components.Anchor href="#">
+              Forgot your password?
+            </Components.Anchor>
             <Components.Button type="submit">Log In</Components.Button>
           </Components.Form>
         </Components.SignInContainer>

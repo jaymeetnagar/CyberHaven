@@ -7,13 +7,18 @@ const Product = require('./models/Product')
 const Cart = require('./models/Cart')
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
 
 
 // Database Connection URL
 const dbUrl = 'mongodb+srv://zeelghandi:Gandhi123@cluster0.wzoutru.mongodb.net/'
 
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 app.use(express.json());
+app.use(cookieParser());
 
 mongoose.connect(dbUrl).then(
   console.log("Databse connection successful")
@@ -106,7 +111,8 @@ app.post('/admin-login', async (req, res) => {
     return res.send({ message: 'Invalid credentials' });
   }
   const token = jwt.sign({ id: admin._id, email: admin.email, isAdmin: true }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3h' });
-  res.json({ token });
+  res.cookie('token', token, { maxAge: 8 * 60 * 60 * 1000, httpOnly: true}); // maxAge is in 
+  res.json({ message: 'Login successful', userData:{isAuthenticated: true, isAdmin: true, name: admin.name, email: admin.email} });
 });
 
 app.post('/customer-login', async (req, res) => {
@@ -116,13 +122,13 @@ app.post('/customer-login', async (req, res) => {
     return res.send({ message: 'Invalid credentials' });
   }
   const token = jwt.sign({ id: customer._id, email: customer.email, isAdmin: false }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' });
-  res.json({ token });
+  res.cookie('token', token, { maxAge: 8 * 60 * 60 * 1000, httpOnly: true}); // maxAge is in 
+  res.json({ message: 'Login successful', userData:{isAuthenticated: true, isAdmin: false, name: customer.name, email: customer.email }});
 });
 
 // Middleware to verify JWT token
 function verifyToken(req, res, next) {
-  const authHeader = req.headers['authorization']
-  const token = authHeader && authHeader.split(' ')[1];
+  const token = req.cookies.token;
   if (!token) return res.status(401).send('Unauthorized');
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {

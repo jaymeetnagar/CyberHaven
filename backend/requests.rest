@@ -15,3 +15,8 @@ Content-Type: application/json
 {
     "email": "skeval904@gmail.com"
 }
+
+###
+GET http://localhost:3001/product/all
+
+
