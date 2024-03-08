@@ -11,14 +11,14 @@ import AdminLogin from './Components/AdminLogin';
 import HomePage from './Pages/HomePage';
 import { Navigate } from 'react-router-dom';
 import { SimpleSlider } from './Pages/HomePage';
+import { userData } from './store';
 import ProductCategoryPage from './Pages/ProductCategoryPage';
 import ProductDetailPage from './Components/ProductDetailPage';
 import CartPage from './Pages/CartPage';
 
 const ProtectedRoute = ({ children }) => {
   
-  const isAuthenticated = localStorage.getItem('token');
-  if (!isAuthenticated) {
+  if (!userData.isAuthenticated) {
     return <Navigate to="/admin-login" replace />;
   }
 

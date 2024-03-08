@@ -11,9 +11,15 @@ export default function HomePage() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/product/all');
-      console.log(response.data);
-      setProducts(response.data.data);
+      const result = await fetch('http://localhost:3001/product/all',{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include'
+      });
+      const response = await result.json();
+      setProducts(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
