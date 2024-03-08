@@ -27,12 +27,13 @@ export default function HomePage() {
 
 
   // featured products by promotions data
-  const featuredProducts = products.filter(product => product.promotions.includes('Featured') || product.promotions.includes('featured'));
+  const featuredProducts = products.filter(product => product.type.includes('featured'));
 
-  const productDeals = products.filter(product => product.promotions.includes('Deals') || product.promotions.includes('deals'));
+  const productDeals = products.filter(product => product.type.includes('deal'));
   
-  const trendingProducts = products.filter(product => product.promotions.includes('Trending') || product.promotions.includes('trending'));
+  const trendingProducts = products.filter(product => product.type.includes('trending'));
 
+  console.log(products);
 
   return (
 
@@ -87,17 +88,17 @@ export default function HomePage() {
       </section>
 
 
-      {/* Trending Products */}
+      {/* All Products */}
       <section className='mb-4'>
 
-        <h5 className="mb-4">Tending Products</h5>
+        <h5 className="mb-4">All Products</h5>
 
         <div className="row justify-content-start">
           {
 
-            trendingProducts.length === 0
-              ? (<p className="text-muted">No trending products available.</p>)
-              : (trendingProducts.map(product => (
+            products.length === 0
+              ? (<p className="text-muted">No products available.</p>)
+              : (products.map(product => (
 
                 <div className="col-md-6 col-lg-4">
                   <ProductCard key={product.id} product={product} />
