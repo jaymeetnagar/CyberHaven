@@ -33,7 +33,7 @@ const ProductDetailPage = () => {
         <div className="container">
             <div className='row'>
                 <div className='col-md-6 mb-3 px-md-3'>
-                    <img src={product.imageURL} className="border rounded w-100" alt={product.title} />
+                    <img src={product.imageURL} className="img-thumbnail w-100" alt={product.title} />
                 </div>
                 <div className='col-md-6 mb-3 ps-md-4'>
                     <h3 className="mb-2">{product.title}</h3>
@@ -44,9 +44,9 @@ const ProductDetailPage = () => {
                         </div>
                     )}
                     
-                    {product.deal && <p className="lead mb-2 fw-normal"><strike className="small text-danger">${(product.price).toFixed(2)}</strike> ${product.dealPrice.toFixed(2)}</p>}
+                    {product.deal && <p className="lead mb-2 fw-normal"><strike className="small text-danger">${(product.price)?.toFixed(2)}</strike> ${product.dealPrice.toFixed(2)}</p>}
                     
-                    {!product.deal && <p className="lead mb-2 fw-normal">${(product.price).toFixed(2)}</p>}
+                    {!product.deal && <p className="lead mb-2 fw-normal">${(product.price)?.toFixed(2)}</p>}
                     
 
                     <p className="mb-3">Category: <span className='text-muted'>{product.category}</span></p>
