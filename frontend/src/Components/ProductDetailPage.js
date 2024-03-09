@@ -34,7 +34,7 @@ const ProductDetailPage = () => {
             <div className='row'>
 
                 <div className='col-md-6 mb-3'>
-                    <img src="https://placehold.co/600x400/png" className="card-img-top" alt={product.name} />
+                    <img src={ product.imageURL  } className="card-img-top" alt={product.name} />
                 </div>
 
 
