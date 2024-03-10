@@ -13,12 +13,17 @@ const cookieParser = require('cookie-parser');
 // Database Connection URL
 const dbUrl = 'mongodb+srv://zeelghandi:Gandhi123@cluster0.wzoutru.mongodb.net/'
 
+
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true,
 }));
+
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(express.urlencoded({ extended: true }))
+
 
 mongoose.connect(dbUrl).then(
   console.log("Database connection successful")
@@ -128,7 +133,24 @@ app.post('/customer-login', async (req, res) => {
 
 // Middleware to verify JWT token
 function verifyToken(req, res, next) {
-  const token = req.cookies.token;
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  console.log(req.headers)
+  console.log(token);
+  
+  if (!token) return res.status(401).send('Not Authorized');
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if (err) return res.status(403).send('Invalid token');
+    req.user = decoded;
+    next();
+  });
+}
+
+
+/*
+function verifyToken(req, res, next) {
+  const token = req.token;
   if (!token) return res.status(401).send('Unauthorized');
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
@@ -137,6 +159,7 @@ function verifyToken(req, res, next) {
     next();
   });
 }
+*/
 
 // Protected route
 app.get('/protected', verifyToken, (req, res) => {
@@ -182,18 +205,25 @@ app.put('/customer', verifyToken, async (req, res) => {
 
 
 // API to add a product to the cart
-app.put('/cart', verifyToken, async (req, res) => {
+app.post('/cart', verifyToken, async (req, res) => {
+  
+  
+  
   try {
+
     if (req.user.id != req.body.user_id) {
       return res.status(401).send({ message: 'Unauthorized' });
     }
+  
+  
 
-    const { user_id, product_id, quantity = 1 } = req.body;
-    await Cart.create(
-      user_id,
-      product_id,
-      quantity
-    )
+    // const { user_id, product_id, quantity = 1 } = req.body;
+
+    await Cart.create({
+      user_id : req.body.user_id,
+      product_id : req.body.user_id,
+      quantity : 1
+    })
     res.send({ message: 'Product added to the Cart.' })
 
   } catch (error) {
@@ -201,6 +231,19 @@ app.put('/cart', verifyToken, async (req, res) => {
     res.status(500).send({ message: 'Error adding to cart.' });
   }
 })
+
+// cart Items of user
+app.get('/cart/all', async (req, res) => {
+  try {
+    const data = await Cart.find({ user_id: req.user_id }).exec();
+    res.send({ data: data });
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error fetching Cart Products.' });
+  }
+});
+
 
 app.get('/product/all', async (req, res) => {
   try {

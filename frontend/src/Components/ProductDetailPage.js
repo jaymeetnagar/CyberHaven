@@ -12,19 +12,134 @@ const ProductDetailPage = () => {
 
 
     const [product, setProduct] = useState([]);
+    const [user, setUser] = useState([]);
 
-    useEffect(() => { fetchProductData(); }, []);
+    
+    const [formData, setFormData] = useState({
+        quantity: 1
+    });
+
+    useEffect(() => { 
+
+        fetchProductData();
+        fetchUserData();
+
+
+     }, []);
+
+
+
+    // function to handle form input changes
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
 
     const fetchProductData = async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/product/${productId}`);
-            console.log(response.data);
-            setProduct(response.data.data);
+            const res = await axios.get(`http://localhost:3001/product/${productId}`);
+            console.log(res.data);
+            setProduct(res.data.data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
+
+    const fetchUserData = async () => {
+
+        // Get the token from cookie 
+        const token = await getTokenFromCookie();
+    
+    
+        try {
+            const response = await fetch('http://localhost:3001/protected/', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to fetch');
+            }
+    
+            const data = await response.json();
+            console.log('Data:', data);
+            setUser(data)
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+    
+
+
+    const getTokenFromCookie = async () => {
+
+        
+        const cookies = document.cookie.split(';');
+        
+        for (let cookie of cookies) {
+
+          const [name, value] = cookie.split('=');
+          
+          if (name.trim() === 'token') {
+
+            return decodeURIComponent(value);
+          }
+
+        }
+
+        return null; 
+
+    }
+
+    
+
+    const handleAddtoCart = async (e) => {
+
+        e.preventDefault();
+
+        console.log(formData.mquantity)
+
+        return;
+
+
+        // get token from cookie 
+        const token = await getTokenFromCookie();
+
+        // also check user is logged in ?
+        if(!token){
+            alert('Please, Login or Register.');
+            return;
+        }
+
+         // Example data for the request
+         const data = {
+            user_id: user.id, 
+            product_id: productId, 
+            quantity: 1 
+          };
+      
+          try {
+            const res = await axios.post(
+                'http://localhost:3001/cart', data, {
+                headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" }
+            });
+            
+            console.log('res:', res.data); 
+            
+          } catch (error) {
+            
+            console.error('Error:', error); 
+          }
+
+    }
+
+
+
+   
 
 
 
@@ -52,15 +167,32 @@ const ProductDetailPage = () => {
                     <p className="mb-3">Category: <span className='text-muted'>{product.category}</span></p>
 
                     <p>{product.description}</p>
-                    
-                    <button className="btn btn-info rounded-pill text-uppercase" product-id={product._id}>
-                        
-                        
-                       <FontAwesomeIcon icon={faShoppingCart} className="me-1" />
 
-                        Add to Cart
+                    <form className='d-flex' onSubmit={ handleAddtoCart }>
+                      
+                      <input type='hidden' name="productId"  />
+
+                      <input className='form-control bg-white border w-50 rounded-pill text-body' 
+                      name='quantity' 
+                      value={formData.quantity}
+
+                      onChange={handleChange}
+
+
+                      required />
+
+                      <button type='submit' className="btn btn-info rounded-pill ms-2 text-uppercase">
                         
-                        </button>
+                        
+                        <FontAwesomeIcon icon={faShoppingCart} className="me-1" />
+ 
+                         Add to Cart
+                         
+                     </button>
+ 
+                    </form>
+                    
+
                 </div>
             </div>
         </div>
