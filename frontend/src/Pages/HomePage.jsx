@@ -33,7 +33,6 @@ export default function HomePage() {
   
   const trendingProducts = products.filter(product => product.type.includes('trending'));
 
-  console.log(products);
 
   return (
 

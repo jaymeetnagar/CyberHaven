@@ -19,10 +19,8 @@ const AdminLogin = () => {
     })
       .then((res) => res.json())
       .then(data => {
-        if (data && data.token) {
-          localStorage.setItem('token', data.token);
+        if (data && data.message == "Login successful") {
           navigate('/admin');
-          console.log('Login successful');
         } else {
           setErrorMessage('Invalid Email or Password');
         }
