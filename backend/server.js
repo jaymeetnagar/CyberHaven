@@ -106,24 +106,24 @@ const jwt = require('jsonwebtoken');
 // Generate JWT token upon user login
 app.post('/admin-login', async (req, res) => {
   // Assuming user authentication succeeds
-  const admin = await Admin.findOne({ email: req.body.email});
-  if (!admin && !bcrypt.compareSync(req.body.password, admin.password)) {
+  const admin = await Admin.findOne({ email: req.body.email });
+  if (!admin || !bcrypt.compareSync(req.body.password, admin.password)) {
     return res.send({ message: 'Invalid credentials' });
   }
   const token = jwt.sign({ id: admin._id, email: admin.email, isAdmin: true }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3h' });
-  res.cookie('token', token, { maxAge: 8 * 60 * 60 * 1000, httpOnly: true}); // maxAge is in 
-  res.json({ message: 'Login successful', userData:{isAuthenticated: true, isAdmin: true, name: admin.name, email: admin.email} });
+  res.cookie('token', token, { maxAge: 8 * 60 * 60 * 1000, httpOnly: true }); // maxAge is in 
+  res.json({ message: 'Login successful', userData: { isAuthenticated: true, isAdmin: true, name: admin.name, email: admin.email } });
 });
 
 app.post('/customer-login', async (req, res) => {
   // Assuming user authentication succeeds
   const customer = await Customer.findOne({ email: req.body.email });
-  if (!customer && !bcrypt.compareSync(req.body.password, customer.password)) {
+  if (!customer || !bcrypt.compareSync(req.body.password, customer.password)) {
     return res.send({ message: 'Invalid credentials' });
   }
   const token = jwt.sign({ id: customer._id, email: customer.email, isAdmin: false }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' });
-  res.cookie('token', token, { maxAge: 8 * 60 * 60 * 1000, httpOnly: true}); // maxAge is in 
-  res.json({ message: 'Login successful', userData:{isAuthenticated: true, isAdmin: false, name: customer.name, email: customer.email }});
+  res.cookie('token', token, { maxAge: 8 * 60 * 60 * 1000, httpOnly: true }); // maxAge is in 
+  res.json({ message: 'Login successful', userData: { isAuthenticated: true, isAdmin: false, name: customer.name, email: customer.email } });
 });
 
 // Middleware to verify JWT token
@@ -180,25 +180,83 @@ app.put('/customer', verifyToken, async (req, res) => {
   }
 });
 
+// API to get the cart of the user
+app.get('/cart/:userId', verifyToken, async (req, res) => {
+  try {
+    if (req.user.id != req.params.userId) {
+      return res.status(401).send({ message: 'Unauthorized' });
+    }
+    const cart = await Cart.findOne({ userId: req.params.userId });
+    if (!cart) {
+      return res.send({ message: 'Cart not found.' });
+    }
+    res.send({ data: cart });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error fetching cart.' });
+  }
+})
 
 // API to add a product to the cart
-app.put('/cart', verifyToken, async (req, res) => {
+app.post('/cart', verifyToken, async (req, res) => {
   try {
     if (req.user.id != req.body.user_id) {
       return res.status(401).send({ message: 'Unauthorized' });
     }
 
     const { user_id, product_id, quantity = 1 } = req.body;
-    await Cart.create(
-      user_id,
-      product_id,
-      quantity
-    )
-    res.send({ message: 'Product added to the Cart.' })
+    const cart = await Cart.findOne({ userId:user_id });
+    if (!cart) {
+      await Cart.create({
+        userId: user_id,
+        items: [{ productId: product_id, quantity }]
+      })
+      res.send({ message: 'Product added to the Cart.' });
+    }
+    else {
+      const item = cart.items.find(item => item.productId === product_id);
+      if (item) {
+        item.quantity += quantity;
+      } else {
+        cart.items.push({ productId:product_id, quantity });
+      }
+      await cart.save();
+      res.send({ message: 'Product added to the Cart.' });
+    }
 
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: 'Error adding to cart.' });
+  }
+})
+
+// API to remove a product from the cart
+app.delete('/cart', verifyToken, async (req, res) => {
+  try {
+    if (req.user.id != req.body.user_id) {
+      return res.status(401).send({ message: 'Unauthorized' });
+    }
+
+    const { user_id, product_id, quantity = 1 } = req.body;
+    const cart = await Cart.findOne({ userId: user_id });
+    if (!cart) {
+      return res.send({ message: 'Cart not found.' });
+    }
+    const item = cart.items.find(item => item.productId === product_id);
+    if (!item) {
+      return res.send({ message: 'Product not found in cart.' });
+    }
+    if (item.quantity > quantity) {
+      item.quantity -= quantity;
+    } else {
+      cart.items = cart.items.filter(item => item.productId !== product_id);
+    }
+    await cart.save();
+    res.send({ message: 'Product removed from the Cart.' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error removing from cart.' });
   }
 })
 
