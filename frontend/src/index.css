@@ -12,3 +12,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.product-col {
+  flex-grow: 0 !important;
+  padding: 0 16px;
+}

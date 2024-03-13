@@ -72,7 +72,7 @@ const LoginPage = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/create-customer",
+        "http://localhost:3001/customer",
         {
           name,
           email,

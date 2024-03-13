@@ -7,11 +7,9 @@ const ProductCategoryPage = () => {
 
   const { category } = useParams();
 
-
   const [products, setProducts] = useState([]);
 
   useEffect(() => { fetchProducts(); }, []);
-
 
   const fetchProducts = async () => {
     try {
@@ -22,36 +20,24 @@ const ProductCategoryPage = () => {
     }
   };
 
-
   // filter products by selected product category
-  let productsOfSelectedCategory =  products.filter(product => (product.category).toLowerCase() == category) ;
+  let productsOfSelectedCategory = products.filter(product => (product.category).toLowerCase() == category);
 
   return (
-
-
-
     <div className="container">
-
-      <h4 className="mb-4">Category: { category.charAt(0).toUpperCase() + category.slice(1) }</h4>
-
+      <h4 className="mb-4">Category: {category.charAt(0).toUpperCase() + category.slice(1)}</h4>
       <div className="row justify-content-start">
         {
-        
-        productsOfSelectedCategory.length === 0 
-        ? (<p className="text-muted">No products available of category {category}.</p>) 
-        : (productsOfSelectedCategory.map(product => (
+          productsOfSelectedCategory.length === 0
+            ? (<p className="text-muted">No products available of category {category}.</p>)
+            : (productsOfSelectedCategory.map(product => (
 
-            <div className="col-md-6 col-lg-4">
-              <ProductCard key={product._id} product={product} />
-            </div>
-
-          )))
-        
+              <div className="col product-col">
+                <ProductCard key={product._id} product={product} />
+              </div>
+            )))
         }
-
-
       </div>
-
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import Admin from '../models/Admin.js';
 import Customer from '../models/Customer.js';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 const adminLogin = async (req, res) => {
     // Assuming user authentication succeeds
