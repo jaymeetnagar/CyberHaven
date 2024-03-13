@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const customerSchema = new mongoose.Schema({
   name: {
@@ -26,4 +26,4 @@ const customerSchema = new mongoose.Schema({
 
 const Customer = mongoose.model('customer', customerSchema);
 
-module.exports = Customer;
+export default Customer;
