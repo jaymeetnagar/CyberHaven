@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 // Define Admin schema
 const adminSchema = new mongoose.Schema({
@@ -23,6 +23,4 @@ const adminSchema = new mongoose.Schema({
 
 const Admin = mongoose.model('admin', adminSchema)
 
-module.exports = Admin
-
-
+export default Admin;
