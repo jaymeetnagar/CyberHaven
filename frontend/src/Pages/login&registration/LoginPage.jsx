@@ -81,7 +81,6 @@ const LoginPage = () => {
           address,
         }
       );
-
       alert(response.data.message);
     } catch (error) {
       console.error(error);
@@ -121,12 +120,11 @@ const LoginPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({email,password}),
-        credentials: "include", // Include credentials (cookies) in the request
+        credentials: "include",
       });
       const response = await result.json();
       alert(response.message);
-
-      updateUserData(response.userData);
+      localStorage.setItem("userData", JSON.stringify(response.userData));
       if (response.message === "Login successful") {
         navigate("/");
       }

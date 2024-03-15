@@ -17,8 +17,9 @@ const getCart = async (req, res) => {
     }
 }
 
-// API to add a product to the cart
-const addToCart = async (req, res) => {
+// API to update quantity of product in the cart
+// quantity is the number that is added to or removed from the cart
+const updateCart = async (req, res) => {
     try {
         if (req.user.id != req.body.user_id) {
             return res.status(401).send({ message: 'Unauthorized' });
@@ -27,18 +28,29 @@ const addToCart = async (req, res) => {
         const { user_id, product_id, quantity = 1 } = req.body;
         const cart = await Cart.findOne({ userId: user_id });
         if (!cart) {
+            if(quantity < 0) {
+                return res.status(400).send({ message: 'Cart not found.' });
+            }
             await Cart.create({
                 userId: user_id,
-                items: [{ productId: product_id, quantity }]
-            })
+                items: {
+                  [product_id]: quantity
+                }
+              });
             res.send({ message: 'Product added to the Cart.' });
         }
         else {
-            const item = cart.items.find(item => item.productId === product_id);
-            if (item) {
-                item.quantity += quantity;
+            const itemQuantity = cart.items.get(product_id);
+            if (itemQuantity) {
+                if(itemQuantity + quantity > 0) {
+                    cart.items.set( product_id, itemQuantity + quantity );
+                } else {
+                    cart.items.delete(product_id);
+                }
             } else {
-                cart.items.push({ productId: product_id, quantity });
+                if(quantity > 0) {
+                    cart.items.set( product_id, quantity );
+                }
             }
             await cart.save();
             res.send({ message: 'Product added to the Cart.' });
@@ -50,34 +62,4 @@ const addToCart = async (req, res) => {
     }
 }
 
-// API to remove a product from the cart
-const removeFromCart = async (req, res) => {
-    try {
-        if (req.user.id != req.body.user_id) {
-            return res.status(401).send({ message: 'Unauthorized' });
-        }
-
-        const { user_id, product_id, quantity = 1 } = req.body;
-        const cart = await Cart.findOne({ userId: user_id });
-        if (!cart) {
-            return res.send({ message: 'Cart not found.' });
-        }
-        const item = cart.items.find(item => item.productId === product_id);
-        if (!item) {
-            return res.send({ message: 'Product not found in cart.' });
-        }
-        if (item.quantity > quantity) {
-            item.quantity -= quantity;
-        } else {
-            cart.items = cart.items.filter(item => item.productId !== product_id);
-        }
-        await cart.save();
-        res.send({ message: 'Product removed from the Cart.' });
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).send({ message: 'Error removing from cart.' });
-    }
-}
-
-export { getCart, addToCart, removeFromCart };
+export { getCart, updateCart };

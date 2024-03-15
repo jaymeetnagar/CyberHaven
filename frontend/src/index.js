@@ -37,7 +37,6 @@ const Wrapper = ({ children }) => {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <BrowserRouter>
       {/* <NavbarComponent /> */}
       <Routes>
@@ -64,7 +63,6 @@ root.render(
       </Routes>
       {/* <FooterComponent /> */}
     </BrowserRouter>
-  </React.StrictMode>
 );
 
 

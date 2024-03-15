@@ -3,9 +3,15 @@ import ProductCard from "../Components/ProductCard";
 
 export default function HomePage() {
   const [products, setProducts] = useState([]);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     fetchProducts();
+    console.log("userData", localStorage.getItem("userData"));
+    const user = localStorage.getItem("userData");
+    if(user){
+      setUsername(JSON.parse(user).name);
+    }
   }, []);
 
   const fetchProducts = async () => {
@@ -39,10 +45,10 @@ export default function HomePage() {
 
   return (
     <div className="container">
+      {username && <h4 className="mb-4">Hello {username}</h4>}
       {/* Featured Products */}
       <section className="mb-4">
         <h5 className="mb-4">Featured Products</h5>
-
         <div className="row justify-content-start">
           {featuredProducts.length === 0 ? (
             <p className="text-muted">No featured products available.</p>

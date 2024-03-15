@@ -11,7 +11,7 @@ const adminLogin = async (req, res) => {
     }
     const token = jwt.sign({ id: admin._id, email: admin.email, isAdmin: true }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3h' });
     res.cookie('token', token, { maxAge: 8 * 60 * 60 * 1000, httpOnly: true }); // maxAge is in 
-    res.json({ message: 'Login successful', userData: { isAuthenticated: true, isAdmin: true, name: admin.name, email: admin.email } });
+    res.json({ message: 'Login successful', userData: { isAuthenticated: true, isAdmin: true, name: admin.name, email: admin.email, userId: admin._id } });
 }
 
 const customerLogin = async (req, res) => {
@@ -22,7 +22,15 @@ const customerLogin = async (req, res) => {
     }
     const token = jwt.sign({ id: customer._id, email: customer.email, isAdmin: false }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' });
     res.cookie('token', token, { maxAge: 8 * 60 * 60 * 1000, httpOnly: true }); // maxAge is in 
-    res.json({ message: 'Login successful', userData: { isAuthenticated: true, isAdmin: false, name: customer.name, email: customer.email } });
+    res.json({ message: 'Login successful', userData: { isAuthenticated: true, isAdmin: false, name: customer.name, email: customer.email, userId: customer._id } });
 }
 
-export { adminLogin, customerLogin };
+const getSessionStatus = (req, res) => {
+    if (req.user) {
+        res.send({ isAuthenticated: true, isAdmin: req.user.isAdmin, name: req.user.name, email: req.user.email });
+    } else {
+        res.send({ isAuthenticated: false });
+    }
+}
+
+export { adminLogin, customerLogin, getSessionStatus };

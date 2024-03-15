@@ -8,7 +8,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="card mb-4 product-card">
-      <img src={product.imageURL} className="card-img-top product-image" alt={product.name} />
+      <img alt={product.title} src={product.imageURL} className="card-img-top product-image" alt={product.name} />
       <div className="card-body">
         <h5 className="card-title">{product.title}</h5>
         <p className="card-text">${(product.price).toFixed(2)}</p>
