@@ -19,7 +19,7 @@ import CartPage from './Pages/CartPage';
 const ProtectedRoute = ({ children }) => {
   
   if (!userData.isAuthenticated) {
-    return <Navigate to="/admin-login" replace />;
+    return <Navigate to="/auth/admin" replace />;
   }
 
   return children;
@@ -44,7 +44,7 @@ root.render(
         
         <Route path='/' exact element={<Wrapper><HomePage /></Wrapper> } />
         <Route path='/login' element={<LoginPage />} />
-        <Route path='/admin-login' element={<AdminLogin />} />
+        <Route path='/auth/admin' element={<AdminLogin />} />
 
         {/* products category page route */}
         <Route path='/products/:category' element={<Wrapper><ProductCategoryPage /></Wrapper>} />

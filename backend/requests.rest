@@ -1,4 +1,4 @@
-POST http://localhost:3001/admin-login
+POST http://localhost:3001/auth/admin
 Content-Type: application/json
 
 {

@@ -10,7 +10,7 @@ const AdminLogin = () => {
 
   const handleLogin = () => {
     // You can implement your authentication logic here
-    fetch('http://localhost:3001/admin-login', {
+    fetch('http://localhost:3001/auth/admin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

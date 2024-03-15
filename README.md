@@ -23,8 +23,8 @@ https://www.figma.com/file/zJF6mBnLckuvN0m0Ni5JY9/Untitled?type=design&node-id=0
 ---
 
 #### Create Admin
-- **URL:** `/create-admin`
-- **Method:** `GET`
+- **URL:** `/admin`
+- **Method:** `POST`
 - **Description:** Creates a new admin record in the database.
 - **Response:**
   - `200 OK`: Indicates successful creation of the admin record.
@@ -57,7 +57,7 @@ https://www.figma.com/file/zJF6mBnLckuvN0m0Ni5JY9/Untitled?type=design&node-id=0
 ---
 
 #### Admin Login
-- **URL:** `/admin-login`
+- **URL:** `/auth/admin`
 - **Method:** `POST`
 - **Description:** Generates a JWT token for admin authentication.
 - **Request Body:** JSON object containing admin email and password.
@@ -69,7 +69,7 @@ https://www.figma.com/file/zJF6mBnLckuvN0m0Ni5JY9/Untitled?type=design&node-id=0
 ---
 
 #### Customer Login
-- **URL:** `/customer-login`
+- **URL:** `/auth/customer`
 - **Method:** `POST`
 - **Description:** Generates a JWT token for customer authentication.
 - **Request Body:** JSON object containing customer email and password.

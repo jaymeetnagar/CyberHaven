@@ -114,7 +114,7 @@ const LoginPage = () => {
     }
 
     try {
-      const result = await fetch("http://localhost:3001/customer-login", {
+      const result = await fetch("http://localhost:3001/auth/customer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

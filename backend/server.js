@@ -28,24 +28,24 @@ import { createAdmin, getAllAdmin } from './controllers/adminController.js';
 
 // API to create Admin
 // deprecated
-app.get('/create-admin', createAdmin);
+app.post('/admin', createAdmin);
 
 // API to get All Admin
 // deprecated
-app.get('/all-admin', getAllAdmin);
+app.get('/admin/all', getAllAdmin);
 
 
 // AUTH
 import { adminLogin, customerLogin, getSessionStatus } from './controllers/authController.js';
 
 // API to login as Admin
-app.post('/admin-login', adminLogin);
+app.post('/auth/admin', adminLogin);
 
 // API to login as Customer
-app.post('/customer-login', customerLogin);
+app.post('/auth/customer', customerLogin);
 
 // API to get the session status
-app.get('/session-status', verifyToken, getSessionStatus);
+app.get('auth/session-status', verifyToken, getSessionStatus);
 
 
 // CUSTOMER
