@@ -33,4 +33,9 @@ const getSessionStatus = (req, res) => {
     }
 }
 
-export { adminLogin, customerLogin, getSessionStatus };
+const logout = (req, res) => {
+    res.clearCookie('token');
+    res.send({ message: 'Logged out' });
+}
+
+export { adminLogin, customerLogin, getSessionStatus, logout };

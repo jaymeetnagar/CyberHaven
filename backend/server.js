@@ -36,7 +36,7 @@ app.get('/admin/all', getAllAdmin);
 
 
 // AUTH
-import { adminLogin, customerLogin, getSessionStatus } from './controllers/authController.js';
+import { adminLogin, customerLogin, getSessionStatus, logout } from './controllers/authController.js';
 
 // API to login as Admin
 app.post('/auth/admin', adminLogin);
@@ -46,6 +46,9 @@ app.post('/auth/customer', customerLogin);
 
 // API to get the session status
 app.get('/auth/session-status', verifyToken, getSessionStatus);
+
+// API to logout
+app.get('/auth/logout', logout);
 
 
 // CUSTOMER

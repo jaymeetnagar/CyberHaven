@@ -1,9 +1,9 @@
 const userData = {
     isAuthenticated: false,
     isAdmin: false,
-    name: '',
-    email: '',
-    userId: ''
+    name: "",
+    email: "",
+    userId: ""
 }
 
 // let isDataUpdated = false;
@@ -14,9 +14,9 @@ const updateUserData = (data) => {
         userData.isAuthenticated = isAuthenticated;
         if (!isAuthenticated) {
             userData.isAdmin = false;
-            userData.name = '';
-            userData.email = '';
-            userData.userId = '';
+            userData.name = "";
+            userData.email = "";
+            userData.userId = "";
             return;
         }
     }
