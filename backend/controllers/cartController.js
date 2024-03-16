@@ -28,32 +28,32 @@ const updateCart = async (req, res) => {
         const { user_id, product_id, quantity = 1 } = req.body;
         const cart = await Cart.findOne({ userId: user_id });
         if (!cart) {
-            if(quantity < 0) {
+            if (quantity < 0) {
                 return res.status(400).send({ message: 'Cart not found.' });
             }
             await Cart.create({
                 userId: user_id,
                 items: {
-                  [product_id]: quantity
+                    [product_id]: quantity
                 }
-              });
-            res.send({ message: 'Product added to the Cart.' });
+            });
+            res.send({ message: 'Cart Updated.' });
         }
         else {
             const itemQuantity = cart.items.get(product_id);
             if (itemQuantity) {
-                if(itemQuantity + quantity > 0) {
-                    cart.items.set( product_id, itemQuantity + quantity );
+                if (itemQuantity + quantity > 0) {
+                    cart.items.set(product_id, itemQuantity + quantity);
                 } else {
                     cart.items.delete(product_id);
                 }
             } else {
-                if(quantity > 0) {
-                    cart.items.set( product_id, quantity );
+                if (quantity > 0) {
+                    cart.items.set(product_id, quantity);
                 }
             }
             await cart.save();
-            res.send({ message: 'Product added to the Cart.' });
+            res.send({ message: 'Cart Updated.' });
         }
 
     } catch (error) {

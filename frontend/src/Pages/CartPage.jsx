@@ -1,32 +1,48 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
+import { getUserData } from "../store.js";
 
 const CartPage = () => {
     const [cartItems, setCartItems] = useState([]);
-    const [userId, setUserId] = useState("");
+    const user = getUserData();
 
     useEffect(() => {
-        const user = localStorage.getItem("userData");
-        if (user) {
-            const _userId = JSON.parse(user).userId;
-            setUserId(_userId);
-            getCartItmes(_userId);
+        if (user.isAuthenticated) {
+            getCartItmes();
         }
     }, []);
 
-    const getCartItmes = async (userId) => {
-        const items = await fetchCartItemsByUserId(userId);
-        //iterate over items object and fetch product details for each item
+    const getCartItmes = async () => {
+        const items = await fetchCartItems();
         const promises = Object.keys(items).map((key) => fetchProductByProductId(key));
         const products = await Promise.all(promises);
         products.forEach((product) => { product.quantity = items[product._id] });
         setCartItems(products);
     }
 
-    const fetchCartItemsByUserId = async (userId) => {
+    const handleDelete = async (productId, cartQuantity) => {
         try {
-            const result = await fetch("http://localhost:3001/cart/" + userId, {
+            const result = await fetch("http://localhost:3001/cart/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify({ user_id: user.userId, product_id: productId, quantity: -cartQuantity })
+            });
+            const response = await result.json();
+            if (response.message === "Cart Updated.") {
+                await getCartItmes(user.userId);
+            }
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
+
+    const fetchCartItems = async () => {
+        try {
+            const result = await fetch("http://localhost:3001/cart/" + user.userId, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -71,12 +87,12 @@ const CartPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {!userId && (
+                    {!user.isAuthenticated && (
                         <tr>
-                            <td colSpan="6">Please login to view cart items</td>
+                            <td colSpan="6">Please login to view cart items {JSON.stringify(user)}</td>
                         </tr>
                     )}
-                    {userId &&
+                    {user.isAuthenticated &&
                         cartItems.map((item) => (
                             <tr key={item._id}>
                                 <td>
@@ -91,7 +107,7 @@ const CartPage = () => {
                                 <td>{item.quantity}</td>
                                 <td>{item.price.toFixed(2) * item.quantity}</td>
                                 <td>
-                                    <button className="btn btn-danger">
+                                    <button onClick={()=>handleDelete(item._id, item.quantity)} className="btn btn-danger">
                                         <FontAwesomeIcon icon={faTrashAlt} />
                                     </button>
                                 </td>

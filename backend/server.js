@@ -45,7 +45,7 @@ app.post('/auth/admin', adminLogin);
 app.post('/auth/customer', customerLogin);
 
 // API to get the session status
-app.get('auth/session-status', verifyToken, getSessionStatus);
+app.get('/auth/session-status', verifyToken, getSessionStatus);
 
 
 // CUSTOMER

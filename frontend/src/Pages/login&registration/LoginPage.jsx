@@ -124,7 +124,7 @@ const LoginPage = () => {
       });
       const response = await result.json();
       alert(response.message);
-      localStorage.setItem("userData", JSON.stringify(response.userData));
+      updateUserData(response.userData);
       if (response.message === "Login successful") {
         navigate("/");
       }
