@@ -38,8 +38,9 @@ const AdminLogin = () => {
             <div className="form-group">
               <label>Email:</label>
               <input
-                type="text"
+                type="email"
                 className="form-control"
+                placeholder='Enter Your Email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -49,6 +50,7 @@ const AdminLogin = () => {
               <input
                 type="password"
                 className="form-control"
+                placeholder='Enter Your Password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -59,6 +61,7 @@ const AdminLogin = () => {
           </form>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
+        
       </div>
     </div>
   );

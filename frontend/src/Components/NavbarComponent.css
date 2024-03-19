@@ -1,21 +1,45 @@
-.Navbar nav {
-    display: flex;
-    gap: 24px;
-}
-.Navbar nav div {
-    cursor: pointer;
-}
 .Navbar {
+    background-color: #000;
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 18px 36px;
-}
-.Navbar h1 {
+    padding: 10px 36px;
+  }
+  
+  .Navbar .logo h1 {
     margin: 0;
-    font-size: 32px;
-}
-.Navbar .icons {
+    font-size: 28px;
+  }
+  
+  .Navbar nav {
     display: flex;
     gap: 24px;
-}
+  }
+  
+  .Navbar nav div {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .Navbar nav div:hover {
+    color: #7bc9d1; /* Change to the desired hover color */
+  }
+  
+  .Navbar .icons {
+    display: flex;
+    gap: 24px;
+    font-size: 18px;
+  }
+  
+  .Navbar .icons svg {
+    cursor: pointer;
+    color: #7bc9d1; /* Change to the desired icon color */
+  }
+  
+  .Navbar .icons svg:hover {
+    color: #fff; /* Change to the desired hover color */
+  }
+  

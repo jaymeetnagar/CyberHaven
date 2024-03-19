@@ -10,6 +10,8 @@ import AdminPage from './Components/AdminPage';
 import AdminLogin from './Components/AdminLogin';
 import HomePage from './Pages/HomePage';
 import { Navigate, Outlet } from 'react-router-dom';
+import CartComponent from './Components/CartComponent';
+import CartPage from './Pages/Cart/CartPage';
 
 const ProtectedRoute = ({ children }) => {
   
@@ -40,6 +42,7 @@ root.render(
         <Route path='/' exact element={<Wrapper><HomePage /></Wrapper> } />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/admin-login' element={<AdminLogin />} />
+        <Route path="/cart" element={<Wrapper><CartPage /></Wrapper>} />
         <Route path="/admin" element={
             <ProtectedRoute>
               <AdminPage />

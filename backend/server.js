@@ -128,6 +128,62 @@ app.get('/protected', verifyToken, (req, res) => {
   res.send(req.user);
 });
 
+// Update Cart Item Quantity
+app.put('/update-cart-item/:cartId/:productId', async (req, res) => {
+  try {
+    const { cartId, productId } = req.params;
+    const { quantity } = req.body.data;
+
+    const cart = await Cart.findById(cartId);
+    if (!cart) {
+      return res.status(404).send({ message: 'Cart not found' });
+    }
+
+    const existingItem = cart.items.find(item => item.productId.equals(productId));
+
+    if (existingItem) {
+      existingItem.quantity = quantity;
+      await cart.save();
+      res.send({ message: 'Cart item quantity updated successfully', cart });
+    } else {
+      return res.status(404).send({ message: 'Product not found in the cart' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error updating cart item quantity.' });
+  }
+});
+
+// Remove Product from Cart
+app.delete('/remove-from-cart/:cartId/:productId', async (req, res) => {
+  try {
+    const { cartId, productId } = req.params;
+
+    const cart = await Cart.findById(cartId);
+    if (!cart) {
+      return res.status(404).send({ message: 'Cart not found' });
+    }
+
+    const initialItemCount = cart.items.length;
+
+    // Remove the product from the cart
+    cart.items = cart.items.filter(item => !item.productId.equals(productId));
+
+    // Check if the item was actually removed
+    if (cart.items.length === initialItemCount) {
+      return res.status(404).send({ message: 'Product not found in the cart' });
+    }
+
+    await cart.save();
+
+    res.send({ message: 'Product removed from cart successfully', cart });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error removing product from cart.' });
+  }
+});
+
+
 // Start the server
 app.listen(3001, () => {
   console.log('Server is running on port 3001');

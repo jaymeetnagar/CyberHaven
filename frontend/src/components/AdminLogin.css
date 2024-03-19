@@ -1,18 +1,39 @@
 .admin-login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .admin-login-box {
-    background-color: #282c34;
-    color: #61dafb;
-    padding: 30px;
-    border-radius: 10px;
-    width: 400px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1c1942;
+}
+
+.admin-login-box {
+  background-color: #07072b;
+  color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin-right: 20px; /* Adjust the margin as needed */
+}
+
+.admin-image-box {
+  /* Adjust the width and styles as needed */
+  width: 200px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Add styles for the image inside .admin-image-box */
+.admin-image-box img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Existing styles... */
+
+
   
   .form-group {
     margin-bottom: 15px;
@@ -21,17 +42,18 @@
   .form-control {
     width: 95%;
     padding: 10px;
-    border: 1px solid #61dafb;
-    border-radius: 5px;
-    background-color: #393e46;
+    /* border: 1px solid #61dafb; */
+    /* border-radius: 5px; */
+    background-color: #07072b;
     color: #61dafb;
+    font-family: Arial, Helvetica, sans-serif;
   }
   
   .btn-primary {
     width: 100%;
     padding: 10px;
-    background-color: #61dafb;
-    color: #282c34;
+    background-color: #c10c99;
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;

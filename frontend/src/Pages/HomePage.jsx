@@ -7,9 +7,7 @@ export default function HomePage() {
       <div className="main-section">
 
       </div>
-      <div className="cart-section">
-        <div className="cart-title">Cart <FontAwesomeIcon icon={faCartShopping} /></div>
-      </div>
+      
     </div>
   );
 }
