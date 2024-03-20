@@ -89,7 +89,7 @@ const CartPage = () => {
                 <tbody>
                     {!user.isAuthenticated && (
                         <tr>
-                            <td colSpan="6">Please login to view cart items {JSON.stringify(user)}</td>
+                            <td colSpan="6">Please login to view cart items</td>
                         </tr>
                     )}
                     {user.isAuthenticated &&
@@ -99,13 +99,13 @@ const CartPage = () => {
                                     <img
                                         src={item.imageURL}
                                         alt={item.name}
-                                        style={{ width: "100px" }}
+                                        style={{ width: "100px", height: "100px", objectFit: "cover" }}
                                     />
                                 </td>
                                 <td>{item.title}</td>
                                 <td>${item.price.toFixed(2)}</td>
                                 <td>{item.quantity}</td>
-                                <td>{item.price.toFixed(2) * item.quantity}</td>
+                                <td>${item.price.toFixed(2) * item.quantity}</td>
                                 <td>
                                     <button onClick={()=>handleDelete(item._id, item.quantity)} className="btn btn-danger">
                                         <FontAwesomeIcon icon={faTrashAlt} />

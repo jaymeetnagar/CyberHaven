@@ -6,8 +6,6 @@ const userData = {
     userId: ""
 }
 
-// let isDataUpdated = false;
-
 const updateUserData = (data) => {
     const { isAuthenticated, user } = data;
     if (isAuthenticated !== undefined) {
@@ -25,20 +23,7 @@ const updateUserData = (data) => {
     if (name !== undefined) userData.name = name;
     if (email !== undefined) userData.email = email;
     if (userId !== undefined) userData.userId = userId;
-    // isDataUpdated = true;
 }
-
-// const getUserData = () => {
-//     if (isDataUpdated) {
-//         return Promise.resolve(userData);
-//     } else {
-//         return new Promise(resolve => {
-//             setTimeout(() => {
-//                 resolve(getUserData());
-//             }, 100);
-//         });
-//     }
-// }
 
 const getUserData = () => {
     return userData;
