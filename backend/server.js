@@ -28,25 +28,31 @@ import { createAdmin, getAllAdmin } from './controllers/adminController.js';
 
 // API to create Admin
 // deprecated
-app.get('/create-admin', createAdmin);
+app.post('/admin', createAdmin);
 
 // API to get All Admin
 // deprecated
-app.get('/all-admin', getAllAdmin);
+app.get('/admin/all', getAllAdmin);
 
 
 // AUTH
-import { adminLogin, customerLogin } from './controllers/authController.js';
+import { adminLogin, customerLogin, getSessionStatus, logout } from './controllers/authController.js';
 
 // API to login as Admin
-app.post('/admin-login', adminLogin);
+app.post('/auth/admin', adminLogin);
 
 // API to login as Customer
-app.post('/customer-login', customerLogin);
+app.post('/auth/customer', customerLogin);
+
+// API to get the session status
+app.get('/auth/session-status', verifyToken, getSessionStatus);
+
+// API to logout
+app.get('/auth/logout', logout);
 
 
 // CUSTOMER
-import { createCustomer, deleteCustomer, updateCustomer } from './controllers/customerController.js';
+import { createCustomer, deleteCustomer, updateCustomer, getAllCustomers } from './controllers/customerController.js';
 
 // API to delete the customer which is accissible only to Admin and that user
 app.delete('/customer', verifyToken, deleteCustomer);
@@ -55,7 +61,7 @@ app.delete('/customer', verifyToken, deleteCustomer);
 app.put('/customer', verifyToken, updateCustomer);
 
 // API to get All Customers
-app.get('/customer/all', verifyToken, );
+app.get('/customer/all', verifyToken, getAllCustomers);
 
 // API to create a new customer
 // deprecated
@@ -63,16 +69,13 @@ app.post('/customer', createCustomer);
 
 
 // CART
-import { getCart, addToCart, removeFromCart } from './controllers/cartController.js';
+import { getCart, updateCart } from './controllers/cartController.js';
 
 // API to get the cart of the user
-app.get('/cart/:userId', verifyToken, getCart);
+app.get('/cart', verifyToken, getCart);
 
-// API to add a product to the cart
-app.post('/cart', verifyToken, addToCart);
-
-// API to remove a product from the cart
-app.delete('/cart', verifyToken, removeFromCart);
+// API to update cart with quantity of product.
+app.post('/cart', verifyToken, updateCart);
 
 
 // PRODUCT
