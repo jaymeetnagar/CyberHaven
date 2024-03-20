@@ -72,7 +72,7 @@ app.post('/customer', createCustomer);
 import { getCart, updateCart } from './controllers/cartController.js';
 
 // API to get the cart of the user
-app.get('/cart/:userId', verifyToken, getCart);
+app.get('/cart', verifyToken, getCart);
 
 // API to update cart with quantity of product.
 app.post('/cart', verifyToken, updateCart);

@@ -3,10 +3,7 @@ import Cart from '../models/Cart.js';
 // API to get the cart of the user
 const getCart = async (req, res) => {
     try {
-        if (req.user.id != req.params.userId) {
-            return res.status(401).send({ message: 'Unauthorized' });
-        }
-        const cart = await Cart.findOne({ userId: req.params.userId });
+        const cart = await Cart.findOne({ userId: req.user.id });
         if (!cart) {
             return res.send({ message: 'Cart not found.' });
         }
