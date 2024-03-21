@@ -46,7 +46,7 @@ app.post('/customer-login', customerLogin);
 
 
 // CUSTOMER
-import { createCustomer, deleteCustomer, updateCustomer } from './controllers/customerController.js';
+import { createCustomer, deleteCustomer, updateCustomer, getCustomer } from './controllers/customerController.js';
 
 // API to delete the customer which is accissible only to Admin and that user
 app.delete('/customer', verifyToken, deleteCustomer);
@@ -61,6 +61,8 @@ app.get('/customer/all', verifyToken, );
 // deprecated
 app.post('/customer', createCustomer);
 
+// API customer info
+app.get('/customer/info', verifyToken, getCustomer);
 
 // CART
 import { getCart, addToCart, removeFromCart } from './controllers/cartController.js';

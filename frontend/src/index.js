@@ -15,6 +15,7 @@ import { userData } from './store';
 import ProductCategoryPage from './Pages/ProductCategoryPage';
 import ProductDetailPage from './Components/ProductDetailPage';
 import CartPage from './Pages/CartPage';
+import { UserProvider } from './contexts/UserContext';
 
 const ProtectedRoute = ({ children }) => {
   
@@ -36,8 +37,11 @@ const Wrapper = ({ children }) => {
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 root.render(
   <React.StrictMode>
+    <UserProvider>
     <BrowserRouter>
       {/* <NavbarComponent /> */}
       <Routes>
@@ -64,6 +68,7 @@ root.render(
       </Routes>
       {/* <FooterComponent /> */}
     </BrowserRouter>
+    </UserProvider>
   </React.StrictMode>
 );
 

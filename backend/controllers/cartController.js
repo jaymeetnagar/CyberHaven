@@ -19,11 +19,14 @@ const getCart = async (req, res) => {
 
 // API to add a product to the cart
 const addToCart = async (req, res) => {
+
+    
     try {
+        
         if (req.user.id != req.body.user_id) {
             return res.status(401).send({ message: 'Unauthorized' });
         }
-
+        
         const { user_id, product_id, quantity = 1 } = req.body;
         const cart = await Cart.findOne({ userId: user_id });
         if (!cart) {

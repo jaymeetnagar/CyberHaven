@@ -48,8 +48,8 @@ export default function HomePage() {
             <p className="text-muted">No featured products available.</p>
           ) : (
             featuredProducts.map((product) => (
-              <div className="col product-col">
-                <ProductCard key={product.id} product={product} />
+              <div className="col product-col" key={product._id}>
+                <ProductCard product={product} />
               </div>
             ))
           )}
@@ -65,8 +65,8 @@ export default function HomePage() {
             <p className="text-muted">No product deals available.</p>
           ) : (
             productDeals.map((product) => (
-              <div className="col product-col">
-                <ProductCard key={product.id} product={product} />
+              <div className="col product-col" key={product._id}>
+                <ProductCard product={product} />
               </div>
             ))
           )}
@@ -82,8 +82,8 @@ export default function HomePage() {
             <p className="text-muted">No products available.</p>
           ) : (
             products.map((product) => (
-              <div className="col product-col">
-                <ProductCard key={product.id} product={product} />
+              <div className="col product-col" key={product._id}>
+                <ProductCard product={product} />
               </div>
             ))
           )}

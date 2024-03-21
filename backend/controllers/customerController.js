@@ -75,4 +75,10 @@ const createCustomer = async (req, res) => {
     }
 }
 
-export { deleteCustomer, updateCustomer, getAllCustomers, createCustomer };
+
+// customer info 
+const getCustomer = async (req, res) => {
+    res.send(req.user);
+};
+
+export { deleteCustomer, updateCustomer, getAllCustomers, createCustomer, getCustomer };
