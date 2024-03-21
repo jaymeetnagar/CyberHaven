@@ -64,7 +64,7 @@ const CartPage = () => {
                   <td><img src={item.productId.imageURL} alt={item.productId.title} style={{ width: '100px' }} /></td>
                   <td>{item.productId.title}</td>
                   <td>${item.productId.price.toFixed(2)}</td>
-                  <td>{item.productId.quantity}</td>
+                  <td>{item.quantity}</td>
                   <td>{ item.productId.price.toFixed(2) * item.quantity}</td>
                   <td><button className='btn btn-danger'><FontAwesomeIcon icon={faTrashAlt} /></button></td>
                 </tr>
