@@ -1,32 +1,47 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import React, { useContext, useState, useEffect } from 'react';
+import { UserContext } from '../contexts/UserContext';
+
 
 const CartPage =()=>{
 
-    // dummy cart data
-    const cartItems = [
-        {
-        id: 1,
-        image: 'https://placehold.co/150x100',
-        name: 'Product 1',
-        price: 10.99,
-        quantity: 2
+  const userId = useContext(UserContext);
+
+  const [cartItems, setCartItems] = useState(null);
+
+  useEffect(() => {
+    if(userId){
+      
+    getCartItems();
+    }
+  }, [userId]);
+
+  const getCartItems = async () => {
+
+    try {
+
+      const response = await fetch(`http://localhost:3001/cart/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-        id: 2,
-        image: 'https://placehold.co/150x100',
-        name: 'Product 2',
-        price: 19.99,
-        quantity: 1
-        },
-        {
-            id: 2,
-            image: 'https://placehold.co/150x100',
-            name: 'Product 3',
-            price: 19.99,
-            quantity: 1
-            }
-    ];
+        credentials: "include",
+      });
+
+      if(response.ok){
+
+        const data = await response.json();
+        console.log(data.data);
+        setCartItems(data.data);
+
+      }
+
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
     
     return (
         <div className="container cart-page">
@@ -45,7 +60,7 @@ const CartPage =()=>{
               </tr>
             </thead>
             <tbody>
-              {cartItems.map(item => (
+              {/* cartItems.map(item => (
                 <tr key={item.id}>
                   <td><img src={item.image} alt={item.name} style={{ width: '100px' }} /></td>
                   <td>{item.name}</td>
@@ -54,7 +69,7 @@ const CartPage =()=>{
                   <td>{ item.price.toFixed(2) * item.quantity}</td>
                   <td><button className='btn btn-danger'><FontAwesomeIcon icon={faTrashAlt} /></button></td>
                 </tr>
-              ))}
+              )) */}
             </tbody>
           </table>
         </div>

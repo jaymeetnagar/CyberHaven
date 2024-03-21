@@ -6,7 +6,8 @@ const getCart = async (req, res) => {
         if (req.user.id != req.params.userId) {
             return res.status(401).send({ message: 'Unauthorized' });
         }
-        const cart = await Cart.findOne({ userId: req.params.userId });
+        const cart = await Cart.findOne({ userId: req.params.userId }).populate('items.productId');
+       
         if (!cart) {
             return res.send({ message: 'Cart not found.' });
         }
