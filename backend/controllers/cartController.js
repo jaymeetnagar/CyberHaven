@@ -25,7 +25,7 @@ const getCart = async (req, res) => {
 // API to add a product to the cart
 const addToCart = async (req, res) => {
 
-    
+   
     try {
         
         if (req.user.id != req.body.user_id) {
@@ -36,21 +36,31 @@ const addToCart = async (req, res) => {
         const cart = await Cart.findOne({ userId: user_id });
         
         if (!cart) {
+
             await Cart.create({
                 userId: user_id,
                 items: [{ productId: product_id, quantity }]
             })
+
             res.send({ message: 'Product added to the Cart.' });
         }
+
         else {
+
             const item = cart.items.find(item => item.productId.toString() === product_id);
+
             if (item) {
+
                 item.quantity += quantity;
+
             } else {
-                cart.items.push({ productId: product_id, quantity });
+
+                cart.items.push({ productId: product_id.toString(), quantity });
             }
+
             await cart.save();
             res.send({ message: 'Product added to the Cart.' });
+
         }
 
     } catch (error) {
