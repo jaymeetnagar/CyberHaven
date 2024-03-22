@@ -101,7 +101,7 @@ const CartPage = () => {
                   <td>{item.productId.title}</td>
                   <td>${item.productId.price.toFixed(2)}</td>
                   <td>{item.quantity}</td>
-                  <td>{ item.productId.price.toFixed(2) * item.quantity}</td>
+                  <td>{ (item.productId.price * item.quantity).toFixed(2)}</td>
                   <td><button className='btn btn-danger' 
                     onClick={ () => handleRemoveToCart(item.productId) }>
                     <FontAwesomeIcon icon={faTrashAlt} />

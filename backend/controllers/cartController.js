@@ -34,6 +34,7 @@ const addToCart = async (req, res) => {
         
         const { user_id, product_id, quantity = 1 } = req.body;
         const cart = await Cart.findOne({ userId: user_id });
+        
         if (!cart) {
             await Cart.create({
                 userId: user_id,
@@ -42,7 +43,7 @@ const addToCart = async (req, res) => {
             res.send({ message: 'Product added to the Cart.' });
         }
         else {
-            const item = cart.items.find(item => item.productId === product_id);
+            const item = cart.items.find(item => item.productId.toString() === product_id);
             if (item) {
                 item.quantity += quantity;
             } else {
