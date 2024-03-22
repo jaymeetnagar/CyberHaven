@@ -48,7 +48,7 @@ root.render(
 
         
         <Route path='/' exact element={<Wrapper><HomePage /></Wrapper> } />
-        <Route path='/login' element={<LoginPage />} />
+        <Route path='/login' element={<Wrapper><LoginPage /></Wrapper>} />
         <Route path='/admin-login' element={<AdminLogin />} />
 
         {/* products category page route */}
