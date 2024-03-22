@@ -13,7 +13,7 @@ import './App.css';
 //       <Routes>
 //         <Route path='/' exact Component={HomePage}></Route>
 //         <Route path='/login' Component={LoginPage}></Route>
-//         <Route path='/admin-login' Component={AdminLogin}></Route>
+//         <Route path='/auth/admin' Component={AdminLogin}></Route>
 //       </Routes>
 //       <FooterComponent />
 //     </BrowserRouter>

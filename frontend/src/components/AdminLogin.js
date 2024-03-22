@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getUserData, updateUserData } from '../store';
 import './AdminLogin.css'; // Create AdminLogin.css file for custom styling
 
 const AdminLogin = () => {
@@ -10,7 +11,7 @@ const AdminLogin = () => {
 
   const handleLogin = () => {
     // You can implement your authentication logic here
-    fetch('http://localhost:3001/admin-login', {
+    fetch('http://localhost:3001/auth/admin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -19,6 +20,7 @@ const AdminLogin = () => {
     })
       .then((res) => res.json())
       .then(data => {
+        updateUserData(data.userData);
         if (data && data.message == "Login successful") {
           navigate('/admin');
         } else {
