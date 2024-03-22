@@ -27,13 +27,14 @@ const NavbarComponent = () => {
             <div>
                 <FontAwesomeIcon icon={faSearch} className="btn" />
                 
+                <Link to="/cart" className="btn">
+                  <FontAwesomeIcon icon={faCartShopping} />
+                </Link>
+                
                 <Link to="/login" className="btn">
                   <FontAwesomeIcon icon={faUser} />
                 </Link>
 
-                <Link to="/cart" className="btn">
-                  <FontAwesomeIcon icon={faCartShopping} />
-                </Link>
                 
 
             </div>
