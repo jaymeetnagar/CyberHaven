@@ -128,7 +128,8 @@ const LoginPage = () => {
 
       updateUserData(response.userData);
       if (response.message === "Login successful") {
-        navigate("/");
+         //navigate("/");
+         window.location.href = '/';
       }
     } catch (error) {
       console.error(error);

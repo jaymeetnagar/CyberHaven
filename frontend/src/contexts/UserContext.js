@@ -7,7 +7,7 @@ export const UserProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    getCustomerInfo();
+    setTimeout(() => getCustomerInfo() , 1000)
   }, []);
 
   const getCustomerInfo = async () => {

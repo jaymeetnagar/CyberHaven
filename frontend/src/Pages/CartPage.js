@@ -16,7 +16,40 @@ const CartPage = () => {
 
   }, [userId]);
 
+
+  const handleRemoveToCart = async (product) => {
+
+
+    try {
+
+      const response = await fetch("http://localhost:3001/cart", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ product_id: product._id, user_id: userId }),
+        credentials: "include",
+      });
+
+
+      const data = await response.json();
+
+      if(response.ok){
+
+        console.log(data);
+        alert(data.message);
+        getCartItems();
+      }
+
+    } catch (error) {
+      console.error("Error Occured", error);
+      alert("Error Remove to Cart");
+    }
+  };
+
+
   const getCartItems = async () => {
+
 
     try {
 
@@ -45,12 +78,12 @@ const CartPage = () => {
   return (
     <div className="container cart-page">
 
-      <h3>Cart</h3>
+      <h3 className='mb-3'>Cart</h3>
       
       {
 
-      cartItems.length > 0
-      ?  (<table className="table table-striped">
+      (cartItems && cartItems.length > 0)
+      ?  (<table className="table table-striped border">
         <thead>
           <tr>
             <th>Image</th>
@@ -69,7 +102,11 @@ const CartPage = () => {
                   <td>${item.productId.price.toFixed(2)}</td>
                   <td>{item.quantity}</td>
                   <td>{ item.productId.price.toFixed(2) * item.quantity}</td>
-                  <td><button className='btn btn-danger'><FontAwesomeIcon icon={faTrashAlt} /></button></td>
+                  <td><button className='btn btn-danger' 
+                    onClick={ () => handleRemoveToCart(item.productId) }>
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                    </button>
+                  </td>
                 </tr>
               )) }
         </tbody>
