@@ -1,47 +1,48 @@
 /* styles.css */
 .card {
-    width: 250px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .card-img-top {
-    width: 100%;
-    height: auto;
-  }
-  
-  .card-body {
-    padding: 1.5rem;
-  }
-  
-  .card-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-  }
-  
-  .card-text {
-    color: #555;
-  }
-  
-  .btn-primary {
-    display: block;
-    width: 100%;
-    background-color: #007bff;
-    color: #fff;
-    text-align: center;
-    padding: 0.75rem;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background-color 0.3s;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-  }
-  
+  width: 20rem; /* Using rem units */
+  border-radius: 0.5rem; /* Using rem units */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-0.5rem);
+}
+
+.card-img-top {
+  width: 100%; /* Responsive image width */
+  max-height: 10rem; /* Set a maximum height for the image */
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
+}
+
+.card-body {
+  padding: 1.5rem; /* Using rem units */
+}
+
+.card-title {
+  font-size: 1.25rem; /* Using rem units */
+  font-weight: 600;
+  width: 100%;
+}
+
+.card-text {
+  color: #555;
+}
+
+.btn-primary {
+  display: block;
+  width: 100%; /* Responsive button width */
+  background-color: #007bff;
+  color: #fff;
+  text-align: center;
+  padding: 0.75rem; /* Using rem units */
+  border-radius: 0.25rem; /* Using rem units */
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}

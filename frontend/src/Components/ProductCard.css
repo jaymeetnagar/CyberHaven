@@ -1,29 +1,34 @@
 .product-card {
-  width: 300px;
+  width: 18rem; /* Using rem units */
+  
   border: 1px solid #e5e5e5;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem; /* Using rem units */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
+  
 }
 
 .product-card:hover {
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
 
 .product-image {
-  height: 200px;
+  height: 15.5rem; /* Using rem units */
+  width: 95%; /* Responsive image width */
   object-fit: cover;
+  margin: 0.2rem;
+  ;
 }
 
 .card-title {
-  font-size: 1.2rem;
-  height: 46.1px;
+  font-size: 1.2rem; /* Using rem units */
+  height: 2.875rem; /* Using rem units */
   overflow: hidden;
   font-weight: bold;
 }
 
 .card-text {
-  font-size: 1rem;
+  font-size: 1rem; /* Using rem units */
 }
 
 .btn {
@@ -37,5 +42,5 @@
 
 .btn-info:hover {
   border-color: #138496;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
 }
