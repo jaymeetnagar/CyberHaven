@@ -46,8 +46,11 @@ const CartPage = () => {
     <div className="container cart-page">
 
       <h3>Cart</h3>
+      
+      {
 
-      <table className="table table-striped">
+      cartItems.length > 0
+      ?  (<table className="table table-striped">
         <thead>
           <tr>
             <th>Image</th>
@@ -70,7 +73,10 @@ const CartPage = () => {
                 </tr>
               )) }
         </tbody>
-      </table>
+      </table>)
+      : (<p className='text-muted'>Cart is Empty.</p>)
+
+      }
     </div>
   );
 }
