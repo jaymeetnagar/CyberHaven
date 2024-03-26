@@ -13,7 +13,7 @@ use `credentials: "include"` in your fetch requests to include the token/cookie 
     </summary>
     <details style="margin-left:20px;">
         <summary>
-            <h4 style="display:inline;">Get All Admin</h4>
+            <strong>Get All Admin</strong>
         </summary>
         <ul>
             <li><strong>URL:</strong> <code>/all-admin</code></li>
