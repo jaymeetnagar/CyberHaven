@@ -42,7 +42,7 @@ const CartPage = () => {
 
     const fetchCartItems = async () => {
         try {
-            const result = await fetch("http://localhost:3001/cart/" + user.userId, {
+            const result = await fetch("http://localhost:3001/cart/", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
