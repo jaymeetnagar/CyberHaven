@@ -11,40 +11,44 @@ use `credentials: "include"` in your fetch requests to include the token/cookie 
     <strong>API Documentation</strong>
     <hr>
     </summary>
-    <details style="margin-left:20px;">
+    <dd>
+        <details>
+            <summary>
+                <strong>Get All Admin</strong>
+            </summary>
+            <ul>
+                <li><strong>URL:</strong> <code>/all-admin</code></li>
+                <li><strong>Method:</strong> <code>GET</code></li>
+                <li><strong>Description:</strong> Retrieves all admin records from the database.</li>
+                <li><strong>Response:</strong>
+                    <ul>
+                        <li><code>200 OK</code>: Returns an array of admin records.</li>
+                        <li><code>500 Internal Server Error</code>: Indicates an error while retrieving data from the database.</li>
+                    </ul>
+                </li>
+            </ul>
+        </details>
+    </dd>
+    <hr>
+    
+   <dd>
+       <details>
         <summary>
-            <strong>Get All Admin</strong>
+            <strong>Create Admin</strong>
         </summary>
         <ul>
-            <li><strong>URL:</strong> <code>/all-admin</code></li>
-            <li><strong>Method:</strong> <code>GET</code></li>
-            <li><strong>Description:</strong> Retrieves all admin records from the database.</li>
+            <li><strong>URL:</strong> <code>/admin</code></li>
+            <li><strong>Method:</strong> <code>POST</code></li>
+            <li><strong>Description:</strong> Creates a new admin record in the database.</li>
             <li><strong>Response:</strong>
                 <ul>
-                    <li><code>200 OK</code>: Returns an array of admin records.</li>
-                    <li><code>500 Internal Server Error</code>: Indicates an error while retrieving data from the database.</li>
+                    <li><code>200 OK</code>: Indicates successful creation of the admin record.</li>
+                    <li><code>500 Internal Server Error</code>: Indicates an error while creating the admin record.</li>
                 </ul>
             </li>
         </ul>
-    </details>
-    <hr>
-    
-   <details style="margin-left: 20px;">
-    <summary>
-        <strong>Create Admin</strong>
-    </summary>
-    <ul>
-        <li><strong>URL:</strong> <code>/admin</code></li>
-        <li><strong>Method:</strong> <code>POST</code></li>
-        <li><strong>Description:</strong> Creates a new admin record in the database.</li>
-        <li><strong>Response:</strong>
-            <ul>
-                <li><code>200 OK</code>: Indicates successful creation of the admin record.</li>
-                <li><code>500 Internal Server Error</code>: Indicates an error while creating the admin record.</li>
-            </ul>
-        </li>
-    </ul>
-</details>
+       </details>
+   </dd>
 <hr>
 
 <details style="margin-left: 20px;">
