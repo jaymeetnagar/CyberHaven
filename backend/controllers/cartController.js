@@ -15,12 +15,11 @@ const getCart = async (req, res) => {
 }
 
 // API to update quantity of product in the cart
-// quantity is the number that is added to or removed from the cart
 /**
  * @param {Object} req
  * @param {Object} req.body
  * @param {string} req.body.productId
- * @param {number} req.body.quantity
+ * @param {number} [req.body.quantity=1] - The quantity to be added or removed. Defaults to 1.
 **/
 const updateCart = async (req, res) => {
     try {

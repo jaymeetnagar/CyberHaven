@@ -10,7 +10,6 @@ import bcrypt from 'bcrypt';
  * @param {string} req.body.password
 **/
 const adminLogin = async (req, res) => {
-    // Assuming user authentication succeeds
     const admin = await Admin.findOne({ email: req.body.email });
     if (!admin || !bcrypt.compareSync(req.body.password, admin.password)) {
         return res.send({ message: 'Invalid credentials' });
@@ -27,7 +26,6 @@ const adminLogin = async (req, res) => {
  * @param {string} req.body.password
 **/
 const customerLogin = async (req, res) => {
-    // Assuming user authentication succeeds
     const customer = await Customer.findOne({ email: req.body.email });
     if (!customer || !bcrypt.compareSync(req.body.password, customer.password)) {
         return res.send({ message: 'Invalid credentials' });

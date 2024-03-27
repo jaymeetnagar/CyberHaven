@@ -16,8 +16,13 @@ const createAdmin = async (req, res) => {
 // API to get all admins
 /**
  * deprecated
+ * 
+ * should be logged in as admin to access this API
  */
 const getAllAdmin = async (req, res) => {
+    if(!req.user.isAdmin) {
+        return res.send({ message: 'Unauthorized access.' });
+    }
     const data = await Admin.find({}).exec();
     res.send({ data: data });
 }

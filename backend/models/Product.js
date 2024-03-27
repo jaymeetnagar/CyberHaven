@@ -15,8 +15,14 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    description: String,
-    imageURL: String,
+    description: {
+        type: String,
+        required: true
+    },
+    imageURL: {
+        type: String,
+        required: true
+    },
     deal: String,
     dealPrice: Number,
     created_at: {
