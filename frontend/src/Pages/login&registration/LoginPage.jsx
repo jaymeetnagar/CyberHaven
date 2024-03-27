@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as Components from "./Component";
-import "../../Assests/css/loginpage.css";
+import "./LoginPage.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { updateUserData, getUserData } from "../../store";
