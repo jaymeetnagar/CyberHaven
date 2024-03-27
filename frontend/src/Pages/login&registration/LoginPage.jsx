@@ -265,6 +265,7 @@ const LoginPage = () => {
                             <Components.Button type="submit">
                                 Log In
                             </Components.Button>
+                            <p className="admin-login-link">Are you an <a href="/auth/admin">Admin</a>?</p>
                         </Components.Form>
                     </Components.SignInContainer>
 
