@@ -11,32 +11,35 @@ const NavbarComponent = () => {
         setIsOpen(!isOpen);
     };
 
+    const closeMenu = () => {
+        setIsOpen(false);
+    };
+
     return (
         <div className="Navbar border-bottom mb-5">
-            <Link to="/" className="fs-4 fw-bold text-decoration-none text-body">CYBERHAVEN</Link>
+            <Link to="/" className="fs-4 fw-bold text-decoration-none text-body" onClick={closeMenu}>CYBERHAVEN</Link>
             {/* Hamburger menu button */}
             <div className="hamburger-menu" onClick={toggleMenu}>
                 {isOpen ? <FontAwesomeIcon icon={faTimes} /> : <FontAwesomeIcon icon={faBars} />}
             </div>
 
-
             {/* Navbar links */}
             <nav className={isOpen ? 'open' : ''}>
-                <Link className="text-body text-decoration-none" to="/">Home</Link>
-                <Link className="text-body text-decoration-none" to="/products/laptop">Laptop</Link>
-                <Link className="text-body text-decoration-none" to="/products/headphone">Headphone</Link>
-                <Link className="text-body text-decoration-none" to="/products/mouse">Mouse</Link>
-                <Link className="text-body text-decoration-none" to="/products/desk">Desk</Link>
-                <Link className="text-body text-decoration-none" to="/products/keyboard">Keyboard</Link>
-                <Link className="text-body text-decoration-none" to="/products/monitor">Monitor</Link>
+                <Link className="text-body text-decoration-none" to="/" onClick={closeMenu}>Home</Link>
+                <Link className="text-body text-decoration-none" to="/products/laptop" onClick={closeMenu}>Laptop</Link>
+                <Link className="text-body text-decoration-none" to="/products/headphone" onClick={closeMenu}>Headphone</Link>
+                <Link className="text-body text-decoration-none" to="/products/mouse" onClick={closeMenu}>Mouse</Link>
+                <Link className="text-body text-decoration-none" to="/products/desk" onClick={closeMenu}>Desk</Link>
+                <Link className="text-body text-decoration-none" to="/products/keyboard" onClick={closeMenu}>Keyboard</Link>
+                <Link className="text-body text-decoration-none" to="/products/monitor" onClick={closeMenu}>Monitor</Link>
             </nav>
             
             <div>
                 <FontAwesomeIcon icon={faSearch} className="btn" />
-                <Link to="/login" className="btn">
+                <Link to="/login" className="btn" onClick={closeMenu}>
                     <FontAwesomeIcon icon={faUser} />
                 </Link>
-                <Link to="/cart" className="btn">
+                <Link to="/cart" className="btn" onClick={closeMenu}>
                     <FontAwesomeIcon icon={faCartShopping} />
                 </Link>
             </div>

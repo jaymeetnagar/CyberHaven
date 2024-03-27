@@ -39,7 +39,9 @@
     cursor: pointer;
     z-index: 4;
 }
-
+.menu-icons{
+    justify-content: right;
+}
 @media (max-width: 768px) {
     .Navbar {
         flex-direction: column;
@@ -92,4 +94,5 @@
     .Navbar .icons {
         display: flex; /* Show other icons on larger screens */
     }
+    
 }  
