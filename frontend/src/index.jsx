@@ -52,7 +52,6 @@ const App = () => {
                 credentials: "include",
             });
             const response = await result.json();
-            console.log(response);
             updateUserData(response);
             setIsDataFetched(true);
         } catch (error) {

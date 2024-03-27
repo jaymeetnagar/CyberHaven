@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "CyberHaven offer an extensive solution to meet the unique needs of Gamers by providing catalogue featuring the latest gaming controllers, keyboards, mouse, laptops, CPUs, GPUs and much more...",
   "scripts": {
-    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
-    "start:frontend": "cd frontend && npm start",
-    "start:backend": "cd backend && npm run dev",
+    "start": "concurrently \"pnpm run start:frontend\" \"pnpm run start:backend\"",
+    "start:frontend": "cd frontend && pnpm start",
+    "start:backend": "cd backend && pnpm run dev",
+    "postinstall": "concurrently \"pnpm run install:frontend\" \"pnpm run install:backend\"",
     "install:frontend": "cd frontend && pnpm install",
     "install:backend": "cd backend && pnpm install",
-    "postinstall": "concurrently \"pnpm run install:frontend\" \"pnpm run install:backend\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
