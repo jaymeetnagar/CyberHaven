@@ -34,10 +34,7 @@ export default function HomePage() {
                     "Content-Type": "application/json",
                 },
                 credentials: "include",
-                body: JSON.stringify({
-                    user_id: user.userId,
-                    product_id: productId,
-                }),
+                body: JSON.stringify({ productId: productId }),
             });
             const response = await result.json();
             if (response.message === "Cart Updated.") {

@@ -53,6 +53,7 @@ const LoginPage = () => {
                 email: "",
                 userId: "",
             });
+            navigate("/");
         } catch (error) {
             console.error(error);
         }
