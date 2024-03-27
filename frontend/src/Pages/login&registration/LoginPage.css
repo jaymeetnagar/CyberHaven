@@ -9,3 +9,7 @@
   height: 80vh;
   /* margin: -20px 0 50px; */
 }
+.admin-login-link {
+    font-size: 14px;
+    margin-top: 10px;
+}
