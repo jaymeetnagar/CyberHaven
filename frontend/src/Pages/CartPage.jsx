@@ -29,7 +29,7 @@ const CartPage = () => {
                     "Content-Type": "application/json",
                 },
                 credentials: "include",
-                body: JSON.stringify({ product_id: productId, quantity: -cartQuantity })
+                body: JSON.stringify({ productId: productId, quantity: -cartQuantity })
             });
             const response = await result.json();
             if (response.message === "Cart Updated.") {

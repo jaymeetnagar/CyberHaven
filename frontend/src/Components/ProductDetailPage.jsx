@@ -30,7 +30,7 @@ const ProductDetailPage = () => {
                     "Content-Type": "application/json",
                 },
                 credentials: "include",
-                body: JSON.stringify({ user_id: userId, product_id: productId, quantity: 1 })
+                body: JSON.stringify({ productId: productId, quantity: 1 })
             });
             const response = await result.json();
             if (response.message === "Cart Updated.") {
@@ -52,7 +52,7 @@ const ProductDetailPage = () => {
                     <p className="lead mb-2 fw-normal">${(product.price)?.toFixed(2)}</p>
                     <p className="mb-3">Category: <span className='text-muted'>{product.category}</span></p>
                     <p>{product.description}</p>
-                    <button className="btn btn-info text-uppercase" onClick={handleAddToCart}>Add to Cart</button>
+                    <button className="btn btn-info" onClick={handleAddToCart}>Add to Cart</button>
                 </div>
             </div>
         </div>
