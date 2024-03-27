@@ -13,8 +13,13 @@ const getAllProducts = async (req, res) => {
 }
 
 // API to get a product by id
+/**
+ * @param {Object} req
+ * @param {Object} req.params
+ * @param {string} req.params.productId
+**/
 const getProduct = async (req, res) => {
-    const productId = req.params.id;
+    const productId = req.params.productId;
     try {
         const data = await Product.findById(productId).exec();
         res.send({ data: data });
@@ -26,15 +31,28 @@ const getProduct = async (req, res) => {
 }
 
 // API to update a product
+/**
+ * @param {Object} req
+ * @param {Object} req.body
+ * @param {Object} req.body.newProduct
+ * @param {string} req.body.newProduct._id
+ * @param {string} [req.body.newProduct.title]
+ * @param {string} [req.body.newProduct.description]
+ * @param {string} [req.body.newProduct.price]
+ * @param {string} [req.body.newProduct.imageURL]
+ * @param {string} [req.body.newProduct.type]
+ * @param {string} [req.body.newProduct.category]
+ * @param {string} [req.body.newProduct.deal]
+ * @param {string} [req.body.newProduct.dealPrice]
+ **/
 const updateProduct = async (req, res) => {
     if (!req.user.isAdmin) {
         return res.status(401).send({ message: 'Unauthorized' });
     }
-    const productId = req.params.id;
-    const updates = req.body;
-
+    const { newProduct } = req.body;
+    const {productId, ...newProductData} = newProduct;
     try {
-        const updatedProduct = await Product.findByIdAndUpdate(productId, updates, { new: true }).exec();
+        const updatedProduct = await Product.findByIdAndUpdate(productId, newProductData, { new: true }).exec();
         res.send({ data: updatedProduct });
     } catch (error) {
         console.error(error);
@@ -43,12 +61,24 @@ const updateProduct = async (req, res) => {
 }
 
 // API to add a new product
+/**
+ * @param {Object} req
+ * @param {Object} req.body
+ * @param {Object} req.body.newProduct
+ * @param {string} req.body.newProduct.title
+ * @param {string} req.body.newProduct.description
+ * @param {string} req.body.newProduct.price
+ * @param {string} req.body.newProduct.imageURL
+ * @param {string} [req.body.newProduct.type]
+ * @param {string} [req.body.newProduct.category]
+ * @param {string} [req.body.newProduct.deal]
+ * @param {string} [req.body.newProduct.dealPrice]
+ **/
 const AddProduct = async (req, res) => {
     if (!req.user.isAdmin) {
         return res.status(401).send({ message: 'Unauthorized' });
     }
-    const newProductData = req.body;
-
+    const newProduct = req.body;
     try {
         const newProduct = new Product(newProductData);
         const savedProduct = await newProduct.save();
@@ -60,12 +90,16 @@ const AddProduct = async (req, res) => {
 }
 
 // API to delete a product
+/**
+ * @param {Object} req
+ * @param {Object} req.params
+ * @param {string} req.params.productId
+ **/
 const deleteProduct = async (req, res) => {
     if (!req.user.isAdmin) {
         return res.status(401).send({ message: 'Unauthorized' });
     }
-    const productId = req.params.id;
-
+    const productId = req.params.productId;
     try {
         const deletedProduct = await Product.findByIdAndDelete(productId).exec();
         res.send({ data: deletedProduct });
