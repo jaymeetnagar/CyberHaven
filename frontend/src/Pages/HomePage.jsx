@@ -76,10 +76,9 @@ export default function HomePage() {
                         </p>
                     ) : (
                         featuredProducts.map((product) => (
-                            <div className="col product-col">
+                            <div className="col product-col" key={product._id}>
                                 <ProductCard
                                     onAddToCart={handleAddToCart}
-                                    key={product.id}
                                     product={product}
                                 />
                             </div>
@@ -99,10 +98,9 @@ export default function HomePage() {
                         </p>
                     ) : (
                         productDeals.map((product) => (
-                            <div className="col product-col">
+                            <div className="col product-col" key={product._id}>
                                 <ProductCard
                                     onAddToCart={handleAddToCart}
-                                    key={product.id}
                                     product={product}
                                 />
                             </div>
@@ -120,10 +118,9 @@ export default function HomePage() {
                         <p className="text-muted">No products available.</p>
                     ) : (
                         products.map((product) => (
-                            <div className="col product-col">
+                            <div className="col product-col" key={product._id}>
                                 <ProductCard
                                     onAddToCart={handleAddToCart}
-                                    key={product.id}
                                     product={product}
                                 />
                             </div>

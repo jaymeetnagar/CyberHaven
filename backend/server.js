@@ -64,7 +64,6 @@ app.put('/customer', verifyToken, updateCustomer);
 app.get('/customer/all', verifyToken, getAllCustomers);
 
 // API to create a new customer
-// deprecated
 app.post('/customer', createCustomer);
 
 
@@ -85,16 +84,16 @@ import { getAllProducts, getProduct, updateProduct, AddProduct, deleteProduct } 
 app.get('/product/all', getAllProducts);
 
 // API to get a product by id
-app.get('/product/:id', getProduct);
+app.get('/product/:productId', getProduct);
 
 // API to update a product
-app.put('/product/:id', verifyToken, updateProduct);
+app.put('/product', verifyToken, updateProduct);
 
 // API to add a new product
 app.post('/product', verifyToken, AddProduct);
 
 // API to delete a product
-app.delete('/product/:id', verifyToken, deleteProduct);
+app.delete('/product/:productId', verifyToken, deleteProduct);
 
 // Start the server
 app.listen(3001, () => {

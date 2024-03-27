@@ -98,11 +98,7 @@ const LoginPage = () => {
             const response = await axios.post(
                 "http://localhost:3001/customer",
                 {
-                    name,
-                    email,
-                    password,
-                    phoneNumber,
-                    address,
+                    newUser: { name, email, password, phoneNumber, address },
                 }
             );
             alert(response.data.message);
@@ -265,7 +261,9 @@ const LoginPage = () => {
                             <Components.Button type="submit">
                                 Log In
                             </Components.Button>
-                            <p className="admin-login-link">Are you an <a href="/auth/admin">Admin</a>?</p>
+                            <p className="admin-login-link">
+                                Are you an <a href="/auth/admin">Admin</a>?
+                            </p>
                         </Components.Form>
                     </Components.SignInContainer>
 
