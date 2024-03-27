@@ -16,13 +16,16 @@ const getCart = async (req, res) => {
 
 // API to update quantity of product in the cart
 // quantity is the number that is added to or removed from the cart
+/**
+ * @param {Object} req
+ * @param {Object} req.body
+ * @param {string} req.body.productId
+ * @param {number} req.body.quantity
+**/
 const updateCart = async (req, res) => {
     try {
-        if (req.user.id != req.body.user_id) {
-            return res.status(401).send({ message: 'Unauthorized' });
-        }
-
-        const { user_id, product_id, quantity = 1 } = req.body;
+        const { productId, quantity = 1 } = req.body;
+        const user_id = req.user.id;
         const cart = await Cart.findOne({ userId: user_id });
         if (!cart) {
             if (quantity < 0) {
@@ -31,22 +34,22 @@ const updateCart = async (req, res) => {
             await Cart.create({
                 userId: user_id,
                 items: {
-                    [product_id]: quantity
+                    [productId]: quantity
                 }
             });
             res.send({ message: 'Cart Updated.' });
         }
         else {
-            const itemQuantity = cart.items.get(product_id);
+            const itemQuantity = cart.items.get(productId);
             if (itemQuantity) {
                 if (itemQuantity + quantity > 0) {
-                    cart.items.set(product_id, itemQuantity + quantity);
+                    cart.items.set(productId, itemQuantity + quantity);
                 } else {
-                    cart.items.delete(product_id);
+                    cart.items.delete(productId);
                 }
             } else {
                 if (quantity > 0) {
-                    cart.items.set(product_id, quantity);
+                    cart.items.set(productId, quantity);
                 }
             }
             await cart.save();

@@ -3,6 +3,12 @@ import Customer from '../models/Customer.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
+/**
+ * @param {Object} req
+ * @param {Object} req.body
+ * @param {string} req.body.email
+ * @param {string} req.body.password
+**/
 const adminLogin = async (req, res) => {
     // Assuming user authentication succeeds
     const admin = await Admin.findOne({ email: req.body.email });
@@ -14,6 +20,12 @@ const adminLogin = async (req, res) => {
     res.json({ message: 'Login successful', userData: { isAuthenticated: true, user: {isAdmin: true, name: admin.name, email: admin.email, userId: admin._id }}});
 }
 
+/**
+ * @param {Object} req
+ * @param {Object} req.body
+ * @param {string} req.body.email
+ * @param {string} req.body.password
+**/
 const customerLogin = async (req, res) => {
     // Assuming user authentication succeeds
     const customer = await Customer.findOne({ email: req.body.email });
