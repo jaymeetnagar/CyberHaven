@@ -8,9 +8,9 @@ const AdminLogin = () => {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
+    const user = getUserData();
 
     useEffect(() => {
-        const user = getUserData();
         if (user.isAuthenticated && user.isAdmin) {
             navigate("/admin");
         }
