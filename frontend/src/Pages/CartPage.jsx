@@ -29,11 +29,11 @@ const CartPage = () => {
                     "Content-Type": "application/json",
                 },
                 credentials: "include",
-                body: JSON.stringify({ user_id: user.userId, product_id: productId, quantity: -cartQuantity })
+                body: JSON.stringify({ product_id: productId, quantity: -cartQuantity })
             });
             const response = await result.json();
             if (response.message === "Cart Updated.") {
-                await getCartItmes(user.userId);
+                await getCartItmes();
             }
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -42,7 +42,7 @@ const CartPage = () => {
 
     const fetchCartItems = async () => {
         try {
-            const result = await fetch("http://localhost:3001/cart/" + user.userId, {
+            const result = await fetch("http://localhost:3001/cart/", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
