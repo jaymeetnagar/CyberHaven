@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import {
     Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
+    TableBody as Body,
+    TableCell as Cell,
+    TableContainer as Container,
+    TableHead as Head,
+    TableRow as Row,
     Paper,
     IconButton,
-    TablePagination,
+    TablePagination as Pagination,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -55,17 +55,17 @@ const ProductsTable = () => {
     };
 
     return (
-        <TableContainer component={Paper}>
+        <Container component={Paper}>
             <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Price</TableCell>
-                        <TableCell>Actions</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
+                <Head>
+                    <Row>
+                        <Cell>ID</Cell>
+                        <Cell>Name</Cell>
+                        <Cell>Price</Cell>
+                        <Cell>Actions</Cell>
+                    </Row>
+                </Head>
+                <Body>
                     {Array.isArray(products) &&
                         (rowsPerPage > 0
                             ? products.slice(
@@ -74,11 +74,11 @@ const ProductsTable = () => {
                               )
                             : products
                         ).map((product, index) => (
-                            <TableRow key={product._id}>
-                                <TableCell>{index + 1}</TableCell>
-                                <TableCell>{product.title}</TableCell>
-                                <TableCell>{product.price}</TableCell>
-                                <TableCell>
+                            <Row key={product._id}>
+                                <Cell>{index + 1}</Cell>
+                                <Cell>{product.title}</Cell>
+                                <Cell>{product.price}</Cell>
+                                <Cell>
                                     <IconButton
                                         color="primary"
                                         aria-label="edit"
@@ -94,13 +94,13 @@ const ProductsTable = () => {
                                     >
                                         <DeleteIcon />
                                     </IconButton>
-                                </TableCell>
-                            </TableRow>
+                                </Cell>
+                            </Row>
                         ))}
-                </TableBody>
+                </Body>
             </Table>
-            <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+            <Pagination
+                rowsPerPageOptions={[5, 10, 25]}
                 component="div"
                 count={products.length}
                 rowsPerPage={rowsPerPage}
@@ -108,7 +108,7 @@ const ProductsTable = () => {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
-        </TableContainer>
+        </Container>
     );
 };
 
