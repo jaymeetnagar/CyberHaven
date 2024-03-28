@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { getUserData } from "../store.js";
+import './CartPage.css'; // Import CartPage.css for styling
 
 const CartPage = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -73,48 +74,50 @@ const CartPage = () => {
     };
 
     return (
-        <div className="container cart-page">
+        <div className="container">
             <h3>Cart</h3>
-            <table className="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Product Name</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total Price</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {!user.isAuthenticated && (
+            <div className="table-container">
+                <table className="table table-striped">
+                    <thead>
                         <tr>
-                            <td colSpan="6">Please login to view cart items</td>
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                            <th>Action</th>
                         </tr>
-                    )}
-                    {user.isAuthenticated &&
-                        cartItems.map((item) => (
-                            <tr key={item._id}>
-                                <td>
-                                    <img
-                                        src={item.imageURL}
-                                        alt={item.name}
-                                        style={{ width: "100px", height: "100px", objectFit: "cover" }}
-                                    />
-                                </td>
-                                <td>{item.title}</td>
-                                <td>${item.price.toFixed(2)}</td>
-                                <td>{item.quantity}</td>
-                                <td>${item.price.toFixed(2) * item.quantity}</td>
-                                <td>
-                                    <button onClick={()=>handleDelete(item._id, item.quantity)} className="btn btn-danger">
-                                        <FontAwesomeIcon icon={faTrashAlt} />
-                                    </button>
-                                </td>
+                    </thead>
+                    <tbody>
+                        {!user.isAuthenticated && (
+                            <tr>
+                                <td colSpan="6">Please login to view cart items</td>
                             </tr>
-                        ))}
-                </tbody>
-            </table>
+                        )}
+                        {user.isAuthenticated &&
+                            cartItems.map((item) => (
+                                <tr key={item._id}>
+                                    <td>
+                                        <img
+                                            src={item.imageURL}
+                                            alt={item.name}
+                                            className="cart-product-image"
+                                        />
+                                    </td>
+                                    <td>{item.title}</td>
+                                    <td>${item.price.toFixed(2)}</td>
+                                    <td>{item.quantity}</td>
+                                    <td>${(item.price * item.quantity).toFixed(2)}</td>
+                                    <td>
+                                        <button onClick={() => handleDelete(item._id, item.quantity)} className="btn btn-danger">
+                                            <FontAwesomeIcon icon={faTrashAlt} />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

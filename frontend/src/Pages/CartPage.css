@@ -1,0 +1,10 @@
+/* CartPage.css */
+
+.table-container {
+    overflow-x: auto;
+}
+
+.cart-product-image {
+    width: 100px;
+    height: auto;
+}

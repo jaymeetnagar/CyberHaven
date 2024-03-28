@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "../Components/ProductCard";
 import { getUserData } from "../store";
-import "../Assests/css/HomePage.css"
+import "./HomePage.css";
 
 export default function HomePage() {
     const [products, setProducts] = useState([]);
@@ -67,10 +67,11 @@ export default function HomePage() {
             {user.isAuthenticated && (
                 <h4 className="mb-4">Hello {user.name}</h4>
             )}
+
             {/* Featured Products */}
             <section className="mb-4">
                 <h5 className="mb-4">Featured Products</h5>
-                <div className="row justify-content-center justify-content-md-start">
+                <div className="scrollable-row">
                     {featuredProducts.length === 0 ? (
                         <p className="text-muted">
                             No featured products available.
@@ -92,8 +93,7 @@ export default function HomePage() {
             {/* Product Deals */}
             <section className="mb-4">
                 <h5 className="mb-4">Product Deals</h5>
-
-                <div className="row justify-content-center justify-content-md-start">
+                <div className="scrollable-row">
                     {productDeals.length === 0 ? (
                         <p className="text-muted">
                             No product deals available.
@@ -115,8 +115,7 @@ export default function HomePage() {
             {/* All Products */}
             <section className="mb-4">
                 <h5 className="mb-4">All Products</h5>
-
-                <div className="row justify-content-center justify-content-md-start ">
+                <div className="scrollable-row">
                     {products.length === 0 ? (
                         <p className="text-muted">No products available.</p>
                     ) : (

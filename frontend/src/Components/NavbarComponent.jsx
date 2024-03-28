@@ -17,10 +17,19 @@ const NavbarComponent = () => {
 
     return (
         <div className="Navbar border-bottom mb-5">
-            <Link to="/" className="fs-4 fw-bold text-decoration-none text-body" onClick={closeMenu}>CYBERHAVEN</Link>
+            {/* Left link for large screens */}
+            <div className="left-link large-screen">
+                <Link to="/" className="fs-4 fw-bold text-decoration-none text-body" onClick={closeMenu}>CYBERHAVEN</Link>
+            </div>
+            
             {/* Hamburger menu button */}
             <div className="hamburger-menu" onClick={toggleMenu}>
                 {isOpen ? <FontAwesomeIcon icon={faTimes} /> : <FontAwesomeIcon icon={faBars} />}
+            </div>
+
+            {/* Middle link for small screens */}
+            <div className="middle-link small-screen">
+                <Link to="/" className="fs-4 fw-bold text-decoration-none text-body" onClick={closeMenu}>CYBERHAVEN</Link>
             </div>
 
             {/* Navbar links */}
@@ -34,7 +43,8 @@ const NavbarComponent = () => {
                 <Link className="text-body text-decoration-none" to="/products/monitor" onClick={closeMenu}>Monitor</Link>
             </nav>
             
-            <div>
+            {/* Icons */}
+            <div className="menu-icons">
                 <FontAwesomeIcon icon={faSearch} className="btn" />
                 <Link to="/login" className="btn" onClick={closeMenu}>
                     <FontAwesomeIcon icon={faUser} />
