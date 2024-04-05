@@ -8,16 +8,9 @@ const AdminPage = () => {
     return (
         <div className="container-fluid admin-page">
             <h1 className="mb-4 text-center">CyberHaven - Admin</h1>
-            <h4>Products</h4>
-            <div className="row">
+            <div className="row item">
+                <h4>Products</h4>
                 <ProductsTable />
-                {/* User CRUD operations component
-                <div className="col-md-6">
-                    <UserCRUD />
-                </div>
-                <div className="col-md-6">
-                    <ProductCRUD />
-                </div> */}
             </div>
         </div>
     );

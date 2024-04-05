@@ -15,7 +15,7 @@ const CartPage = () => {
 
     const getCartItmes = async () => {
         const items = await fetchCartItems();
-        const promises = Object.keys(items).map((key) => fetchProductByProductId(key));
+        const promises = items && Object.keys(items).map((key) => fetchProductByProductId(key));
         const products = await Promise.all(promises);
         products.forEach((product) => { product.quantity = items[product._id] });
         setCartItems(products);

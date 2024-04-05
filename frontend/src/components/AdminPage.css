@@ -3,13 +3,18 @@
     color: #61dafb;
     padding: 20px;
     border-radius: 10px;
-  }
-  
-  h1 {
+}
+
+h1 {
     font-size: 2.5rem;
-  }
-  
-  .row {
+}
+
+.row {
     display: flex;
     justify-content: space-around;
-  }
+}
+
+.item {
+    max-width: 1200px;
+    margin: 0.5rem auto;
+}
