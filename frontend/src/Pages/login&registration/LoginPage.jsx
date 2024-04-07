@@ -4,10 +4,14 @@ import "./LoginPage.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { updateUserData, getUserData } from "../../store";
+import Alert from "../../Components/Alert";
 
 const LoginPage = () => {
     const user = getUserData();
     const [signIn, toggle] = React.useState(true);
+
+    const [showAlert, setShowAlert] = useState("");
+    
 
     // Form fields state
     const [name, setName] = useState("");
@@ -144,7 +148,11 @@ const LoginPage = () => {
                 credentials: "include",
             });
             const response = await result.json();
-            alert(response.message);
+
+            // alert(response.message);
+
+            setShowAlert(response.message);
+            
             updateUserData(response.userData);
             if (response.message === "Login successful") {
                 navigate("/");
@@ -156,6 +164,13 @@ const LoginPage = () => {
 
     return (
         <div className="outerContainer">
+            
+            <div className="my-3">
+                
+                { showAlert && <Alert message={ "Welcome, Login Successfull." } /> }
+
+            </div>
+
             {!user.isAuthenticated && (
                 <Components.Container>
                     <Components.SignUpContainer signinIn={signIn}>
