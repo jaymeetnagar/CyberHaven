@@ -13,6 +13,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./ProductsTable.css";
+import { Link } from "react-router-dom";
 
 const ProductsTable = () => {
     const [products, setProducts] = useState([]);
@@ -106,13 +107,15 @@ const ProductsTable = () => {
                                     <span className="badge bg-info text-body">{product.category}</span>
                                 </Cell>
                                 <Cell>
-                                    <IconButton
+                                    <Link to={`/admin/edit-product/${product._id}`}>
+                                    <IconButton 
                                         color="primary"
                                         aria-label="edit"
                                     >
                                         <EditIcon />
                                         
                                     </IconButton>
+                                    </Link>
                                     
                                     <IconButton onClick={() => { handleDelete(product._id); }}
                                         color="error"

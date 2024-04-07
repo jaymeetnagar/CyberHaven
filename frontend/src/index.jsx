@@ -17,6 +17,7 @@ import ProductCategoryPage from './Pages/ProductCategoryPage';
 import ProductDetailPage from './Components/ProductDetailPage';
 import CartPage from './Pages/CartPage';
 import CheckoutPage from './Pages/CheckoutPage';
+import ProductEditPage from './Components/ProductEditPage';
 
 const ProtectedRoute = ({ children }) => {
 
@@ -82,8 +83,19 @@ const App = () => {
                 <Route path='/checkout' element={<Wrapper><CheckoutPage /></Wrapper>} />
 
 
+                {/* admin product page route */}
                 <Route path="/admin" element={
+                    <ProtectedRoute>
                         <AdminPage />
+                    </ProtectedRoute>
+                } />
+
+                
+                {/* admin product edit page route */}
+                <Route path="/admin/edit-product/:productId" element={
+                    <ProtectedRoute>
+                        <ProductEditPage />
+                    </ProtectedRoute>
                 } />
 
             </Routes>)}
