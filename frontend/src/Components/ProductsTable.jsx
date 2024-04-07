@@ -20,6 +20,11 @@ const ProductsTable = () => {
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
     useEffect(() => {
+        getProducts();
+    }, []);
+
+    const getProducts = () => {
+
         fetch("http://localhost:3001/product/all", {
             method: "GET",
             headers: {
@@ -29,13 +34,22 @@ const ProductsTable = () => {
         })
             .then((response) => response.json())
             .then((result) => setProducts(result.data));
-    }, []);
+
+    }
+
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
     const handleDelete = (id) => {
+
+
+        // confirm delete or exit
+        if (window.confirm("Please Confirm Delete?") == false) {
+            return;
+        }
+        
         fetch(`http://localhost:3001/product/${id}`, {
             method: "DELETE",
             headers: {
@@ -43,11 +57,15 @@ const ProductsTable = () => {
             },
             credentials: "include",
         })
-            .then((response) => response.json())
-            .then((result) => {
-                alert("successfully deleted");
-                setProducts(products.filter((product) => product._id !== id));
-            });
+        .then((response) => response.json())
+        .then((result) => {
+
+            alert("Product Deleted Successfully");
+
+
+        });
+
+
     };
 
     const handleChangeRowsPerPage = (event) => {
@@ -57,12 +75,14 @@ const ProductsTable = () => {
 
     return (
         <Container className="table-container" component={Paper}>
-            <Table>
+            <Table class="table table-striped">
                 <Head>
                     <Row>
-                        <Cell>No</Cell>
+                        <Cell>Sr.No</Cell>
+                        <Cell>Image</Cell>
                         <Cell>Name</Cell>
                         <Cell>Price</Cell>
+                        <Cell>Category</Cell>
                         <Cell></Cell>
                     </Row>
                 </Head>
@@ -77,22 +97,28 @@ const ProductsTable = () => {
                         ).map((product, index) => (
                             <Row key={product._id}>
                                 <Cell>{index + 1}</Cell>
+                                <Cell>
+                                    <img src={product.imageURL} alt={product.title} style={{ width: 100 }} />
+                                </Cell>
                                 <Cell>{product.title}</Cell>
-                                <Cell>${product.price}</Cell>
+                                <Cell><strong>$</strong>{product.price}</Cell>
+                                <Cell>
+                                    <span className="badge bg-info text-body">{product.category}</span>
+                                </Cell>
                                 <Cell>
                                     <IconButton
                                         color="primary"
                                         aria-label="edit"
                                     >
                                         <EditIcon />
+                                        
                                     </IconButton>
-                                    <IconButton
-                                        onClick={() => {
-                                            handleDelete(product._id);
-                                        }}
-                                        color="secondary"
+                                    
+                                    <IconButton onClick={() => { handleDelete(product._id); }}
+                                        color="error"
                                         aria-label="delete"
                                     >
+                                        
                                         <DeleteIcon />
                                     </IconButton>
                                 </Cell>

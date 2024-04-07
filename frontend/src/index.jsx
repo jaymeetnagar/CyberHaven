@@ -81,11 +81,11 @@ const App = () => {
                 {/* checkout page route */}
                 <Route path='/checkout' element={<Wrapper><CheckoutPage /></Wrapper>} />
 
+
                 <Route path="/admin" element={
-                    <ProtectedRoute>
                         <AdminPage />
-                    </ProtectedRoute>
                 } />
+
             </Routes>)}
             {/* <FooterComponent /> */}
         </BrowserRouter>
