@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { getUserData } from "../store.js";
+import { Link } from "react-router-dom";
 
 const CartPage = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -115,6 +116,17 @@ const CartPage = () => {
                         ))}
                 </tbody>
             </table>
+
+
+           { 
+                cartItems.length > 0 
+                && 
+                <div className="text-end">
+                <Link className="btn btn-info" to="/checkout">Checkout</Link>
+                </div>
+            }
+
+
         </div>
     );
 };

@@ -16,6 +16,7 @@ import { useState, useEffect } from 'react';
 import ProductCategoryPage from './Pages/ProductCategoryPage';
 import ProductDetailPage from './Components/ProductDetailPage';
 import CartPage from './Pages/CartPage';
+import CheckoutPage from './Pages/CheckoutPage';
 
 const ProtectedRoute = ({ children }) => {
 
@@ -75,6 +76,10 @@ const App = () => {
 
                 {/* cart page route */}
                 <Route path='/cart' element={<Wrapper><CartPage /></Wrapper>} />
+
+                
+                {/* checkout page route */}
+                <Route path='/checkout' element={<Wrapper><CheckoutPage /></Wrapper>} />
 
                 <Route path="/admin" element={
                     <ProtectedRoute>
