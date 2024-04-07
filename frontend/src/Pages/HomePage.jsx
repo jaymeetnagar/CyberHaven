@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "../Components/ProductCard";
 import { getUserData } from "../store";
+import Alert from "../Components/Alert";
 
 export default function HomePage() {
     const [products, setProducts] = useState([]);
+
+    const [showAlert, setShowAlert] = useState(false);
     const user = getUserData();
 
+    
     useEffect(() => {
         fetchProducts();
     }, []);
@@ -38,7 +42,11 @@ export default function HomePage() {
             });
             const response = await result.json();
             if (response.message === "Cart Updated.") {
-                alert("Added to cart.");
+                
+                // success
+                setShowAlert(true);
+                
+
             }
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -60,6 +68,11 @@ export default function HomePage() {
 
     return (
         <div className="container">
+
+               
+            { showAlert && <Alert message={ "Product Added to Cart." } /> }
+
+
             {user.isAuthenticated && (
                 <h4 className="mb-4">Hello {user.name}</h4>
             )}
