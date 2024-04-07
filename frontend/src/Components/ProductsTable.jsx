@@ -14,11 +14,15 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./ProductsTable.css";
 import { Link } from "react-router-dom";
+import Alert from "./Alert";
 
 const ProductsTable = () => {
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+
+    const [showAlert, setShowAlert] = useState(false);
+
 
     useEffect(() => {
         getProducts();
@@ -44,12 +48,6 @@ const ProductsTable = () => {
     };
 
     const handleDelete = (id) => {
-
-
-        // confirm delete or exit
-        if (window.confirm("Please Confirm Delete?") == false) {
-            return;
-        }
         
         fetch(`http://localhost:3001/product/${id}`, {
             method: "DELETE",
@@ -61,8 +59,7 @@ const ProductsTable = () => {
         .then((response) => response.json())
         .then((result) => {
 
-            alert("Product Deleted Successfully");
-
+             setShowAlert(true);
 
         });
 
@@ -76,6 +73,14 @@ const ProductsTable = () => {
 
     return (
         <Container className="table-container" component={Paper}>
+
+           <div className="p-3">
+            
+           { showAlert && <Alert message={ "Product Deleted Successfully" } /> }
+
+           </div>
+
+
             <Table class="table table-striped">
                 <Head>
                     <Row>
