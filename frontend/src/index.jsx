@@ -67,7 +67,8 @@ const App = () => {
             {/* <NavbarComponent /> */}
             {isDataFetched && (<Routes>
                 <Route path='/' exact element={<Wrapper><HomePage /></Wrapper>} />
-                <Route path='/login' element={<LoginPage />} />
+
+                <Route path='/login' element={<Wrapper><LoginPage /></Wrapper>} />
                 <Route path='/auth/admin' element={<AdminLogin />} />
 
                 {/* products category page route */}

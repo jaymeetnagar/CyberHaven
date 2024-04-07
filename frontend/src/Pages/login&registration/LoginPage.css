@@ -7,7 +7,7 @@
   flex-direction: column;
   font-family: "Montserrat", sans-serif;
   height: 80vh;
-  /* margin: -20px 0 50px; */
+  margin-top: -50px;
 }
 .admin-login-link {
     font-size: 14px;

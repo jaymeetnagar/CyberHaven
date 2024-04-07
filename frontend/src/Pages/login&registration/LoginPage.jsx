@@ -231,7 +231,7 @@ const LoginPage = () => {
 
                     <Components.SignInContainer signinIn={signIn}>
                         <Components.Form onSubmit={handleSignIn}>
-                            <Components.Title>Sign in</Components.Title>
+                            <Components.Title className="mb-2">Sign in</Components.Title>
                             <Components.Input
                                 type="email"
                                 placeholder="Email"
@@ -263,7 +263,7 @@ const LoginPage = () => {
                                 Log In
                             </Components.Button>
                             <p className="admin-login-link">
-                                Are you an <a href="/auth/admin">Admin</a>?
+                                Are you an <a href="/auth/admin" className="text-muted">Admin</a>?
                             </p>
                         </Components.Form>
                     </Components.SignInContainer>
