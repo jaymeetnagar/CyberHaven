@@ -96,7 +96,7 @@ const CartPage = () => {
                         )}
                         {user.isAuthenticated &&
                             cartItems.map((item) => (
-                                <tr key={item._id}>
+                                <tr >
                                     <td>
                                         <img
                                             src={item.imageURL}
