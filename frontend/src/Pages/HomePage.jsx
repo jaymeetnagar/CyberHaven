@@ -74,11 +74,11 @@ export default function HomePage() {
 
 
             {user.isAuthenticated && (
-                <h4 className="mb-4">Hello {user.name}</h4>
+                <h3 className="mb-4">Hello {user.name}</h3>
             )}
             {/* Featured Products */}
             <section className="mb-4">
-                <h5 className="mb-4">Featured Products</h5>
+                <h4 className="mb-4">Featured Products</h4>
                 <div className="row">
                     {featuredProducts.length == 0 ? (
                         <p className="text-muted">
@@ -99,7 +99,7 @@ export default function HomePage() {
 
             {/* Product Deals */}
             <section className="mb-4">
-                <h5 className="mb-4">Product Deals</h5>
+                <h4 className="mb-4">Product Deals</h4>
 
                 <div className="row">
                     {productDeals.length == 0 ? (
@@ -121,7 +121,7 @@ export default function HomePage() {
 
             {/* All Products */}
             <section className="mb-4">
-                <h5 className="mb-4">All Products</h5>
+                <h4 className="mb-4">All Products</h4>
 
                 <div className="row">
                     {products.length == 0 ? (

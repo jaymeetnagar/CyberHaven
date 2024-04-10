@@ -51,7 +51,7 @@ const ProductDetailPage = () => {
 
             <div className='row'>
                 <div className='col-md-6 mb-3'>
-                    <img src={product.imageURL} className="card-img-top" alt={product.title} />
+                    <img src={product.imageURL} className="card-img-top shadow-sm border rounded" alt={product.title} />
                 </div>
                 <div className='col-md-6 mb-3 ps-md-4'>
                     <h3 className="mb-2">{product.title}</h3>
