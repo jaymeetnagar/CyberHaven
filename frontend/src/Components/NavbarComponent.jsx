@@ -13,7 +13,7 @@ const NavbarComponent = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-3 mb-4">
             <div className="container text-center text-lg-start">
-                <Link to="/" className="navbar-brand fs-4 fw-bold text-decoration-none">CYBER HAVEN</Link>
+                <Link to="/" className="navbar-brand fs-4 fw-bold mb-0 text-decoration-none">CYBER HAVEN</Link>
                 <button className="navbar-toggler border-0" type="button" onClick={toggleNav}>
                     <span className="navbar-toggler-icon"></span>
                 </button>
