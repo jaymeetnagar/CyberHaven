@@ -81,7 +81,7 @@ const ProductsTable = () => {
            </div>
 
 
-            <Table class="table table-striped">
+            <Table className="table table-striped">
                 <Head>
                     <Row>
                         <Cell>Sr.No</Cell>

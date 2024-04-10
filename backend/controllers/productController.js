@@ -78,11 +78,11 @@ const AddProduct = async (req, res) => {
     if (!req.user.isAdmin) {
         return res.status(401).send({ message: 'Unauthorized' });
     }
-    const newProduct = req.body;
+    const newProductData = req.body;
     try {
         const newProduct = new Product(newProductData);
         const savedProduct = await newProduct.save();
-        res.status(201).send({ data: savedProduct });
+        res.status(200).send({ data: savedProduct });
     } catch (error) {
         console.error(error);
         res.status(500).send({ message: 'Error adding new product.' });
