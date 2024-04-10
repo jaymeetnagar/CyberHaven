@@ -1,10 +1,10 @@
 // Profile.js
 import React, { useState } from 'react';
-
+import { getUserData } from "../store";
 function UserProfile() {
   const [userInfo, setUserInfo] = useState({
-    name: 'John Doe',
-    email: 'john@example.com',
+    name: 'Nishit Patel',
+    email: 'nicpal999@gmail.com',
     // Other user profile information
   });
 
