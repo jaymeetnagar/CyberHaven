@@ -1,0 +1,35 @@
+// Orders.js
+import React, { useState, useEffect } from 'react';
+
+function UserOrders() {
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    // Fetch user orders from backend API
+    // Example:
+    fetch('/api/orders')
+      .then(response => response.json())
+      .then(data => {
+        setOrders(data);
+      })
+      .catch(error => {
+        console.error('Error fetching orders:', error);
+      });
+  }, []);
+
+  return (
+    // <div className="orders">
+    //   <h3>Orders</h3>
+    //   <ul>
+    //     {orders.map(order => (
+    //       <li key={order.id}>
+        
+    //         Order ID: {order.id}, Total: ${order.total}
+    //       </li>
+    //     ))}
+    //   </ul>
+    // </div>
+  );
+}
+
+export default UserOrders;

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes, faUser, faSearch, faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes, faUser, faSearch, faCartShopping, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import './NavbarComponent.css';
 import { Link } from 'react-router-dom';
-
+import Dropdown from 'react-bootstrap/Dropdown';
 const NavbarComponent = () => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -14,7 +14,7 @@ const NavbarComponent = () => {
     const closeMenu = () => {
         setIsOpen(false);
     };
-
+    
     return (
         <div className="Navbar border-bottom mb-5">
             {/* Left link for large screens */}
@@ -46,12 +46,28 @@ const NavbarComponent = () => {
             {/* Icons */}
             <div className="menu-icons">
                 <FontAwesomeIcon icon={faSearch} className="btn" />
-                <Link to="/login" className="btn" onClick={closeMenu}>
-                    <FontAwesomeIcon icon={faUser} />
-                </Link>
-                <Link to="/cart" className="btn" onClick={closeMenu}>
-                    <FontAwesomeIcon icon={faCartShopping} />
-                </Link>
+                <Dropdown>
+                <Dropdown.Toggle style={{ background: 'transparent', border: 'none' }}>
+                <FontAwesomeIcon icon={faUser} />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                <Dropdown.Item >
+                    <Link to="/userdash" className="btn" onClick={closeMenu}>
+                        <FontAwesomeIcon icon={faUser} /> DashBoard                    
+                    </Link>
+                    </Dropdown.Item>
+                    <Dropdown.Item >
+                        <Link to="/login" className="btn" onClick={closeMenu}>
+                            <FontAwesomeIcon icon={faSignOut} /> Log Out
+                        </Link>
+                    </Dropdown.Item>
+                    <Dropdown.Item >
+                        <Link to="/cart" className="btn" onClick={closeMenu}>
+                            <FontAwesomeIcon icon={faCartShopping} /> Cart
+                        </Link>
+                    </Dropdown.Item>  
+                </Dropdown.Menu>
+                </Dropdown>
             </div>
         </div>
     );

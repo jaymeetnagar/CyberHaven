@@ -16,6 +16,7 @@ import { useState, useEffect } from 'react';
 import ProductCategoryPage from './Pages/ProductCategoryPage';
 import ProductDetailPage from './Components/ProductDetailPage';
 import CartPage from './Pages/CartPage';
+import UserDashboard from './Components/UserDashboard';
 
 const ProtectedRoute = ({ children }) => {
 
@@ -76,7 +77,7 @@ const App = () => {
 
                 {/* cart page route */}
                 <Route path='/cart' element={<Wrapper><CartPage /></Wrapper>} />
-
+                <Route path='/userdash' element={<Wrapper><UserDashboard /></Wrapper>} />
                 <Route path="/admin" element={
                     <ProtectedRoute>
                         <AdminPage />

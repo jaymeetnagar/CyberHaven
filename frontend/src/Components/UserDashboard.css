@@ -1,0 +1,77 @@
+/* Dashboard.css */
+.dashboard {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .dashboard h2 {
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 20px;
+  }
+  
+  .profile, .orders, .preferences {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .profile h3, .orders h3, .preferences h3 {
+    margin-top: 0;
+  }
+  
+  .profile form label, .preferences label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .profile form input[type="text"],
+  .profile form input[type="email"],
+  .preferences select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .profile form input[type="checkbox"] {
+    margin-top: 5px;
+  }
+  
+  .profile form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .profile form button:hover {
+    background-color: #45a049;
+  }
+  
+  .orders ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .orders li {
+    margin-bottom: 10px;
+  }
+  
+  .preferences select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
