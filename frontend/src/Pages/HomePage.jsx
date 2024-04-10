@@ -79,14 +79,14 @@ export default function HomePage() {
             {/* Featured Products */}
             <section className="mb-4">
                 <h5 className="mb-4">Featured Products</h5>
-                <div className="row justify-content-start">
-                    {featuredProducts.length === 0 ? (
+                <div className="row">
+                    {featuredProducts.length == 0 ? (
                         <p className="text-muted">
                             No featured products available.
                         </p>
                     ) : (
                         featuredProducts.map((product) => (
-                            <div className="col product-col" key={product._id}>
+                            <div className="col-md-6 col-lg-4" key={product._id}>
                                 <ProductCard
                                     onAddToCart={handleAddToCart}
                                     product={product}
@@ -101,14 +101,14 @@ export default function HomePage() {
             <section className="mb-4">
                 <h5 className="mb-4">Product Deals</h5>
 
-                <div className="row justify-content-start">
-                    {productDeals.length === 0 ? (
+                <div className="row">
+                    {productDeals.length == 0 ? (
                         <p className="text-muted">
                             No product deals available.
                         </p>
                     ) : (
                         productDeals.map((product) => (
-                            <div className="col product-col" key={product._id}>
+                            <div className="col-md-6 col-lg-4" key={product._id}>
                                 <ProductCard
                                     onAddToCart={handleAddToCart}
                                     product={product}
@@ -123,12 +123,12 @@ export default function HomePage() {
             <section className="mb-4">
                 <h5 className="mb-4">All Products</h5>
 
-                <div className="row justify-content-start">
-                    {products.length === 0 ? (
+                <div className="row">
+                    {products.length == 0 ? (
                         <p className="text-muted">No products available.</p>
                     ) : (
                         products.map((product) => (
-                            <div className="col product-col" key={product._id}>
+                            <div className="col-md-6 col-lg-4" key={product._id}>
                                 <ProductCard
                                     onAddToCart={handleAddToCart}
                                     product={product}
