@@ -19,6 +19,7 @@ import CartPage from './Pages/CartPage';
 import CheckoutPage from './Pages/CheckoutPage';
 import ProductEditPage from './Components/ProductEditPage';
 import ProductCreatePage from './Components/ProductCreatePage';
+import SearchPage from './Pages/SearchPage';
 
 const ProtectedRoute = ({ children }) => {
 
@@ -83,6 +84,9 @@ const App = () => {
                 
                 {/* checkout page route */}
                 <Route path='/checkout' element={<Wrapper><CheckoutPage /></Wrapper>} />
+
+                <Route path='/search' element={<Wrapper><SearchPage /></Wrapper>} />
+
 
 
                 {/* admin product page route */}

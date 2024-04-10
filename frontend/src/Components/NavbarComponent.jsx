@@ -43,7 +43,7 @@ const NavbarComponent = () => {
                     </ul>
                     <div className="d-flex justify-content-center">
                         
-                        <Link to='#' className="text-white btn">
+                        <Link to='/search' className="text-white btn">
                             <FontAwesomeIcon icon={faSearch} />
                         </Link>
 
