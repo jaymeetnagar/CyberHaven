@@ -163,7 +163,7 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="outerContainer">
+        <div className="outerContainer p-3">
             
             <div className="my-3">
                 
@@ -319,9 +319,14 @@ const LoginPage = () => {
                 </Components.Container>
             )}
             {user.isAuthenticated && (
-                <div>
-                    <h1>Hello {user.name}</h1>
-                    <button onClick={handleLogOut}>Log Out</button>
+                <div className="card text-center">
+                    <div className="card-header bg-dark text-white">
+                         LoggedIn User
+                    </div>
+                    <div className="card-body">
+                    <h5 className="mb-3">{user.name} - {user.email}</h5>
+                    <button className="btn btn-dark" onClick={handleLogOut}>Log Out</button>
+                </div>
                 </div>
             )}
         </div>
