@@ -25,14 +25,14 @@ const ProductCategoryPage = () => {
 
   return (
     <div className="container">
-      <h4 className="mb-4">Category: {category.charAt(0).toUpperCase() + category.slice(1)}</h4>
+      <h4 className="mb-4">{category.charAt(0).toUpperCase() + category.slice(1)}s</h4>
       <div className="row justify-content-start">
         {
           productsOfSelectedCategory.length === 0
             ? (<p className="text-muted">No products available of category {category}.</p>)
             : (productsOfSelectedCategory.map(product => (
 
-              <div className="col product-col">
+              <div className="col-md-6 col-lg-4">
                 <ProductCard key={product._id} product={product} />
               </div>
             )))
