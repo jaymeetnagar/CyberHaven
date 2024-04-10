@@ -1,44 +1,64 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faSearch, faCarAlt, faCartShopping } from '@fortawesome/free-solid-svg-icons';
-import './NavbarComponent.css';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const NavbarComponent = () => {
+    const [isNavOpen, setIsNavOpen] = useState(false);
 
+    const toggleNav = () => {
+        setIsNavOpen(!isNavOpen);
+    };
 
     return (
-        <div className="Navbar border-bottom mb-5">
-            
-            <Link to="/" className="fs-4 fw-bold text-decoration-none text-body">CYBERHAVEN</Link>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-3 mb-4">
+            <div className="container text-center text-lg-start">
+                <Link to="/" className="navbar-brand fs-4 fw-bold text-decoration-none">CYBER HAVEN</Link>
+                <button className="navbar-toggler border-0" type="button" onClick={toggleNav}>
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`}>
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-auto">
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/">Home</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/products/laptop">Laptop</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/products/headphone">Headphone</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/products/mouse">Mouse</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/products/desk">Desk</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/products/keyboard">Keyboard</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/products/monitor">Monitor</Link>
+                        </li>
+                    </ul>
+                    <div className="d-flex justify-content-center">
+                        
+                        <Link to='#' className="text-white btn">
+                            <FontAwesomeIcon icon={faSearch} />
+                        </Link>
 
-            {/* navbar links */}
-            <nav>
-
-                <Link className="text-body text-decoration-none" to="/">Home</Link>
-                <Link className="text-body text-decoration-none" to="/products/laptop">Laptop</Link>
-                <Link className="text-body text-decoration-none" to="/products/headphone">Headphone</Link>
-                <Link className="text-body text-decoration-none" to="/products/mouse">Mouse</Link>
-                <Link className="text-body text-decoration-none" to="/products/desk">Desk</Link>
-                <Link className="text-body text-decoration-none" to="/products/keyboard">Keyboard</Link>
-                <Link className="text-body text-decoration-none" to="/products/monitor">Monitor</Link>
-
-            </nav>
-
-            <div>
-                <FontAwesomeIcon icon={faSearch} className="btn" />
-                
-                <Link to="/login" className="btn">
-                  <FontAwesomeIcon icon={faUser} />
-                </Link>
-
-                <Link to="/cart" className="btn">
-                  <FontAwesomeIcon icon={faCartShopping} />
-                </Link>
-                
-
+                        <Link to="/login" className="btn text-white">
+                            <FontAwesomeIcon icon={faUser} />
+                        </Link>
+                        <Link to="/cart" className="btn text-white">
+                            <FontAwesomeIcon icon={faCartShopping} />
+                        </Link>
+                    </div>
+                </div>
             </div>
-        </div>
-    )
-}
+        </nav>
+    );
+};
+
 
 export default NavbarComponent
