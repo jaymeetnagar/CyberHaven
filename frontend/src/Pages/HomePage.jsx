@@ -74,7 +74,7 @@ export default function HomePage() {
 
 
             {user.isAuthenticated && (
-                <h3 className="mb-4">Hello {user.name}</h3>
+                <Alert message={ `Hello, ${user.name }` } />
             )}
             {/* Featured Products */}
             <section className="mb-4">
