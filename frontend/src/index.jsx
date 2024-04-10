@@ -16,6 +16,10 @@ import { useState, useEffect } from 'react';
 import ProductCategoryPage from './Pages/ProductCategoryPage';
 import ProductDetailPage from './Components/ProductDetailPage';
 import CartPage from './Pages/CartPage';
+import CheckoutPage from './Pages/CheckoutPage';
+import ProductEditPage from './Components/ProductEditPage';
+import ProductCreatePage from './Components/ProductCreatePage';
+import SearchPage from './Pages/SearchPage';
 
 const ProtectedRoute = ({ children }) => {
 
@@ -52,7 +56,6 @@ const App = () => {
                 credentials: "include",
             });
             const response = await result.json();
-            console.log(response);
             updateUserData(response);
             setIsDataFetched(true);
         } catch (error) {
@@ -65,7 +68,8 @@ const App = () => {
             {/* <NavbarComponent /> */}
             {isDataFetched && (<Routes>
                 <Route path='/' exact element={<Wrapper><HomePage /></Wrapper>} />
-                <Route path='/login' element={<LoginPage />} />
+
+                <Route path='/login' element={<Wrapper><LoginPage /></Wrapper>} />
                 <Route path='/auth/admin' element={<AdminLogin />} />
 
                 {/* products category page route */}
@@ -77,11 +81,37 @@ const App = () => {
                 {/* cart page route */}
                 <Route path='/cart' element={<Wrapper><CartPage /></Wrapper>} />
 
+                
+                {/* checkout page route */}
+                <Route path='/checkout' element={<Wrapper><CheckoutPage /></Wrapper>} />
+
+                <Route path='/search' element={<Wrapper><SearchPage /></Wrapper>} />
+
+
+
+                {/* admin product page route */}
                 <Route path="/admin" element={
                     <ProtectedRoute>
                         <AdminPage />
+                        </ProtectedRoute>
+                } />
+
+                
+                {/* admin product edit page route */}
+                <Route path="/admin/edit-product/:productId" element={
+                    <ProtectedRoute>
+                        <ProductEditPage />
+                    </ProtectedRoute>
+                  
+                } />
+
+                {/* admin product edit page route */}
+                <Route path="/admin/create-product" element={
+                    <ProtectedRoute>
+                        <ProductCreatePage />
                     </ProtectedRoute>
                 } />
+
             </Routes>)}
             {/* <FooterComponent /> */}
         </BrowserRouter>

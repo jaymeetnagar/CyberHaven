@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { getUserData } from "../store.js";
+import { Link } from "react-router-dom";
 
 const CartPage = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -15,7 +16,7 @@ const CartPage = () => {
 
     const getCartItmes = async () => {
         const items = await fetchCartItems();
-        const promises = Object.keys(items).map((key) => fetchProductByProductId(key));
+        const promises = items && Object.keys(items).map((key) => fetchProductByProductId(key));
         const products = await Promise.all(promises);
         products.forEach((product) => { product.quantity = items[product._id] });
         setCartItems(products);
@@ -29,7 +30,7 @@ const CartPage = () => {
                     "Content-Type": "application/json",
                 },
                 credentials: "include",
-                body: JSON.stringify({ product_id: productId, quantity: -cartQuantity })
+                body: JSON.stringify({ productId: productId, quantity: -cartQuantity })
             });
             const response = await result.json();
             if (response.message === "Cart Updated.") {
@@ -74,8 +75,9 @@ const CartPage = () => {
 
     return (
         <div className="container cart-page">
-            <h3>Cart</h3>
-            <table className="table table-striped">
+        <h3>Cart</h3>
+        {user.isAuthenticated && cartItems.length > 0 ? (
+            <table className="table table-striped border">
                 <thead>
                     <tr>
                         <th>Image</th>
@@ -87,35 +89,38 @@ const CartPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {!user.isAuthenticated && (
-                        <tr>
-                            <td colSpan="6">Please login to view cart items</td>
+                    {cartItems.map((item) => (
+                        <tr key={item._id}>
+                            <td>
+                                <img
+                                    src={item.imageURL}
+                                    alt={item.name}
+                                    style={{ width: "100px", height: "100px", objectFit: "cover" }}
+                                />
+                            </td>
+                            <td>{item.title}</td>
+                            <td>${item.price.toFixed(2)}</td>
+                            <td>{item.quantity}</td>
+                            <td>${(item.price * item.quantity).toFixed(2)}</td>
+                            <td>
+                                <button onClick={() => handleDelete(item._id, item.quantity)} className="btn btn-danger">
+                                    <FontAwesomeIcon icon={faTrashAlt} />
+                                </button>
+                            </td>
                         </tr>
-                    )}
-                    {user.isAuthenticated &&
-                        cartItems.map((item) => (
-                            <tr key={item._id}>
-                                <td>
-                                    <img
-                                        src={item.imageURL}
-                                        alt={item.name}
-                                        style={{ width: "100px", height: "100px", objectFit: "cover" }}
-                                    />
-                                </td>
-                                <td>{item.title}</td>
-                                <td>${item.price.toFixed(2)}</td>
-                                <td>{item.quantity}</td>
-                                <td>${item.price.toFixed(2) * item.quantity}</td>
-                                <td>
-                                    <button onClick={()=>handleDelete(item._id, item.quantity)} className="btn btn-danger">
-                                        <FontAwesomeIcon icon={faTrashAlt} />
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
+                    ))}
                 </tbody>
             </table>
-        </div>
+        ) : (
+            <p>{user.isAuthenticated ? "Your cart is empty" : "Please login to view cart items"}</p>
+        )}
+        {cartItems.length > 0 && (
+            <div className="text-end">
+                <Link className="btn btn-info" to="/checkout">Checkout</Link>
+            </div>
+        )}
+    </div>
+    
     );
 };
 

@@ -4,10 +4,14 @@ import "./LoginPage.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { updateUserData, getUserData } from "../../store";
+import Alert from "../../Components/Alert";
 
 const LoginPage = () => {
     const user = getUserData();
     const [signIn, toggle] = React.useState(true);
+
+    const [showAlert, setShowAlert] = useState("");
+    
 
     // Form fields state
     const [name, setName] = useState("");
@@ -53,6 +57,7 @@ const LoginPage = () => {
                 email: "",
                 userId: "",
             });
+            navigate("/");
         } catch (error) {
             console.error(error);
         }
@@ -98,11 +103,7 @@ const LoginPage = () => {
             const response = await axios.post(
                 "http://localhost:3001/customer",
                 {
-                    name,
-                    email,
-                    password,
-                    phoneNumber,
-                    address,
+                    newUser: { name, email, password, phoneNumber, address },
                 }
             );
             alert(response.data.message);
@@ -147,7 +148,11 @@ const LoginPage = () => {
                 credentials: "include",
             });
             const response = await result.json();
-            alert(response.message);
+
+            // alert(response.message);
+
+            setShowAlert(response.message);
+            
             updateUserData(response.userData);
             if (response.message === "Login successful") {
                 navigate("/");
@@ -158,7 +163,14 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="outerContainer">
+        <div className="outerContainer p-3">
+            
+            <div className="my-3">
+                
+                { showAlert && <Alert message={ "Welcome, Login Successfull." } /> }
+
+            </div>
+
             {!user.isAuthenticated && (
                 <Components.Container>
                     <Components.SignUpContainer signinIn={signIn}>
@@ -234,7 +246,7 @@ const LoginPage = () => {
 
                     <Components.SignInContainer signinIn={signIn}>
                         <Components.Form onSubmit={handleSignIn}>
-                            <Components.Title>Sign in</Components.Title>
+                            <Components.Title className="mb-2">Sign in</Components.Title>
                             <Components.Input
                                 type="email"
                                 placeholder="Email"
@@ -265,6 +277,9 @@ const LoginPage = () => {
                             <Components.Button type="submit">
                                 Log In
                             </Components.Button>
+                            <p className="admin-login-link">
+                                Are you an <a href="/auth/admin" className="text-muted">Admin</a>?
+                            </p>
                         </Components.Form>
                     </Components.SignInContainer>
 
@@ -304,9 +319,14 @@ const LoginPage = () => {
                 </Components.Container>
             )}
             {user.isAuthenticated && (
-                <div>
-                    <h1>Hello {user.name}</h1>
-                    <button onClick={handleLogOut}>Log Out</button>
+                <div className="card text-center">
+                    <div className="card-header bg-dark text-white">
+                         LoggedIn User
+                    </div>
+                    <div className="card-body">
+                    <h5 className="mb-3">{user.name} - {user.email}</h5>
+                    <button className="btn btn-dark" onClick={handleLogOut}>Log Out</button>
+                </div>
                 </div>
             )}
         </div>
