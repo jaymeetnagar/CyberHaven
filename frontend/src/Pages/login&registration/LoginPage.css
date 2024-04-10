@@ -1,9 +1,7 @@
 .outerContainer {
   background-image: url("../../Assests/images/bg.jpeg");
-  background-size:cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;  
-  display:flex;
+  background-size: cover;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;

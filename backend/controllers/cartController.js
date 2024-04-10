@@ -18,11 +18,8 @@ const getCart = async (req, res) => {
 // quantity is the number that is added to or removed from the cart
 const updateCart = async (req, res) => {
     try {
-        if (req.user.id != req.body.user_id) {
-            return res.status(401).send({ message: 'Unauthorized' });
-        }
-
-        const { user_id, product_id, quantity = 1 } = req.body;
+        const { product_id, quantity = 1 } = req.body;
+        const user_id = req.user.id;
         const cart = await Cart.findOne({ userId: user_id });
         if (!cart) {
             if (quantity < 0) {
