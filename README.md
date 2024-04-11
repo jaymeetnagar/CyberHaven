@@ -14,7 +14,7 @@ https://www.figma.com/file/zJF6mBnLckuvN0m0Ni5JY9/Untitled?type=design&node-id=0
 
 <details>
 
-  <summary>Admin APIs</summary>
+  <summary>Admin APIs<hr></summary>
   
   <details>
     <summary>Create a New Admin</summary>
@@ -52,9 +52,10 @@ https://www.figma.com/file/zJF6mBnLckuvN0m0Ni5JY9/Untitled?type=design&node-id=0
     }
     </pre>
   </details>
+  <hr>
 </details>
 <details>
-  <summary>Authentication APIs</summary>
+  <summary>Authentication APIs<hr></summary>
   
   <details>
     <summary>Admin Login</summary>
@@ -137,9 +138,10 @@ https://www.figma.com/file/zJF6mBnLckuvN0m0Ni5JY9/Untitled?type=design&node-id=0
     "message": "Logged out"
 }</pre>
   </details>
+  <hr>
 </details>
 <details>
-  <summary>Cart APIs</summary>
+  <summary>Cart APIs<hr></summary>
   
   <details>
     <summary>Get Cart</summary>
@@ -179,9 +181,10 @@ https://www.figma.com/file/zJF6mBnLckuvN0m0Ni5JY9/Untitled?type=design&node-id=0
     "message": "Cart Updated."
 }</pre>
   </details>
+  <hr>
 </details>
 <details>
-  <summary>Customer APIs</summary>
+  <summary>Customer APIs<hr></summary>
   
   <details>
     <summary>Delete Customer</summary>
@@ -278,9 +281,10 @@ https://www.figma.com/file/zJF6mBnLckuvN0m0Ni5JY9/Untitled?type=design&node-id=0
     "message": "Signup successful"
 }</pre>
   </details>
+  <hr>
 </details>
 <details>
-  <summary>Product APIs</summary>
+  <summary>Product APIs<hr></summary>
   
   <details>
     <summary>Get All Products</summary>
@@ -393,6 +397,7 @@ https://www.figma.com/file/zJF6mBnLckuvN0m0Ni5JY9/Untitled?type=design&node-id=0
     }
 }</pre>
   </details>
+  <hr>
 </details>
 
 ### Note:
