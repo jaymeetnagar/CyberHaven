@@ -12,191 +12,389 @@ https://www.figma.com/file/zJF6mBnLckuvN0m0Ni5JY9/Untitled?type=design&node-id=0
 
 ---
 
-#### Get All Admin
-- **URL:** `/all-admin`
-- **Method:** `GET`
-- **Description:** Retrieves all admin records from the database.
-- **Response:**
-  - `200 OK`: Returns an array of admin records.
-  - `500 Internal Server Error`: Indicates an error while retrieving data from the database.
+<details>
 
----
+  <summary>Admin APIs</summary>
+  
+  <details>
+    <summary>Create a New Admin</summary>
+    <p>This API creates a new admin.</p>
+    <p><strong>Method:</strong> POST</p>
+    <p><strong>Endpoint:</strong> /admin</p>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "message": "Admin Created."
+}</pre>
+  </details>
 
-#### Create Admin
-- **URL:** `/admin`
-- **Method:** `POST`
-- **Description:** Creates a new admin record in the database.
-- **Response:**
-  - `200 OK`: Indicates successful creation of the admin record.
-  - `500 Internal Server Error`: Indicates an error while creating the admin record.
+  <details>
+    <summary>Get All Admins</summary>
+    <p>This API retrieves all admins.</p>
+    <p><strong>Method:</strong> GET</p>
+    <p><strong>Endpoint:</strong> /admin/all</p>
+    <p><strong>Headers:</strong></p>
+    <ul>
+      <li><code>Authorization</code> (string): Token for admin authentication.</li>
+    </ul>
+    <p><strong>Response:</strong></p>
+    <pre>
+    {
+      "data": [
+        {
+          "_id": "607a12c115d47a0017d83262",
+          "name": "admin1",
+          "password": "admin123",
+          "email": "admin@example.com",
+          "__v": 0
+        },
+        ...
+      ]
+    }
+    </pre>
+  </details>
+</details>
+<details>
+  <summary>Authentication APIs</summary>
+  
+  <details>
+    <summary>Admin Login</summary>
+    <p>This API allows admin users to log in.</p>
+    <p><strong>Method:</strong> POST</p>
+    <p><strong>Endpoint:</strong> /auth/admin</p>
+    <p><strong>Body Parameters:</strong></p>
+    <ul>
+      <li><code>email</code> (string): The email of the admin.</li>
+      <li><code>password</code> (string): The password of the admin.</li>
+    </ul>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "message": "Login successful",
+    "userData": {
+        "isAuthenticated": true,
+        "user": {
+            "isAdmin": true,
+            "name": "John Doe",
+            "email": "admin@example.com",
+            "userId": "607a12c115d47a0017d83262"
+        }
+    }
+}</pre>
+  </details>
 
----
+  <details>
+    <summary>Customer Login</summary>
+    <p>This API allows customer users to log in.</p>
+    <p><strong>Method:</strong> POST</p>
+    <p><strong>Endpoint:</strong> /auth/customer</p>
+    <p><strong>Body Parameters:</strong></p>
+    <ul>
+      <li><code>email</code> (string): The email of the customer.</li>
+      <li><code>password</code> (string): The password of the customer.</li>
+    </ul>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "message": "Login successful",
+    "userData": {
+        "isAuthenticated": true,
+        "user": {
+            "isAdmin": false,
+            "name": "Jane Doe",
+            "email": "customer@example.com",
+            "userId": "607a12c115d47a0017d83263"
+        }
+    }
+}</pre>
+  </details>
 
-#### Get All Customers
-- **URL:** `/customer/all`
-- **Method:** `GET`
-- **Description:** Retrieves all customer records from the database.
-- **Headers:** `Authorization` (JWT Token)
-- **Response:**
-  - `200 OK`: Returns an array of customer records.
-  - `401 Unauthorized`: Indicates unauthorized access.
-  - `500 Internal Server Error`: Indicates an error while retrieving data from the database.
+  <details>
+    <summary>Get Session Status</summary>
+    <p>This API checks the session status of the user.</p>
+    <p><strong>Method:</strong> GET</p>
+    <p><strong>Endpoint:</strong> /auth/session-status</p>
+    <p><strong>Headers:</strong></p>
+    <ul>
+      <li><code>Authorization</code> (string): Token for user authentication.</li>
+    </ul>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "isAuthenticated": true,
+    "user": {
+        "isAdmin": true,
+        "name": "John Doe",
+        "email": "admin@example.com",
+        "userId": "607a12c115d47a0017d83262"
+    }
+}</pre>
+  </details>
 
----
+  <details>
+    <summary>Logout</summary>
+    <p>This API allows the user to log out.</p>
+    <p><strong>Method:</strong> GET</p>
+    <p><strong>Endpoint:</strong> /auth/logout</p>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "message": "Logged out"
+}</pre>
+  </details>
+</details>
+<details>
+  <summary>Cart APIs</summary>
+  
+  <details>
+    <summary>Get Cart</summary>
+    <p>This API retrieves the cart of the user.</p>
+    <p><strong>Method:</strong> GET</p>
+    <p><strong>Endpoint:</strong> /cart</p>
+    <p><strong>Headers:</strong></p>
+    <ul>
+      <li><code>Authorization</code> (string): Token for user authentication.</li>
+    </ul>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "data": {
+        "_id": "607a12c115d47a0017d83262",
+        "userId": "607a12c115d47a0017d83262",
+        "items": {
+            "productId1": 2,
+            "productId2": 1
+        },
+        "__v": 0
+    }
+}</pre>
+  </details>
 
-#### Create Customer
-- **URL:** `/create-customer`
-- **Method:** `POST`
-- **Description:** Creates a new customer record in the database.
-- **Request Body:** JSON object containing customer details (name, email, password, phoneNumber, address).
-- **Response:**
-  - `200 OK`: Indicates successful creation of the customer record.
-  - `400 Bad Request`: Indicates invalid request parameters.
-  - `500 Internal Server Error`: Indicates an error while creating the customer record.
+  <details>
+    <summary>Update Cart</summary>
+    <p>This API updates the quantity of a product in the cart.</p>
+    <p><strong>Method:</strong> POST</p>
+    <p><strong>Endpoint:</strong> /cart</p>
+    <p><strong>Body Parameters:</strong></p>
+    <ul>
+      <li><code>productId</code> (string): The ID of the product.</li>
+      <li><code>quantity</code> (number, optional): The quantity to be added or removed. Defaults to 1.</li>
+    </ul>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "message": "Cart Updated."
+}</pre>
+  </details>
+</details>
+<details>
+  <summary>Customer APIs</summary>
+  
+  <details>
+    <summary>Delete Customer</summary>
+    <p>This API deletes a customer and is accessible only to admins and the user.</p>
+    <p><strong>Method:</strong> DELETE</p>
+    <p><strong>Endpoint:</strong> /customer</p>
+    <p><strong>Headers:</strong></p>
+    <ul>
+      <li><code>Authorization</code> (string): Token for user authentication.</li>
+    </ul>
+    <p><strong>Body Parameters:</strong></p>
+    <ul>
+      <li><code>userId</code> (string): The ID of the customer to be deleted.</li>
+    </ul>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "message": "Customer deleted."
+}</pre>
+  </details>
 
----
+  <details>
+    <summary>Update Customer</summary>
+    <p>This API updates customer details and is accessible only to admins and the user.</p>
+    <p><strong>Method:</strong> PUT</p>
+    <p><strong>Endpoint:</strong> /customer</p>
+    <p><strong>Headers:</strong></p>
+    <ul>
+      <li><code>Authorization</code> (string): Token for user authentication.</li>
+    </ul>
+    <p><strong>Body Parameters:</strong></p>
+    <ul>
+      <li><code>userId</code> (string): The ID of the customer to be updated.</li>
+      <li><code>newUser</code> (object): The new details of the customer.</li>
+      <li><pre>newUser:{
+    name: string (optional)
+    email: string (optional)
+    password: string (optional)
+    phoneNumber: string (optional)
+    address: string (optional)
+}
+</pre></li>
+    </ul>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "message": "Customer updated."
+}</pre>
+  </details>
 
-#### Admin Login
-- **URL:** `/auth/admin`
-- **Method:** `POST`
-- **Description:** Generates a JWT token for admin authentication.
-- **Request Body:** JSON object containing admin email and password.
-- **Response:**
-  - `200 OK`: Returns a JWT token upon successful login.
-  - `401 Unauthorized`: Indicates invalid credentials.
-  - `500 Internal Server Error`: Indicates an error during authentication.
+  <details>
+    <summary>Get All Customers</summary>
+    <p>This API retrieves all customers and is accessible only to admins.</p>
+    <p><strong>Method:</strong> GET</p>
+    <p><strong>Endpoint:</strong> /customer/all</p>
+    <p><strong>Headers:</strong></p>
+    <ul>
+      <li><code>Authorization</code> (string): Token for admin authentication.</li>
+    </ul>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "data": [
+        {
+            "_id": "607a12c115d47a0017d83262",
+            "name": "customer1",
+            "email": "customer1@example.com",
+            "password": "hashedPassword",
+            "phoneNumber": "1234567890",
+            "address": "123 Main St",
+            "__v": 0
+        },
+        ...
+    ]
+}</pre>
+  </details>
 
----
+  <details>
+    <summary>Create Customer</summary>
+    <p>This API creates a new customer.</p>
+    <p><strong>Method:</strong> POST</p>
+    <p><strong>Endpoint:</strong> /customer</p>
+    <p><strong>Body Parameters:</strong></p>
+    <ul>
+      <li><code>newUser</code> (object): The details of the new customer.</li>
+      <li><pre>newUser:{
+    name: string
+    email: string
+    password: string
+    phoneNumber: string (optional)
+    address: string (optional)
+}
+</pre></li>
+    </ul>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "message": "Signup successful"
+}</pre>
+  </details>
+</details>
+<details>
+  <summary>Product APIs</summary>
+  
+  <details>
+    <summary>Get All Products</summary>
+    <p>This API retrieves all products.</p>
+    <p><strong>Method:</strong> GET</p>
+    <p><strong>Endpoint:</strong> /product/all</p>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "data": [
+        {
+            "_id": "607a12c115d47a0017d83262",
+            "title": "Product 1",
+            "description": "Description of product 1",
+            "price": 10.99,
+            "imageURL": "https://example.com/product1.jpg",
+            "type": "type1",
+            "category": "category1",
+            "deal": "deal1",
+            "dealPrice": 9.99,
+            "__v": 0
+        },
+        ...
+    ]
+}</pre>
+  </details>
 
-#### Customer Login
-- **URL:** `/auth/customer`
-- **Method:** `POST`
-- **Description:** Generates a JWT token for customer authentication.
-- **Request Body:** JSON object containing customer email and password.
-- **Response:**
-  - `200 OK`: Returns a JWT token upon successful login.
-  - `401 Unauthorized`: Indicates invalid credentials.
-  - `500 Internal Server Error`: Indicates an error during authentication.
+  <details>
+    <summary>Get Product by ID</summary>
+    <p>This API retrieves a product by its ID.</p>
+    <p><strong>Method:</strong> GET</p>
+    <p><strong>Endpoint:</strong> /product/:productId</p>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "data": {
+        "_id": "607a12c115d47a0017d83262",
+        "title": "Product 1",
+        "description": "Description of product 1",
+        "price": 10.99,
+        "imageURL": "https://example.com/product1.jpg",
+        "type": "type1",
+        "category": "category1",
+        "deal": "deal1",
+        "dealPrice": 9.99,
+        "__v": 0
+    }
+}</pre>
+  </details>
 
----
+  <details>
+    <summary>Update Product</summary>
+    <p>This API updates a product.</p>
+    <p><strong>Method:</strong> PUT</p>
+    <p><strong>Endpoint:</strong> /product</p>
+    <p><strong>Headers:</strong></p>
+    <ul>
+      <li><code>Authorization</code> (string): Token for user authentication.</li>
+    </ul>
+    <p><strong>Body Parameters:</strong></p>
+    <ul>
+      <li><code>newProduct</code> (object): The new details of the product.</li>
+    </ul>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "data": {
+        "_id": "607a12c115d47a0017d83262",
+        "title": "Updated Product 1",
+        ...
+    }
+}</pre>
+  </details>
 
-#### Delete Customer
-- **URL:** `/customer`
-- **Method:** `DELETE`
-- **Description:** Deletes a customer record from the database.
-- **Headers:** `Authorization` (JWT Token)
-- **Request Body:** JSON object containing customer email.
-- **Response:**
-  - `200 OK`: Indicates successful deletion of the customer record.
-  - `401 Unauthorized`: Indicates unauthorized access.
-  - `500 Internal Server Error`: Indicates an error while deleting the customer record.
+  <details>
+    <summary>Add Product</summary>
+    <p>This API adds a new product.</p>
+    <p><strong>Method:</strong> POST</p>
+    <p><strong>Endpoint:</strong> /product</p>
+    <p><strong>Headers:</strong></p>
+    <ul>
+      <li><code>Authorization</code> (string): Token for user authentication.</li>
+    </ul>
+    <p><strong>Body Parameters:</strong></p>
+    <ul>
+      <li><code>newProduct</code> (object): The details of the new product.</li>
+    </ul>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "data": {
+        "_id": "607a12c115d47a0017d83262",
+        "title": "New Product",
+        ...
+    }
+}</pre>
+  </details>
 
----
-
-#### Update Customer
-- **URL:** `/customer`
-- **Method:** `PUT`
-- **Description:** Updates a customer record in the database.
-- **Headers:** `Authorization` (JWT Token)
-- **Request Body:** JSON object containing customer email and updated user details.
-- **Response:**
-  - `200 OK`: Indicates successful update of the customer record.
-  - `401 Unauthorized`: Indicates unauthorized access.
-  - `500 Internal Server Error`: Indicates an error while updating the customer record.
-
----
-
-#### Add Product to Cart
-- **URL:** `/cart`
-- **Method:** `PUT`
-- **Description:** Adds a product to the user's cart.
-- **Headers:** `Authorization` (JWT Token)
-- **Request Body:** JSON object containing user_id, product_id, and optional quantity.
-- **Response:**
-  - `200 OK`: Indicates successful addition of the product to the cart.
-  - `401 Unauthorized`: Indicates unauthorized access.
-  - `500 Internal Server Error`: Indicates an error while adding the product to the cart.
-
----
-
-#### Get All Products
-- **URL:** `/product/all`
-- **Method:** `GET`
-- **Description:** Retrieves all product records from the database.
-- **Response:**
-  - `200 OK`: Returns an array of product records.
-  - `500 Internal Server Error`: Indicates an error while retrieving data from the database.
-
----
-
-#### Protected Route
-- **URL:** `/protected`
-- **Method:** `GET`
-- **Description:** Returns user information for authenticated users.
-- **Headers:** `Authorization` (JWT Token)
-- **Response:**
-  - `200 OK`: Returns user information.
-  - `401 Unauthorized`: Indicates unauthorized access.
-  - `500 Internal Server Error`: Indicates an error while processing the request.
-
----
-
-### Get Product by ID
-- **URL:** `/product/:id`
-- **Method:** `GET`
-- **Description:** Retrieves a product record from the database by its ID.
-- **Parameters:**
-  - `id` (URL parameter): The unique identifier of the product.
-- **Headers:** `Authorization` (JWT Token)
-- **Response:**
-  - `200 OK`: Returns the product data.
-  - `404 Not Found`: Indicates that the product with the specified ID was not found.
-  - `500 Internal Server Error`: Indicates an error while fetching the product from the database.
-
----
-
-### Update Product
-- **URL:** `/product/:id`
-- **Method:** `PUT`
-- **Description:** Updates a product record in the database.
-- **Parameters:**
-  - `id` (URL parameter): The unique identifier of the product to be updated.
-- **Headers:** `Authorization` (JWT Token)
-- **Request Body:** JSON object containing the fields to be updated.
-- **Response:**
-  - `200 OK`: Returns the updated product data.
-  - `401 Unauthorized`: Indicates unauthorized access.
-  - `500 Internal Server Error`: Indicates an error while updating the product.
-
----
-
-### Add New Product
-- **URL:** `/product`
-- **Method:** `POST`
-- **Description:** Adds a new product record to the database.
-- **Headers:** `Authorization` (JWT Token)
-- **Request Body:** JSON object containing the details of the new product.
-- **Response:**
-  - `201 Created`: Returns the newly created product data.
-  - `401 Unauthorized`: Indicates unauthorized access.
-  - `500 Internal Server Error`: Indicates an error while adding the new product.
-
----
-
-### Delete Product
-- **URL:** `/product/:id`
-- **Method:** `DELETE`
-- **Description:** Deletes a product record from the database.
-- **Parameters:**
-  - `id` (URL parameter): The unique identifier of the product to be deleted.
-- **Headers:** `Authorization` (JWT Token)
-- **Response:**
-  - `200 OK`: Returns the deleted product data.
-  - `401 Unauthorized`: Indicates unauthorized access.
-  - `500 Internal Server Error`: Indicates an error while deleting the product.
-
+  <details>
+    <summary>Delete Product</summary>
+    <p>This API deletes a product.</p>
+    <p><strong>Method:</strong> DELETE</p>
+    <p><strong>Endpoint:</strong> /product/:productId</p>
+    <p><strong>Headers:</strong></p>
+    <ul>
+      <li><code>Authorization</code> (string): Token for user authentication.</li>
+    </ul>
+    <p><strong>Response:</strong></p>
+    <pre>{
+    "data": {
+        "_id": "607a12c115d47a0017d83262",
+        "title": "Deleted Product",
+        ...
+    }
+}</pre>
+  </details>
+</details>
 
 ### Note:
 - All API endpoints require JWT token-based authentication using the `Authorization` header.
 - The server is running on port 3001.
-- Any

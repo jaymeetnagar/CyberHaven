@@ -96,7 +96,6 @@ const AddProduct = async (req, res) => {
  * @param {string} req.params.productId
  **/
 const deleteProduct = async (req, res) => {
-
     if (!req.user.isAdmin) {
         return res.status(401).send({ message: 'Unauthorized' });
     }

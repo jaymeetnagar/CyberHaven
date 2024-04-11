@@ -75,14 +75,12 @@ const getAllCustomers = async (req, res) => {
 const createCustomer = async (req, res) => {
     try {
         const { newUser } = req.body;
-
         const existingUser = await Customer.findOne({ email: newUser.email });
         if (existingUser) {
             return res.send({ message: 'Email already in use.' });
         }
         else {
             await Customer.create(newUser);
-
             res.send({ message: 'Signup successful' });
         }
 
