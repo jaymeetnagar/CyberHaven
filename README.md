@@ -190,14 +190,10 @@ https://www.figma.com/file/zJF6mBnLckuvN0m0Ni5JY9/Untitled?type=design&node-id=0
     <summary>Delete Customer</summary>
     <p>This API deletes a customer and is accessible only to admins and the user.</p>
     <p><strong>Method:</strong> DELETE</p>
-    <p><strong>Endpoint:</strong> /customer</p>
+    <p><strong>Endpoint:</strong> /customer/:userId</p>
     <p><strong>Headers:</strong></p>
     <ul>
       <li><code>Authorization</code> (string): Token for user authentication.</li>
-    </ul>
-    <p><strong>Body Parameters:</strong></p>
-    <ul>
-      <li><code>userId</code> (string): The ID of the customer to be deleted.</li>
     </ul>
     <p><strong>Response:</strong></p>
     <pre>{

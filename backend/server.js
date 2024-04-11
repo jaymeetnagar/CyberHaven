@@ -55,7 +55,7 @@ app.get('/auth/logout', logout);
 import { createCustomer, deleteCustomer, updateCustomer, getAllCustomers } from './controllers/customerController.js';
 
 // API to delete the customer which is accissible only to Admin and that user
-app.delete('/customer', verifyToken, deleteCustomer);
+app.delete('/customer/:userId', verifyToken, deleteCustomer);
 
 // API to update the customer(email,address etc ) which is accissible only to Admin and that user
 app.put('/customer', verifyToken, updateCustomer);

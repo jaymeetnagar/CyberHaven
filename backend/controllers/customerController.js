@@ -3,15 +3,15 @@ import Customer from '../models/Customer.js';
 // API to delete the customer which is accissible only to Admin and that user
 /**
  * @param {Object} req
- * @param {Object} req.body
- * @param {string} req.body.userId
+ * @param {Object} req.params
+ * @param {string} req.params.userId
 **/
 const deleteCustomer = async (req, res) => {
     try {
-        if (!req.user.isAdmin || req.user.id !== req.body.userId) {
+        if (!req.user.isAdmin || req.user.id !== req.params.userId) {
             return res.status(401).send({ message: 'Unauthorized' });
         }
-        const { userId } = req.body;
+        const { userId } = req.params;
         const customer = await Customer.findByIdAndDelete({ userId });
         if (!customer) {
             return res.send({ message: 'Customer not found.' });
