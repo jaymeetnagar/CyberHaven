@@ -34,23 +34,22 @@ const getProduct = async (req, res) => {
 /**
  * @param {Object} req
  * @param {Object} req.body
- * @param {Object} req.body.newProduct
- * @param {string} req.body.newProduct._id
- * @param {string} [req.body.newProduct.title]
- * @param {string} [req.body.newProduct.description]
- * @param {string} [req.body.newProduct.price]
- * @param {string} [req.body.newProduct.imageURL]
- * @param {string} [req.body.newProduct.type]
- * @param {string} [req.body.newProduct.category]
- * @param {string} [req.body.newProduct.deal]
- * @param {string} [req.body.newProduct.dealPrice]
+ * @param {string} req.body.productId
+ * @param {Object} req.body.newProductData
+ * @param {string} [req.body.newProductData.title]
+ * @param {string} [req.body.newProductData.description]
+ * @param {string} [req.body.newProductData.price]
+ * @param {string} [req.body.newProductData.imageURL]
+ * @param {string} [req.body.newProductData.type]
+ * @param {string} [req.body.newProductData.category]
+ * @param {string} [req.body.newProductData.deal]
+ * @param {string} [req.body.newProductData.dealPrice]
  **/
 const updateProduct = async (req, res) => {
     if (!req.user.isAdmin) {
         return res.status(401).send({ message: 'Unauthorized' });
     }
-    const { newProduct } = req.body;
-    const {productId, ...newProductData} = newProduct;
+    const {productId, newProductData} = req.body;
     try {
         const updatedProduct = await Product.findByIdAndUpdate(productId, newProductData, { new: true }).exec();
         res.send({ data: updatedProduct });
