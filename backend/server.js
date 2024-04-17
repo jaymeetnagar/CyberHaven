@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import { verifyToken } from './util.js';
 
-
 dotenv.config();
 // Database Connection URL
 const dbUrl = 'mongodb+srv://zeelghandi:Gandhi123@cluster0.wzoutru.mongodb.net/'
@@ -94,6 +93,11 @@ app.post('/product', verifyToken, AddProduct);
 
 // API to delete a product
 app.delete('/product/:productId', verifyToken, deleteProduct);
+
+import pkg from './controllers/checkoutController.cjs';
+const { checkoutmethod } = pkg;
+app.post("/create-checkout-session", checkoutmethod);
+
 
 // Start the server
 app.listen(3001, () => {

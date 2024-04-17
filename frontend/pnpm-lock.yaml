@@ -26,6 +26,9 @@ dependencies:
   '@mui/utils':
     specifier: ^5.15.14
     version: 5.15.14(react@18.2.0)
+  '@stripe/stripe-js':
+    specifier: ^3.3.0
+    version: 3.3.0
   '@testing-library/jest-dom':
     specifier: ^5.17.0
     version: 5.17.0
@@ -2759,6 +2762,11 @@ packages:
     resolution: {integrity: sha512-OAPJUAtgeINhh/TAlUID4QTs53Njm7xzddaVlEs/SXwgtiD1tW22zAB/W1wdqfrpmikgaWQ9Fw6Ws+hsiRm5Vg==}
     dependencies:
       '@sinonjs/commons': 1.8.6
+    dev: false
+
+  /@stripe/stripe-js@3.3.0:
+    resolution: {integrity: sha512-dUgAsko9KoYC1U2TIawHzbkQJzPoApxCc1Qf6/j318d1ArViyh6ROHVYTxnU3RlOQL/utUD9I4/QoyiCowsgrw==}
+    engines: {node: '>=12.16'}
     dev: false
 
   /@surma/rollup-plugin-off-main-thread@2.2.3:
