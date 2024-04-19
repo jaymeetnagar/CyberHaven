@@ -49,7 +49,6 @@ const LoginPage = () => {
                 credentials: "include",
             });
             const response = await result.json();
-            alert(response.message);
             updateUserData({
                 isAuthenticated: false,
                 isAdmin: false,
@@ -106,7 +105,6 @@ const LoginPage = () => {
                     newUser: { name, email, password, phoneNumber, address },
                 }
             );
-            alert(response.data.message);
         } catch (error) {
             console.error(error);
             alert(error);

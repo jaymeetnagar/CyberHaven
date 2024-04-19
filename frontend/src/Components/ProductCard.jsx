@@ -9,7 +9,7 @@ const ProductCard = ({ onAddToCart, product }) => {
         <div className="card mb-4 shadow-sm">
             <img alt={product.title} src={product.imageURL} className="card-img-top object-fit-cover" height={360} />
             <div className="card-body text-center">
-                <h5 className="card-title">{product.title}</h5>
+                <h5 className="card-title" style={{height:"48px"}}>{product.title}</h5>
                 <p className="card-text text-center">${(product.price).toFixed(2)}</p>
                 <p className='mb-3 text-muted'>{product.category}</p>
                 <div className='d-flex'>
