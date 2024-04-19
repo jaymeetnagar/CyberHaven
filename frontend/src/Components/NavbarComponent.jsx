@@ -1,13 +1,19 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faSearch, faCarAlt, faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faSearch, faSignOut, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import './NavbarComponent.css';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const NavbarComponent = () => {
     const [isNavOpen, setIsNavOpen] = useState(false);
 
     const toggleNav = () => {
         setIsNavOpen(!isNavOpen);
+    };
+
+    const closeMenu = () => {
+        setIsNavOpen(false);
     };
 
     return (
@@ -47,12 +53,28 @@ const NavbarComponent = () => {
                             <FontAwesomeIcon icon={faSearch} />
                         </Link>
 
-                        <Link to="/login" className="btn text-white">
-                            <FontAwesomeIcon icon={faUser} />
+                        <Dropdown>
+                <Dropdown.Toggle style={{ background: 'transparent', border: 'none' }}>
+                <FontAwesomeIcon icon={faUser} />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                <Dropdown.Item >
+                    <Link to="/userdash" className="btn" onClick={closeMenu}>
+                        <FontAwesomeIcon icon={faUser} /> DashBoard                    
+                    </Link>
+                    </Dropdown.Item>
+                    <Dropdown.Item >
+                        <Link to="/login" className="btn" onClick={closeMenu}>
+                            <FontAwesomeIcon icon={faSignOut} /> Log Out
                         </Link>
-                        <Link to="/cart" className="btn text-white">
-                            <FontAwesomeIcon icon={faCartShopping} />
+                    </Dropdown.Item>
+                    <Dropdown.Item >
+                        <Link to="/cart" className="btn" onClick={closeMenu}>
+                            <FontAwesomeIcon icon={faCartShopping} /> Cart
                         </Link>
+                    </Dropdown.Item>  
+                </Dropdown.Menu>
+                </Dropdown>
                     </div>
                 </div>
             </div>

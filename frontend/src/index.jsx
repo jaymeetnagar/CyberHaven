@@ -20,6 +20,7 @@ import CheckoutPage from './Pages/CheckoutPage';
 import ProductEditPage from './Components/ProductEditPage';
 import ProductCreatePage from './Components/ProductCreatePage';
 import SearchPage from './Pages/SearchPage';
+import UserDashboard from './Components/UserDashboard';
 
 const ProtectedRoute = ({ children }) => {
 
@@ -84,7 +85,7 @@ const App = () => {
                 
                 {/* checkout page route */}
                 <Route path='/checkout' element={<Wrapper><CheckoutPage /></Wrapper>} />
-
+                <Route path='/userdash' element={<Wrapper><UserDashboard /></Wrapper>} />
                 <Route path='/search' element={<Wrapper><SearchPage /></Wrapper>} />
 
 
